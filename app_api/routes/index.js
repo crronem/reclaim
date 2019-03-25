@@ -25,7 +25,7 @@ var initialize = function() {
         require('dns').lookup(require('os').hostname(), function (err, add, fam) {
           callback_path = 'http://' + add + '/api';
           var t = new Service(APIKEY, "TODO", callback_path, todoVerbs);
-          if (todo) {
+          if (t) {
             resolve(t)
           } else {
             reject("error initilizing");
