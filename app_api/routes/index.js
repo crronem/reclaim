@@ -14,22 +14,48 @@ const todoVerbs = [
     { name: 'menu', route: '/todo', footer: true },
     { name: 'add', route: '/todo/form/desc', footer: false }
 ];
-var todo = new Service(APIKEY, "TODO", process.env.CALLBACK_PATH, todoVerbs);
 
-var landingMenu = todo.addMenu('./app_api/templates/todoLanding.pug');
-landingMenu.header("TODO MENU");
+var todo;
+var callback_path = process.env.CALLBACK_PATH;
 
-var viewMenu = todo.addMenu('./app_api/templates/todoView.pug');
-viewMenu.header("TODO VIEW");
 
-var doneMenu = todo.addMenu('./app_api/templates/todoDone.pug');
-doneMenu.header("TODO DONE");
+var initialize = function() {
+    return new Promise(function(resolve, reject) {
+     console.log("looking up")
+        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+          callback_path = 'http://' + add + '/api';
+          var t = new Service(APIKEY, "TODO", callback_path, todoVerbs);
+          if (todo) {
+            resolve(t)
+          } else {
+            reject("error initilizing");
+          }
+        });       
+    });
+}
 
-var descForm = todo.addForm('./app_api/templates/todoDescriptionForm.pug');
-descForm.header("TODO DESCRIPTION");
+var landingMenu, viewMenu, doneMenu, descMenu, descForm, dateForm;
 
-var dateForm = todo.addForm('./app_api/templates/todoDuedateForm.pug');
-dateForm.header("TODO DUE DATE");
+initialize().then(function(t) {
+    todo = t;
+    landingMenu = todo.addMenu('./app_api/templates/todoLanding.pug');
+    landingMenu.header("TODO MENU");
+
+    viewMenu = todo.addMenu('./app_api/templates/todoView.pug');
+    viewMenu.header("TODO VIEW");
+
+    doneMenu = todo.addMenu('./app_api/templates/todoDone.pug');
+    doneMenu.header("TODO DONE");
+
+    descForm = todo.addForm('./app_api/templates/todoDescriptionForm.pug');
+    descForm.header("TODO DESCRIPTION");
+
+    dateForm = todo.addForm('./app_api/templates/todoDuedateForm.pug');
+    dateForm.header("TODO DUE DATE");
+}).catch(function(error) {
+    console.log(error);
+});
+
 
 /*
  * Middleware to grab user
