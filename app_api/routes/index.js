@@ -18,18 +18,22 @@ const todoVerbs = [
 var todo;
 var callback_path = process.env.CALLBACK_PATH;
 
+var thePort = process.env.PORT || 5000;
 
 var initialize = function() {
     return new Promise(function(resolve, reject) {
-     console.log("looking up")
-        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-          callback_path = 'http://' + add + '/api';
-          var t = new Service(APIKEY, "TODO", callback_path, todoVerbs);
-          if (t) {
-            resolve(t)
-          } else {
-            reject("error initilizing");
-          }
+        console.log("looking up")
+        require('dns').lookup(require('os').hostname(), function (err, addr, fam) {
+            console.log("got response");
+            callback_path = 'http://' + addr + ':' + thePort + '/api';
+            console.log("path:"+callback_path);
+            var t = new Service(APIKEY, "TODO", callback_path, todoVerbs);
+            if (!err) {
+                resolve(t);
+            } else {
+                console.log(err);
+                reject("error initializing");
+            }
         });       
     });
 }
