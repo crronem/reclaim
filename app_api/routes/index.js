@@ -42,19 +42,19 @@ var landingMenu, viewMenu, doneMenu, descMenu, descForm, dateForm;
 
 initialize().then(function(t) {
     todo = t;
-    landingMenu = todo.addMenu('./app_api/templates/todoLanding.pug');
+    landingMenu = todo.addMenu('./app_api/views/todoLanding.pug');
     landingMenu.header("TODO MENU");
 
-    viewMenu = todo.addMenu('./app_api/templates/todoView.pug');
+    viewMenu = todo.addMenu('./app_api/views/todoView.pug');
     viewMenu.header("TODO VIEW");
 
-    doneMenu = todo.addMenu('./app_api/templates/todoDone.pug');
+    doneMenu = todo.addMenu('./app_api/views/todoDone.pug');
     doneMenu.header("TODO DONE");
 
-    descForm = todo.addForm('./app_api/templates/todoDescriptionForm.pug');
+    descForm = todo.addForm('./app_api/views/todoDescriptionForm.pug');
     descForm.header("TODO DESCRIPTION");
 
-    dateForm = todo.addForm('./app_api/templates/todoDuedateForm.pug');
+    dateForm = todo.addForm('./app_api/views/todoDuedateForm.pug');
     dateForm.header("TODO DUE DATE");
 }).catch(function(error) {
     console.log(error);
