@@ -15,50 +15,28 @@ const todoVerbs = [
     { name: 'add', route: '/todo/form/desc', footer: false }
 ];
 
-var todo;
 var callback_path = process.env.CALLBACK_PATH;
+var todo = new Service(APIKEY, "TODO", callback_path, todoVerbs);
+
 
 var thePort = process.env.PORT || 5000;
 
-var initialize = function() {
-    return new Promise(function(resolve, reject) {
-        console.log("looking up")
-        require('dns').lookup(require('os').hostname(), function (err, addr, fam) {
-            console.log("got response");
-            callback_path = 'http://' + addr + ':' + thePort + '/api';
-            console.log("path:"+callback_path);
-            var t = new Service(APIKEY, "TODO", callback_path, todoVerbs);
-            if (!err) {
-                resolve(t);
-            } else {
-                console.log(err);
-                reject("error initializing");
-            }
-        });       
-    });
-}
-
 var landingMenu, viewMenu, doneMenu, descMenu, descForm, dateForm;
 
-initialize().then(function(t) {
-    todo = t;
-    landingMenu = todo.addMenu('./app_api/views/todoLanding.pug');
-    landingMenu.header("TODO MENU");
+landingMenu = todo.addMenu('./app_api/views/todoLanding.pug');
+landingMenu.header("TODO MENU");
 
-    viewMenu = todo.addMenu('./app_api/views/todoView.pug');
-    viewMenu.header("TODO VIEW");
+viewMenu = todo.addMenu('./app_api/views/todoView.pug');
+viewMenu.header("TODO VIEW");
 
-    doneMenu = todo.addMenu('./app_api/views/todoDone.pug');
-    doneMenu.header("TODO DONE");
+doneMenu = todo.addMenu('./app_api/views/todoDone.pug');
+doneMenu.header("TODO DONE");
 
-    descForm = todo.addForm('./app_api/views/todoDescriptionForm.pug');
-    descForm.header("TODO DESCRIPTION");
+descForm = todo.addForm('./app_api/views/todoDescriptionForm.pug');
+descForm.header("TODO DESCRIPTION");
 
-    dateForm = todo.addForm('./app_api/views/todoDuedateForm.pug');
-    dateForm.header("TODO DUE DATE");
-}).catch(function(error) {
-    console.log(error);
-});
+dateForm = todo.addForm('./app_api/views/todoDuedateForm.pug');
+dateForm.header("TODO DUE DATE");
 
 
 /*
