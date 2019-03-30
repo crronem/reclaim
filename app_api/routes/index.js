@@ -18,6 +18,12 @@ const todoVerbs = [
 var callback_path = process.env.CALLBACK_PATH;
 var todo = new Service(APIKEY, "TODO", callback_path, todoVerbs);
 
+todo.register().then(function(result) {
+    debug("Service registered ok");
+}).catch(function(error) {
+    console.log("failed to register service");
+    console.log(error);
+});
 
 var thePort = process.env.PORT || 5000;
 
