@@ -1,69 +1,92 @@
-require('dotenv').config();
+require('dotenv').config()
+const jwt = require('jwt-simple')
 
-var debug = require('debug')('todos');
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var logger = require('morgan');
-var path = require('path');
-var methodOverride = require('method-override');
-var bodyParser = require('body-parser');
-var errorHandler = require('errorhandler');
+const logger = require('debug-level')('reclaim')
 
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app)
+const morgan = require('morgan')
+const path = require('path')
+const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
+const errorHandler = require('errorhandler')
+const config = require('./app_api/common/config')
 
 // Bring in the routes for the API (delete the default routes)
-var routesApi = require('./app_api/routes/index.js');
+const api = require('./app_api/routes/index.js')
+const mode = app.get('env').toLowerCase()
 
-// The http server will listen to an appropriate port, or default to
-// port 5000.
+let public_folder
 
-var theport = process.env.PORT || 5000;
-var mode = app.get('env');
-mode = mode.toLowerCase();
-var public_folder = mode == 'production' ? 'public' : 'app_client';
+require('./app_api/models/db')
 
-debug("public_folder:" + public_folder);
+/*
+ * Middleware to grab user
+ */
+const getUser = function () {
+    return function (req, res, next) {
+        logger.info("/getUser")
+        if (!req.header('Authorization')) {
+            logger.error("missing header")
+            return res.status(401).send({ message: 'Unauthorized request' })
+        }
+        const token = req.header('Authorization').split(' ')[1]
+        const payload = jwt.decode(token, process.env.TOKEN_SECRET)
 
-if (mode === 'development') app.use(logger('dev'));
-app.use(methodOverride());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+        logger.info("payload")
+        logger.info(payload)
 
-app.use(express.static(path.join(__dirname, public_folder)));
-
-// Force HTTPS on Heroku
-// if (app.get('env') === 'production') {
-if (process.env.HTTPS === 'ON') {
-    app.use(function(req, res, next) {
-        var protocol = req.get('x-forwarded-proto');
-        protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
-    });
+        if (!payload) {
+            return res.status(401).send({ message: 'Unauthorized Request' })
+        }
+        req.user = payload.sub
+        req.master = payload.is_admin
+        logger.info("payload:")
+        logger.info(payload)
+        next()
+    }
 }
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride())
+app.use(getUser())
 
-// Bring in the data model & connect to db
-require('./app_api/models/db');
-
+if (mode === 'development') {
+    app.use(errorHandler())
+    app.use(morgan('dev'))
+    public_folder = 'app_client'
+} else {
+    public_folder = 'public'
+}
 // Use the API routes when path starts with /api
-app.use('/api', routesApi);
+app.use('/api', api)
 
-app.get('/', function(req, res, next) {
-    res.sendFile('/' + public_folder + '/index.html', { root: __dirname });
-});
+logger.info("public_folder:" + public_folder)
 
-app.get('*', function(req, res) {
-    res.sendFile('/' + public_folder + '/index.html', { root: __dirname });
-});
+app.use(express.static(path.join(__dirname, public_folder)))
 
-app.get('/*', function(req, res, next) {
-    // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('/' + public_folder + '/index.html', { root: __dirname });
-});
-
-// error handling middleware should be loaded after the loading the routes
-if ('development' == app.get('env')) {
-    app.use(errorHandler());
+if (config.https.toLowerCase() == 'true' || config.https) {
+    app.use(function (req, res, next) {
+        const protocol = req.get('x-forwarded-proto')
+        protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
+    })
 }
-server.listen(theport);
-debug("listening on port:" + theport)
 
-module.exports = app;
+app.get('/', function (req, res, next) {
+    res.sendFile('/' + public_folder + '/index.html', { root: __dirname })
+})
+
+app.get('*', function (req, res) {
+    res.sendFile('/' + public_folder + '/index.html', { root: __dirname })
+})
+
+app.get('/*', function (req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/' + public_folder + '/index.html', { root: __dirname })
+})
+
+server.listen(config.httpPort)
+logger.info("listening on port:" + config.httpPort)
+
+module.exports = app
