@@ -12,7 +12,7 @@ const menu = function () {
         try {
             logger.info("-----showMessage() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data)
+            let rootTag = loadTemplate("./app_api/menus/landing.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
