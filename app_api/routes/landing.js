@@ -1,4 +1,4 @@
-const logger = require('debug-level')('anycoop')
+const logger = require('debug-level')('reclaim')
 
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
