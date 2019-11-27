@@ -55,7 +55,7 @@ app.use(getUser())
 if (mode === 'development') {
     app.use(errorHandler())
     app.use(morgan('dev'))
-    public_folder = 'app_client'
+    public_folder = 'app_api'
 } else {
     public_folder = 'public'
 }
