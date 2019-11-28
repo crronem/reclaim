@@ -21,6 +21,7 @@ api.get('/landing', Landing.menu())
 api.get('/gradeSelect/:mode', Grade.gradeSelect())
 api.get('/grade/:grade/:mode', Grade.grade())
 api.get('/buyDataCenter', Buy.buyDataCenter())
+api.post('/buyDataCenterDetails', Buy.buyDataCenterDetails())
 api.get('/sellDataCenter', Sell.sellDataCenter())
 
 module.exports = api

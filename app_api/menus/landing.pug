@@ -1,6 +1,9 @@
 section
   header Computer & Networking Equipment
-  p What would you like to do?
+  if !preBody
+    p What would you like to do?
+  else
+    p #{preBody}
   ul
     li 
       a(href="/gradeSelect/sell") Sell

@@ -26,8 +26,30 @@ const UserSchema = new Mongoose.Schema({
 })
 const Users = Mongoose.model('users', UserSchema)
 
+const BuysSchema = new Mongoose.Schema({
+    grade: { type: String},
+    description: { type: String},
+    upload: { type: String, default: "" },
+    address: { type: String, default: "" },
+    nickName: { type: String, default: "" },
+    email: { type: String, default: "" },
+}, {
+    timestamps: true
+})
+const Buys = Mongoose.model('buys', UserSchema)
+
+const ContactsSchema = new Mongoose.Schema({
+    name: { type: String},
+    email: { type: String},
+    mobile: { type: String, default: "" }
+}, {
+    timestamps: true
+})
+const Contacts = Mongoose.model('contacts', UserSchema)
+
 module.exports = {
-    Users
+    Users,
+    Contacts
 }
 
 
