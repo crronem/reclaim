@@ -14,7 +14,7 @@ const gradeSelect = function () {
             logger.info("-----sell() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.mode = req.params.mode
-            rootTag = loadTemplate("./app_api/gradeSelect.pug", data) // 
+            rootTag = loadTemplate("./app_api/menus/gradeSelect.pug", data) // 
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
