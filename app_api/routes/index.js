@@ -5,6 +5,7 @@ const Landing = require('../routes/landing')
 const Grade = require('../routes/grade')
 const Buy = require('../routes/buy')
 const Sell = require('../routes/sell')
+const Contact = require('../routes/contact')
 
 
 // function capitalize(string) {
@@ -21,7 +22,7 @@ api.get('/landing', Landing.menu())
 api.get('/gradeSelect/:mode', Grade.gradeSelect())
 api.get('/grade/:grade/:mode', Grade.grade())
 api.get('/buyDataCenter', Buy.buyDataCenter())
-api.post('/contactInfo/:grade/:mode', Buy.contactInfo())
+api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
 api.get('/sellDataCenter', Sell.sellDataCenter())
 
 module.exports = api
