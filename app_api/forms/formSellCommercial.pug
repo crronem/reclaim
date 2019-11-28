@@ -13,7 +13,7 @@ form(action="/dataCenterSellDetails", method="post")
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="scanners")
+    section(name="scanner")
         header Scanners
         p How many scanner devices?
         p Default = 0?
@@ -25,12 +25,12 @@ form(action="/dataCenterSellDetails", method="post")
         p Where is this equipment?
         li(value="shop") Shop/business
         li(value="storage") Storage
-    section(name="available")
+    section(name="inspection")
         header Available for Inspection
         li(value="now") Anytime
         li(value="schedule") Schedule
         input(type="date")
-    section(name="available")
+    section(name="pickup")
         header Available to pickup
         p example: now, after 3 weeks, after 2 months
         input(type="date")

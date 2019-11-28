@@ -1,19 +1,19 @@
 form(action="/sellPersonalDetails", method="post")
-  section(name="laptops")
+  section(name="laptop")
         header Laptops
         p How many laptops?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="desktops")
+    section(name="desktop")
         header Desktops
         p How many desktops?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="printers")
+    section(name="printer")
         header Printers
         p How many printers?
         p Default = 0?
@@ -32,12 +32,12 @@ form(action="/sellPersonalDetails", method="post")
         p Where is this equipment?
         li(value="dataCenter") Data Center
         li(value="storage") Storage
-    section(name="available")
+    section(name="inspection")
         header Available for Inspection
         li(value="now") Anytime
         li(value="schedule") Schedule
         input(type="date")
-    section(name="available")
+    section(name="pickup")
         header Available to pickup
         p example: now, after 3 weeks, after 2 months
         input(type="date")
