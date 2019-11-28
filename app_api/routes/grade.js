@@ -43,7 +43,7 @@ const grade = function () {
                 } else {
                     rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data)
                 } 
-            } else {
+            } else if (req.params.mode == "personal") {
                 if (data.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data)
                 } else {
