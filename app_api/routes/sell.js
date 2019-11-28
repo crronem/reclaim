@@ -54,8 +54,6 @@ const sellPersonal = function () {
     }
 }
 
-
-
 module.exports = {
     sellDataCenter,
     sellCommercial,

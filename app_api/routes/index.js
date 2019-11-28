@@ -26,7 +26,7 @@ api.get('/grade/:grade/:mode', Grade.grade())
 
 // Buy Equipment
 api.get('/buyDataCenter', Buy.buyDataCenter())
-api.get('/buyCommerial', Buy.buyCommerial())
+api.get('/buyCommercial', Buy.buyCommercial())
 api.get('/buyPersonal', Buy.buyPersonal())
 
 // Sell Equipment
