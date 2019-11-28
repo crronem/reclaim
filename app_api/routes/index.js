@@ -26,9 +26,13 @@ api.get('/grade/:grade/:mode', Grade.grade())
 
 // Buy Equipment
 api.get('/buyDataCenter', Buy.buyDataCenter())
+api.get('/buyCommerial', Buy.buyCommerial())
+api.get('/buyPersonal', Buy.buyPersonal())
 
 // Sell Equipment
 api.get('/sellDataCenter', Sell.sellDataCenter())
+api.get('/sellCommercial', Sell.sellCommercial())
+api.get('/sellPersonal', Sell.sellPersonal())
 
 // Contact Information & Save Data
 api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
