@@ -24,13 +24,14 @@ const gradeSelect = function () {
     }
 }
 
+/api/grade/dataCenter/sell
+
 const grade = function () {
     return async function (req, res) {
         let data = {}
         let rootTag = {}
         try {
             logger.info("-----grade() data------")
-            logger.info(JSON.stringify(data, {}, 4))
             logger.info("-----grade() params------")
             logger.info(JSON.stringify(req.params, {}, 4))
             if (req.params.grade == "dataCenter") {
