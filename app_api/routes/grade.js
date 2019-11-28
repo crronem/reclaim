@@ -37,7 +37,7 @@ const grade = function () {
                 if (data.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/buyDataCenter.pug", data)
                 } 
             } else if (req.params.grade == "commercial"){
                 if (data.mode == "sell") {

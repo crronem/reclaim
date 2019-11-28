@@ -1,21 +1,21 @@
 form(action="/dataCenterSellDetails", method="post")
-    section(name="servers")
-        header Servers & Storage
-        p How many servers or storage devices?
+    section(name="epos")
+        header EPOS Terminals
+        p How many EPOS devices?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="networking")
-        header Switches & Routers
-        p How many switches & routers?
+    section(name="ticket")
+        header Ticket Printers
+        p How many ticket printers?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="firewalls")
-        header Firewalls
-        p How many firewalls?
+    section(name="scanners")
+        header Scanners
+        p How many scanner devices?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
@@ -23,14 +23,8 @@ form(action="/dataCenterSellDetails", method="post")
     section(name="location")
         header Location
         p Where is this equipment?
-        li(value="dataCenter") Data Center
+        li(value="shop") Shop/business
         li(value="storage") Storage
-    section(name="quantity")
-        header Quantity
-        p Approximately how many units in total?
-        p Example: 20
-        input(type="number" step="1")
-        footer Reply with number
     section(name="available")
         header Available for Inspection
         li(value="now") Anytime

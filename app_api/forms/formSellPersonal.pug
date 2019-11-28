@@ -1,21 +1,28 @@
 form(action="/sellPersonalDetails", method="post")
-  section(name="servers")
-        header Servers & Storage
-        p How many servers or storage devices?
+  section(name="laptops")
+        header Laptops
+        p How many laptops?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="networking")
-        header Switches & Routers
-        p How many switches & routers?
+    section(name="desktops")
+        header Desktops
+        p How many desktops?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
         footer Reply with number
-    section(name="firewalls")
-        header Firewalls
-        p How many firewalls?
+    section(name="printers")
+        header Printers
+        p How many printers?
+        p Default = 0?
+        p Example: 20
+        input(type="number" step="1")
+        footer Reply with number
+    section(name="storage")
+        header Storage Devices
+        p How many storage devices?
         p Default = 0?
         p Example: 20
         input(type="number" step="1")
@@ -25,12 +32,6 @@ form(action="/sellPersonalDetails", method="post")
         p Where is this equipment?
         li(value="dataCenter") Data Center
         li(value="storage") Storage
-    section(name="quantity")
-        header Quantity
-        p Approximately how many units in total?
-        p Example: 20
-        input(type="number" step="1")
-        footer Reply with number
     section(name="available")
         header Available for Inspection
         li(value="now") Anytime
