@@ -26,13 +26,11 @@ form(action="/contactInfo/dataCenter/"+mode method="post")
         ul
             li(value="dataCenter") Data Center
             li(value="storage") Storage
-    section(name="available")
-        header Available for Inspection
-        ul
-            li(value="now") Anytime
-            li(value="schedule") Schedule
+    section(name="inspection")
+        header Available for inspection
+        p example: now, after 3 weeks, after 2 months
         input(type="date")
-    section(name="available")
+    section(name="pickup")
         header Available to pickup
         p example: now, after 3 weeks, after 2 months
         input(type="date")
