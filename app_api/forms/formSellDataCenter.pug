@@ -23,12 +23,14 @@ form(action="/contactInfo/dataCenter/"+mode method="post")
     section(name="location")
         header Location
         p Where is this equipment?
-        li(value="dataCenter") Data Center
-        li(value="storage") Storage
+        ul
+            li(value="dataCenter") Data Center
+            li(value="storage") Storage
     section(name="available")
         header Available for Inspection
-        li(value="now") Anytime
-        li(value="schedule") Schedule
+        ul
+            li(value="now") Anytime
+            li(value="schedule") Schedule
         input(type="date")
     section(name="available")
         header Available to pickup

@@ -23,12 +23,14 @@ form(action="/contactInfo/commercial/"+mode method="post")
     section(name="location")
         header Location
         p Where is this equipment?
-        li(value="shop") Shop/business
-        li(value="storage") Storage
+        ul
+            li(value="shop") Shop/business
+            li(value="storage") Storage
     section(name="inspection")
         header Available for Inspection
-        li(value="now") Anytime
-        li(value="schedule") Schedule
+        ul
+            li(value="now") Anytime
+            li(value="schedule") Schedule
         input(type="date")
     section(name="pickup")
         header Available to pickup
