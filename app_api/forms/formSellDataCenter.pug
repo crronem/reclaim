@@ -1,10 +1,42 @@
-form(submit="/kindOfEquipment", method="post")
-    section
-        header Sell To Us - Data Center
-        p What kinds of equipment?
-        li(value="servers") Servers
-        li(value="network") Network
-        li(value="firewalls") Firewalls
-        li If you have doc/xls/csv specs...
-        li(value="upload") Upload Files
-        footer Reply with one or more options
+form(submit="/dataCenterSellDetails", method="post")
+    section(name="servers")
+        header Servers & Storage
+        p How many servers or storage devices?
+        p Default = 0?
+        p Example: 20
+        input(type="number" step="1")
+        footer Reply with number
+    section(name="networking")
+        header Switches & Routers
+        p How many switches & routers?
+        p Default = 0?
+        p Example: 20
+        input(type="number" step="1")
+        footer Reply with number
+    section(name="firewalls")
+        header Firewalls
+        p How many firewalls?
+        p Default = 0?
+        p Example: 20
+        input(type="number" step="1")
+        footer Reply with number
+    section(name="location")
+        header Location
+        p Where is this equipment?
+        li(value="dataCenter") Data Center
+        li(value="storage") Storage
+    section(name="quantity")
+        header Quantity
+        p Approximately how many units in total?
+        p Example: 20
+        input(type="number" step="1")
+        footer Reply with number
+    section(name="available")
+        header Available for Inspection
+        li(value="now") Anytime
+        li(value="schedule") Schedule
+        input(type="date")
+    section(name="available")
+        header Available to pickup
+        p example: now, after 3 weeks, after 2 months
+        input(type="date")
