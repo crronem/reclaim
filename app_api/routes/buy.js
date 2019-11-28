@@ -73,7 +73,7 @@ const buyPersonal = function () {
 
 module.exports = {
     buyDataCenter,
-    buyDataCenterDetails,
+    //buyDataCenterDetails,
     buyCommercial,
     buyPersonal,
 }
