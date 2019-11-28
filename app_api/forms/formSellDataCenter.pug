@@ -1,23 +1,17 @@
 form(action="/contactInfo/dataCenter/"+mode method="post")
-    section(name="server")
+    section(name="server" default="0")
         header Servers & Storage
-        p How many servers or storage devices?
-        p Default = 0?
-        p Example: 20
+        p How many servers or storage devices? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="networking")
+    section(name="networking" default="0")
         header Switches & Routers
-        p How many switches & routers?
-        p Default = 0?
-        p Example: 20
+        p How many switches & routers? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="firewall")
+    section(name="firewall" default="0")
         header Firewalls
-        p How many firewalls?
-        p Default = 0?
-        p Example: 20
+        p How many firewalls? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
     section(name="location")
@@ -26,11 +20,11 @@ form(action="/contactInfo/dataCenter/"+mode method="post")
         ul
             li(value="dataCenter") Data Center
             li(value="storage") Storage
-    section(name="inspection")
+    section(name="inspection" default="now")
         header Available for inspection
-        p example: now, after 3 weeks, after 2 months
+        p example: now, after 3 weeks, after 2 months (default=now)
         input(type="date")
-    section(name="pickup")
-        header Available to pickup
+    section(name="pickup" default="now")
+        header Available to pickup  (default=now)
         p example: now, after 3 weeks, after 2 months
         input(type="date")

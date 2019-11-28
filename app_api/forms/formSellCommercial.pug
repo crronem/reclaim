@@ -1,23 +1,17 @@
 form(action="/contactInfo/commercial/"+mode method="post")
-    section(name="epos")
+    section(name="epos" default="0")
         header EPOS Terminals
-        p How many EPOS devices?
-        p Default = 0?
-        p Example: 20
+        p How many EPOS devices? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="ticket")
+    section(name="ticket" default="0")
         header Ticket Printers
-        p How many ticket printers?
-        p Default = 0?
-        p Example: 20
+        p How many ticket printers? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="scanner")
+    section(name="scanner" default="0")
         header Scanners
-        p How many scanner devices?
-        p Default = 0?
-        p Example: 20
+        p How many scanner devices? (Default = 0)
         input(type="number" step="1")
         footer Reply with number
     section(name="location")
@@ -26,11 +20,11 @@ form(action="/contactInfo/commercial/"+mode method="post")
         ul
             li(value="shop") Shop/business
             li(value="storage") Storage
-    section(name="inspection")
+    section(name="inspection" default="now")
         header Available for inspection
-        p example: now, after 3 weeks, after 2 months
+        p example: now, after 3 weeks, after 2 months (default=now)
         input(type="date")
-    section(name="pickup")
-        header Available to pickup
+    section(name="pickup" default="now")
+        header Available to pickup  (default=now)
         p example: now, after 3 weeks, after 2 months
         input(type="date")

@@ -1,43 +1,35 @@
 form(action="/contactInfo/personal/"+mode method="post")
-  section(name="laptop")
+  section(name="laptop" default="0")
         header Laptops
-        p How many laptops?
-        p Default = 0?
-        p Example: 20
+        p How many laptops? (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="desktop")
+    section(name="desktop" default="0")
         header Desktops
-        p How many desktops?
-        p Default = 0?
-        p Example: 20
+        p How many desktops? (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="printer")
+    section(name="printer" default="0")
         header Printers
-        p How many printers?
-        p Default = 0?
-        p Example: 20
+        p How many printers? (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="storage")
+    section(name="storage" default="0")
         header Storage Devices
-        p How many storage devices?
-        p Default = 0?
-        p Example: 20
+        p How many storage devices? (default=0)
         input(type="number" step="1")
         footer Reply with number
     section(name="location")
         header Location
         p Where is this equipment?
         ul
-          li(value="dataCenter") Data Center
+          li(value="home") Home/office
           li(value="storage") Storage
-    section(name="inspection")
+    section(name="inspection" default="now")
         header Available for inspection
-        p example: now, after 3 weeks, after 2 months
+        p example: now, after 3 weeks, after 2 months (default=now)
         input(type="date")
-    section(name="pickup")
-        header Available to pickup
+    section(name="pickup" default="now")
+        header Available to pickup  (default=now)
         p example: now, after 3 weeks, after 2 months
         input(type="date")
