@@ -12,7 +12,7 @@ const buyDataCenter = function () {
         try {
             logger.info("-----sellDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/formBuyDataCenter.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -29,7 +29,7 @@ const buyCommercial = function () {
         try {
             logger.info("-----sellCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/formSellCommercial.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -45,7 +45,7 @@ const buyPersonal = function () {
         try {
             logger.info("-----sellPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/formSellPersonal.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
