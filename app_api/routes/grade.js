@@ -24,8 +24,6 @@ const gradeSelect = function () {
     }
 }
 
-/api/grade/dataCenter/sell
-
 const grade = function () {
     return async function (req, res) {
         let data = {}
