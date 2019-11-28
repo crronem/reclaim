@@ -34,19 +34,19 @@ const grade = function () {
             logger.info("-----sell() params------")
             logger.info(JSON.stringify(req.params, {}, 4))
             if (req.params.grade == "dataCenter") {
-                if (data.mode == "sell") {
+                if (req.params.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data)
                 } else {
                     rootTag = loadTemplate("./app_api/menus/buyDataCenter.pug", data)
                 } 
             } else if (req.params.grade == "commercial"){
-                if (data.mode == "sell") {
+                if (req.params.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data)
                 } else {
                     rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data)
                 } 
             } else if (req.params.grade == "personal") {
-                if (data.mode == "sell") {
+                if (req.params.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data)
                 } else {
                     rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data)
