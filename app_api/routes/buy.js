@@ -22,21 +22,6 @@ const buyDataCenter = function () {
     }
 }
 
-const buyDataCenterDescribe = function () {
-    return async function (req, res) {
-        let data = {}
-        try {
-            logger.info("-----sellDataCenter() data------")
-            logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buy Description
-            let response = Response.fromTag(rootTag)
-            return res.json(response.toJSON())
-        } catch (error) {
-            logger.info("-----sellDataCenter() Error------")
-            console.log(error)
-        }
-    }
-}
 
 const buyCommercial = function () {
     return async function (req, res) {
@@ -72,7 +57,6 @@ const buyPersonal = function () {
 
 module.exports = {
     buyDataCenter,
-    buyDataCenterDescribe,
     buyCommercial,
     buyPersonal,
 }
