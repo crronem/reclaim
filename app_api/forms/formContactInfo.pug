@@ -1,5 +1,5 @@
-form(action="/contactSave", method="post")
-    section(name="contact")
+form(action="/contactSave/"+record+"/"+grade+"/"+mode method="post")
+    section(name="name" required)
         header Contact Information
         p Your name
         input(type="string")
@@ -7,7 +7,7 @@ form(action="/contactSave", method="post")
         header Contact Information
         p Your contact mobile number (optional)
         input(type="string")
-    section(name="email")
+    section(name="email" required)
         header Contact Information
-        p Your email address (required)
+        p Your email address
         input(type="email")

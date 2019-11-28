@@ -11,14 +11,14 @@ const gradeSelect = function () {
         let data = {}
         let rootTag = {}
         try {
-            logger.info("-----sell() data------")
+            logger.info("-----gradeSelect() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.mode = req.params.mode
             rootTag = loadTemplate("./app_api/menus/gradeSelect.pug", data) // 
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----sell() Error------")
+            logger.info("-----gradeSelect() Error------")
             console.log(error)
         }
     }
@@ -29,33 +29,33 @@ const grade = function () {
         let data = {}
         let rootTag = {}
         try {
-            logger.info("-----sell() data------")
+            logger.info("-----grade() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            logger.info("-----sell() params------")
+            logger.info("-----grade() params------")
             logger.info(JSON.stringify(req.params, {}, 4))
             if (req.params.grade == "dataCenter") {
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/sellDataCenterOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/menus/buyDataCenter.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/buyDataCenterOption.pug", data)
                 } 
             } else if (req.params.grade == "commercial"){
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/sellCommercialOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/buyCommercialOption.pug", data)
                 } 
             } else if (req.params.grade == "personal") {
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/sellPersonalOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data)
+                    rootTag = loadTemplate("./app_api/menus/buyPersonalOption.pug", data)
                 }         
             }
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----sell() Error------")
+            logger.info("-----grade() Error------")
             console.log(error)
         }
     }

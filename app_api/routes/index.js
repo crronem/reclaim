@@ -19,10 +19,19 @@ const Contact = require('../routes/contact')
 // Main landing menu & new users
 api.get('/', Landing.menu())
 api.get('/landing', Landing.menu())
+
+// Grade Select
 api.get('/gradeSelect/:mode', Grade.gradeSelect())
 api.get('/grade/:grade/:mode', Grade.grade())
+
+// Buy Equipment
 api.get('/buyDataCenter', Buy.buyDataCenter())
-api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
+
+// Sell Equipment
 api.get('/sellDataCenter', Sell.sellDataCenter())
+
+// Contact Information & Save Data
+api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
+api.get('/contactSave/:grade/:mode', Contact.contactInfo())
 
 module.exports = api

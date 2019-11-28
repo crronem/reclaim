@@ -36,7 +36,19 @@ const BuysSchema = new Mongoose.Schema({
 }, {
     timestamps: true
 })
-const Buys = Mongoose.model('buys', UserSchema)
+const Buys = Mongoose.model('buys', BuysSchema)
+
+const SellsSchema = new Mongoose.Schema({
+    grade: { type: String},
+    description: { type: String},
+    upload: { type: String, default: "" },
+    address: { type: String, default: "" },
+    nickName: { type: String, default: "" },
+    email: { type: String, default: "" },
+}, {
+    timestamps: true
+})
+const Buys = Mongoose.model('sells', SellsSchema)
 
 const ContactsSchema = new Mongoose.Schema({
     name: { type: String},
@@ -45,10 +57,12 @@ const ContactsSchema = new Mongoose.Schema({
 }, {
     timestamps: true
 })
-const Contacts = Mongoose.model('contacts', UserSchema)
+const Contacts = Mongoose.model('contacts', ContactsSchema)
 
 module.exports = {
     Users,
+    Buys,
+    Sells,
     Contacts
 }
 
