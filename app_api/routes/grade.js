@@ -31,19 +31,21 @@ const grade = function () {
         try {
             logger.info("-----sell() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            if (req.params.mode == "dataCenter") {
+            logger.info("-----sell() params------")
+            logger.info(JSON.stringify(req.params, {}, 4))
+            if (req.params.grade == "dataCenter") {
                 if (data.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data)
                 } else {
                     rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data)
                 } 
-            } else if (req.params.mode == "commercial"){
+            } else if (req.params.grade == "commercial"){
                 if (data.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data)
                 } else {
                     rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data)
                 } 
-            } else if (req.params.mode == "personal") {
+            } else if (req.params.grade == "personal") {
                 if (data.mode == "sell") {
                     rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data)
                 } else {
