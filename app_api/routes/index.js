@@ -18,7 +18,7 @@ const Sell = require('../routes/sell')
 // Main landing menu & new users
 api.get('/', Landing.menu())
 api.get('/landing', Landing.menu())
-api.get('/gradeSelect/:mode', Grade.sellGrade())
+api.get('/gradeSelect/:mode', Grade.gradeSelect())
 api.get('/grade/:grade/:mode', Grade.grade())
 api.get('/buyDataCenter', Buy.buyDataCenter())
 api.get('/sellDataCenter', Buy.sellDataCenter())
