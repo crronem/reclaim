@@ -19,7 +19,7 @@ const contactInfo = function () {
         try {
             data.mode = req.params.mode
             data.grade = req.params.grade
-            logger.info("-----buyDataCenter() data------")
+            logger.info("-----contactInfo() data------")
             logger.info(JSON.stringify(data, {}, 4))
             if (req.params.mode == "sell") {
                 if (req.params.grade == "dataCenter") {
@@ -63,7 +63,7 @@ const contactInfo = function () {
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----buyDataCenter() Error------")
+            logger.info("-----contactInfo() Error------")
             console.log(error)
         }
     }
