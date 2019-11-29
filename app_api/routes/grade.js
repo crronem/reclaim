@@ -32,6 +32,7 @@ const grade = function () {
             logger.info("-----grade() data------")
             logger.info("-----grade() params------")
             logger.info(JSON.stringify(req.params, {}, 4))
+            data.mode = req.params.mode
             if (req.params.grade == "dataCenter") {
                 if (req.params.mode == "sell") {
                     rootTag = loadTemplate("./app_api/menus/sellDataCenterOption.pug", data)

@@ -1,6 +1,9 @@
 section
   header Computer & Networking Equipment
-  p What type of equipment?
+  if mode = "sell"
+    p What type of equipment do you have for sale?
+  else
+    p What type of equipment are you looking for?
   ul
     li 
       a(href="/grade/dataCenter/"+mode) Data Center
