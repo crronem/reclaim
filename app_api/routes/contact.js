@@ -3,6 +3,10 @@ const logger = require('debug-level')('reclaim')
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
 
+const Users = require('../models/Model').Users
+const Buys = require('../models/Model').Buys
+const Sells = require('../models/Model').Sells
+
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
 
@@ -68,6 +72,8 @@ const contactInfo = function () {
 const contactSave = function () {
     return async function (req, res) {
         let data = {}
+        let email = {}
+        let record = {}
         try {
             let user = await Users.findOne({ ONEmUserId: req.user }).lean()
             let options = { upsert: true, new: true }
@@ -81,13 +87,22 @@ const contactSave = function () {
             query = { _id: ObjectId(req.params.record)}
             update = {_user: ObjectId(user._id)}
             if (req.params.mode == "buy") {
-                await Buys.findOneAndUpdate(query, update, options).lean()
+                record = await Buys.findOneAndUpdate(query, update, options).lean()
             } else {
-                await Sells.findOneAndUpdate(query, update, options).lean()
+                record = await Sells.findOneAndUpdate(query, update, options).lean()
             }
+            email.toEmail = req.body.email
+            email.toName = req.body.name
+            email.fromName = "Anthony Money"
+            email.fromEmail = "me@crr56.com"
+            email.subject = "Inquiry to "+req.params.mode+" "+req.params.grade
+            email.message = "Thank you for contacting us."
+            email.message += "\n"+json.stringify(record.information)
+            email.html = ""
+            email.id = record._id
             logger.info("-----contactSave() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            data.prebody = "Your request has been forwarded!"
+            data.prebody = "Your request has been forwarded and we also emailed you a copy!"
             let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
