@@ -47,7 +47,7 @@ const SellsSchema = new Mongoose.Schema({
 }, {
     timestamps: true
 })
-const Buys = Mongoose.model('buys', SellsSchema)
+const Sells = Mongoose.model('buys', SellsSchema)
 
 const ContactsSchema = new Mongoose.Schema({
     name: { type: String},
