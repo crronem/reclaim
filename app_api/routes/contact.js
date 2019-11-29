@@ -14,9 +14,9 @@ const contactInfo = function () {
     return async function (req, res) {
         let data = {}
         let record = {}
-        let addSells = {}
         let addInfo = {}
         try {
+            let user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.mode = req.params.mode
             data.grade = req.params.grade
             logger.info("-----contactInfo() data------")
@@ -24,34 +24,40 @@ const contactInfo = function () {
             if (req.params.mode == "sell") {
                 if (req.params.grade == "dataCenter") {
                     addInfo = new Sells({
+                        _user: ObjectId(user._id),
                         grade: "dataCenter",
                         information: req.body
                     })
                 } else if (req.params.grade == "commercial") {
                     addInfo = new Sells({
+                        _user: ObjectId(user._id),
                         grade: "commercial",
                         information: req.body
                     })
                 } else if (req.params.grade == "personal") {
                     addInfo = new Sells({
+                        _user: ObjectId(user._id),
                         grade: "dataCenter",
                         information: req.body
                     })
                 }
-                record = await addSells.save()
+                record = await addInfo.save()
             } else { // buy
                 if (req.params.grade == "dataCenter") {
                     addInfo = new Buys({
+                        _user: ObjectId(user._id),
                         grade: "dataCenter",
                         information: req.body
                     })
                 } else if (req.params.grade == "commercial") {
                     addInfo = new Buys({
+                        _user: ObjectId(user._id),
                         grade: "commercial",
                         information: req.body
                     })
                 } else if (req.params.grade == "personal") {
                     addInfo = new Buys({
+                        _user: ObjectId(user._id),
                         grade: "personal",
                         information: req.body
                     })
