@@ -15,40 +15,39 @@ function setDefaultOptions() {
 
 const UserSchema = new Mongoose.Schema({
     ONEmUserId: { type: String },
-    firstName: { type: String, default: "" },
-    lastName: { type: String, default: "" },
-    title: { type: String, default: "" },
-    address: { type: String, default: "" },
-    nickName: { type: String, default: "" },
-    email: { type: String, default: "" },
+    name: { type: String, default: "" },
+    mobile: { type: String, default: "" },
+    email: { type: String, default: "" }
 }, {
     timestamps: true
 })
 const Users = Mongoose.model('users', UserSchema)
 
 const BuysSchema = new Mongoose.Schema({
+    _user: {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    }, 
     grade: { type: String},
-    description: { type: String},
-    upload: { type: String, default: "" },
-    address: { type: String, default: "" },
-    nickName: { type: String, default: "" },
-    email: { type: String, default: "" },
+    information: { type: Object}
 }, {
     timestamps: true
 })
 const Buys = Mongoose.model('buys', BuysSchema)
 
 const SellsSchema = new Mongoose.Schema({
+    _user: {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    }, 
     grade: { type: String},
-    description: { type: String},
-    upload: { type: String, default: "" },
-    address: { type: String, default: "" },
-    nickName: { type: String, default: "" },
-    email: { type: String, default: "" },
+    information: { type: Object}
 }, {
     timestamps: true
 })
-const Buys = Mongoose.model('sells', SellsSchema)
+const Buys = Mongoose.model('buys', SellsSchema)
 
 const ContactsSchema = new Mongoose.Schema({
     name: { type: String},

@@ -11,64 +11,48 @@ const contactInfo = function () {
         let data = {}
         let record = {}
         let addSells = {}
-        let addBuys = {}
+        let addInfo = {}
         try {
-            data.mode = req.params.mode 
+            data.mode = req.params.mode
             data.grade = req.params.grade
             logger.info("-----buyDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
             if (req.params.mode == "sell") {
                 if (req.params.grade == "dataCenter") {
-                    addSells = new Sells({
+                    addInfo = new Sells({
                         grade: "dataCenter",
-                        server: req.body.servers,
-                        networking:req.body.networking,
-                        firewall:req.body.firewalls,
-                        location:req.body.location,
-                        inspection:req.body.inspection,
-                        pickup:req.body.pickup
+                        information: req.body
                     })
                 } else if (req.params.grade == "commercial") {
-                    addSells = new Sells({
+                    addInfo = new Sells({
                         grade: "commercial",
-                        epos: req.body.epos,
-                        ticket:req.body.ticket,
-                        scanner:req.body.scanner,
-                        location:req.body.location,
-                        inspection:req.body.inspection,
-                        pickup:req.body.pickup
+                        information: req.body
                     })
                 } else if (req.params.grade == "personal") {
-                    addSells = new Sells({
+                    addInfo = new Sells({
                         grade: "dataCenter",
-                        laptop: req.body.laptops,
-                        desktop:req.body.desktops,
-                        printer:req.body.printers,
-                        storage:req.body.storage,
-                        location:req.body.location,
-                        inspection:req.body.inspection,
-                        pickup:req.body.pickup
+                        information: req.body
                     })
                 }
                 record = await addSells.save()
             } else { // buy
                 if (req.params.grade == "dataCenter") {
-                    addBuys = new Buys({
+                    addInfo = new Buys({
                         grade: "dataCenter",
-                        description: req.body.description,
+                        information: req.body
                     })
                 } else if (req.params.grade == "commercial") {
-                    addBuys = new Buys({
+                    addInfo = new Buys({
                         grade: "commercial",
-                        description: req.body.description,
+                        information: req.body
                     })
                 } else if (req.params.grade == "personal") {
-                    addBuys = new Buys({
+                    addInfo = new Buys({
                         grade: "personal",
-                        description: req.body.description,
+                        information: req.body
                     })
                 }
-                record = await addSells.save()   
+                record = await addInfo.save()
             }
             data.record = record._id
             let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> contactInfo
@@ -85,6 +69,22 @@ const contactSave = function () {
     return async function (req, res) {
         let data = {}
         try {
+            let user = await Users.findOne({ ONEmUserId: req.user }).lean()
+            let options = { upsert: true, new: true }
+            let query = { _id: ObjectId(req.params.record)}
+            let update = { 
+                name: req.body.name, 
+                mobile:req.body.mobile, 
+                email: req.body.email 
+            }
+            await Users.findOneAndUpdate(query, update, options).lean()
+            query = { _id: ObjectId(req.params.record)}
+            update = {_user: ObjectId(user._id)}
+            if (req.params.mode == "buy") {
+                await Buys.findOneAndUpdate(query, update, options).lean()
+            } else {
+                await Sells.findOneAndUpdate(query, update, options).lean()
+            }
             logger.info("-----contactSave() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.prebody = "Your request has been forwarded!"
