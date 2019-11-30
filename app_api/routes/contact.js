@@ -13,10 +13,11 @@ const { Response } = require('onemsdk')
 const contactInfo = function () {
     return async function (req, res) {
         let data = {}
+        let user = {}
         let record = {}
         let addInfo = {}
         try {
-            let user = await Users.findOneAndUpdate({ ONEmUserId: req.user }).lean()
+            user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.mode = req.params.mode
             data.grade = req.params.grade
             logger.info("-----contactInfo() data------")
