@@ -17,11 +17,11 @@ const contactInfo = function () {
         let record = {}
         let addInfo = {}
         try {
-            user = await Users.findOne({ ONEmUserId: req.user }).lean()
+            user = await Users.findOneAndUpdate({ ONEmUserId: req.user }).lean()
             data.mode = req.params.mode
             data.grade = req.params.grade
             logger.info("-----contactInfo() data------")
-            logger.info(JSON.stringify(data, {}, 4))
+            logger.info(JSON.stringify(user, {}, 4))
             if (req.params.mode == "sell") {
                 if (req.params.grade == "dataCenter") {
                     addInfo = new Sells({
