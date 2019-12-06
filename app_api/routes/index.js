@@ -28,14 +28,18 @@ api.get('/grade/:grade/:mode', Grade.grade())
 api.get('/buyDataCenter', Buy.buyDataCenter())
 api.get('/buyCommercial', Buy.buyCommercial())
 api.get('/buyPersonal', Buy.buyPersonal())
+api.get('/buyHistory', Buy.buyHistory())
+api.get('/buyShow/:id', Buy.buyShow())
 
 // Sell Equipment
 api.get('/sellDataCenter', Sell.sellDataCenter())
 api.get('/sellCommercial', Sell.sellCommercial())
 api.get('/sellPersonal', Sell.sellPersonal())
+api.get('/sellHistory', Sell.sellHistory())
+api.get('/sellShow/:id', Sell.sellShow())
 
 // Contact Information & Save Data
 api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
-api.get('/contactSave/:grade/:mode', Contact.contactInfo())
+api.post('/contactSave/:record/:grade/:mode', Contact.contactSave())
 
 module.exports = api

@@ -21,7 +21,10 @@ const sendeMail = async function (email) {
         "HTMLPart": email.html, //"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
         "CustomID": email.id //"AppGettingStartedTest"
         }
-    ]
+    ],
+    "Inline_attachments":{
+        Filename
+    }
     })
     request
     .then((result) => {

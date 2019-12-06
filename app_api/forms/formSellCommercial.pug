@@ -1,30 +1,44 @@
 form(action="/contactInfo/commercial/sell" method="post")
-    section(name="epos" default="0")
+    //- section(name="commercial_assets" default="0")
+    //-     header Commercial/Retail IT Assets
+    //-     p Check the type of assets you have.
+    //-     ul
+    //-         li(value="EPOS_Terminals") EPOS Terminals
+    //-         li(value="Ticket_Printers") Ticket Printers
+    //-         li(value="Scanners") Scanners
+    section(name="1_Epos_Terminals" default="0")
         header EPOS Terminals
-        p How many EPOS devices? (Default = 0)
+        p How many EPOS devices? 
+        p (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="ticket" default="0")
+    section(name="2_Ticket_Printers" default="0")
         header Ticket Printers
-        p How many ticket printers? (Default = 0)
+        p How many ticket printers? 
+        p (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="scanner" default="0")
+    section(name="3_Scanners" default="0")
         header Scanners
-        p How many scanner devices? (Default = 0)
+        p How many scanner devices? 
+        p (Default = 0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="location")
+    section(name="4_Equipment_Location")
         header Location
         p Where is this equipment?
         ul
             li(value="shop") Shop/business
             li(value="storage") Storage
-    section(name="inspection" default="now")
-        header Available for inspection
-        p example: now, after 3 weeks, after 2 months (default=now)
+    section(name="5_Inspect" default="now")
+        header Inspect
+        p When is it available for inspection?
+        p example: now, after 3 weeks, after 2 months 
+        p (default=now)
         input(type="date")
-    section(name="pickup" default="now")
-        header Available to pickup
-        p example: now, after 3 weeks, after 2 months (default=now)
+    section(name="6_Pickup" default="now")
+        header Pickup
+        p When would it be available for pickup?
+        p example: now, after 3 weeks, after 2 months 
+        p (default=now)
         input(type="date")

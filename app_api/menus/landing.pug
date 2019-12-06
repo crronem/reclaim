@@ -1,15 +1,40 @@
+- function lines(text) {
+- return text.split("\n")
+- }
 section
-  header Reclaim Asset Recovery
-  if !preBody
-    p We buy, source and sell computer & networking equipment.
+  if !preBody && !master
+    header IT Assets
+    p Welcome!
+    p We buy, source and sell pre-owned IT equipment.
     p What would you like to do?
-  else
-    p #{preBody}
+  else if !master
+    header IT Assets
+    each line in lines(preBody)
+      p #{line}
+  else 
+    header ADMIN
+    each line in lines(preBody)
+      p Anthony Money
+      p #{line}
   ul
-    li 
-      a(href="/gradeSelect/sell") Sell to us
-    li 
-      a(href="/gradeSelect/buy") Source/buy from us
-  footer Reply with A or B
+    if sells > 0 
+      li 
+        a(href="/sellHistory") Your sell enquiries (#{sells})
+      li 
+        a(href="/gradeSelect/sell") Make another sell enquiry
+    else
+      li 
+        a(href="/gradeSelect/sell") Sell to us
+    if buys > 0
+      li 
+        a(href="/buyHistory") Your source/buy enquiries (#{buys})
+      li 
+        a(href="/gradeSelect/buy") Make another source/buy enquiry
+    else 
+      li 
+        a(href="/gradeSelect/buy") Source/buy from us
+    if master
+        li 
+          a(href="/admin") Admin
 
           

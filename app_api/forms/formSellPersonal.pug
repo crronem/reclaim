@@ -1,35 +1,51 @@
 form(action="/contactInfo/personal/sell" method="post")
-  section(name="laptop" default="0")
+    //- section(name="personal_assets" default="0")
+    //-     header Personal/Business IT Assets
+    //-     p Check the type of assets you have.
+    //-     ul
+    //-         li(value="laptops") Laptops
+    //-         li(value="desktops") Desktops
+    //-         li(value="printers") Printers
+    //-         li(value="storage") Storage Devices
+    section(name="1_Laptops" default="0")
         header Laptops
-        p How many laptops? (default=0)
+        p How many laptops? 
+        p (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="desktop" default="0")
+    section(name="2_Desktops" default="0")
         header Desktops
-        p How many desktops? (default=0)
+        p How many desktops? 
+        p (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="printer" default="0")
+    section(name="3_Printers" default="0")
         header Printers
-        p How many printers? (default=0)
+        p How many printers? 
+        p (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="storage" default="0")
+    section(name="4_Storage_Devices" default="0")
         header Storage Devices
-        p How many storage devices? (default=0)
+        p How many storage devices? 
+        p (default=0)
         input(type="number" step="1")
         footer Reply with number
-    section(name="location")
+    section(name="5_Equipment_Location")
         header Location
         p Where is this equipment?
         ul
-          li(value="home") Home/office
-          li(value="storage") Storage
-    section(name="inspection" default="now")
-        header Available for inspection
-        p example: now, after 3 weeks, after 2 months (default=now)
+            li(value="shop") Shop/business
+            li(value="storage") Storage
+    section(name="5_Inspect" default="now")
+        header Inspect
+        p When is it available for inspection?
+        p example: now, after 3 weeks, after 2 months 
+        p (default=now)
         input(type="date")
-    section(name="pickup" default="now")
-        header Available to pickup
-        p example: now, after 3 weeks, after 2 months (default=now)
+    section(name="6_Pickup" default="now")
+        header Pickup
+        p When would it be available for pickup?
+        p example: now, after 3 weeks, after 2 months 
+        p (default=now)
         input(type="date")

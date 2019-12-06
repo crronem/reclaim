@@ -1,5 +1,17 @@
 form(action="/contactInfo/dataCenter/buy" method="post")
-    section(name="description")
-        header What are you looking for?
+    section(name="1_Data_Center_Equipment_Description")
+        header Data Center IT Equipment
         p Provide a brief description of what you are looking for?
         input(type="text")
+        footer Reply with text
+    section(name="2_Target_Budget")
+        header Commercial/Retail IT Equipment
+        p What is your target budget? (optional)
+        input(type="text")
+        footer Reply with text
+    section(name="3_Delivery" default="now")
+        header Commercial/Retail IT Equipment
+        p When will you need this by?
+        p example: now, after 3 weeks, after 2 months (default=now)
+        input(type="date")
+        footer Reply with date

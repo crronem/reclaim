@@ -1,5 +1,17 @@
 form(action="/contactInfo/commercial/buy" method="post")
-    section(name="equipment")
-        header What are you looking for?
+    section(name="1_Commercial_Retail_Equipment_Description")
+        header Commercial/Retail IT Equipment
         p Provide a brief description of what you are looking for?
         input(type="text")
+        footer Reply with Text
+    section(name="2_Target_Budget")
+        header Commercial/Retail IT Equipment
+        p What is your target budget? (optional)
+        input(type="text")
+        footer Reply with Text
+    section(name="3_Delivery" default="now")
+        header Commercial/Retail IT Equipment
+        p When will you need this by?
+        p example: now, after 3 weeks, after 2 months (default=now)
+        input(type="date")
+        footer Reply with date
