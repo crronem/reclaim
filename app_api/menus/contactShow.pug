@@ -1,0 +1,19 @@
+section
+    header Admin Contact
+    ul
+        li
+            a(href="/contactEdit/name/"+_id) Name: #{name}
+        li
+            a(href="/contactEdit/email/"+_id) Email: #{email}
+        li
+            a(href="/contactEdit/mobile/"+_id)  Mobile: #{mobile}
+        if mobile
+            li
+                a(href="/sendMessage/"+_id) Send SMS message
+        if email
+            li
+                a(href="/sendMessage/"+_id) Send email message
+        each message in messages
+            li 
+                a(href="/showMessage/"+message._id) #{message.title}
+

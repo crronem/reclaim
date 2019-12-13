@@ -1,0 +1,14 @@
+section 
+    header Admin Settings
+    p #{preBody}
+    ul
+        li
+            a(href="/gradeSelect/sell") Test sell enquiry
+        li 
+            a(href="/gradeSelect/buy") Test source/buy enquiry
+        if templates > 0
+            li 
+                a(href="/templatesList") Templates (#{templates})
+        else
+            li 
+                a(href="/templateEdit/0") Create a template 

@@ -46,12 +46,12 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     return email
 }
 
-const contactList = function () {
+const messagesList = function () {
     return async function (req, res) {
         let data = {}
         try {
-            //data.contacts = await Users.find().lean()
-            data.contacts = await Users.aggregate(
+            //data.messages = await Users.find().lean()
+            data.messages = await Users.aggregate(
                 [
                     {
                         $lookup: {
@@ -63,24 +63,24 @@ const contactList = function () {
                     }
                 ]
             )
-            logger.info("-----contactList() user------")
+            logger.info("-----messageList() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactList.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./app_api/menus/messageList.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
-            logger.info("-----contactList() Error------")
+            logger.info("-----messageList() Error------")
             console.log(err)
         }
     }
 }
 
-const contactShow = function () {
+const messageShow = function () {
     return async function (req, res) {
         let data = {}
         try {
-            //data.contacts = await Users.find().lean()
-            data.contacts = await Users.aggregate(
+            //data.messages = await Users.find().lean()
+            data.messages = await Users.aggregate(
                 [
                     {
                         $lookup: {
@@ -104,44 +104,44 @@ const contactShow = function () {
                     }
                 ]
             )
-            for (var i = 0; i < data.contacts.length; i++) {
-                if (data.contacts[i].messages.length > 0) {
-                    for (var j = 0; j < data.contacts[i].messages.length; j++) {
-                        data.contacts[i].messages[j].createdAt = moment(data.contacts[i].messages[j].createdAt).format('MMM DD YYYY HH:mm')
+            for (var i = 0; i < data.messages.length; i++) {
+                if (data.messages[i].messages.length > 0) {
+                    for (var j = 0; j < data.messages[i].messages.length; j++) {
+                        data.messages[i].messages[j].createdAt = moment(data.messages[i].messages[j].createdAt).format('MMM DD YYYY HH:mm')
                     }
                 }
             }
-            logger.info("-----contactShow() user------")
+            logger.info("-----messageShow() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactShow.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./app_api/menus/messageShow.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
-            logger.info("-----contactList() Error------")
+            logger.info("-----messageList() Error------")
             console.log(err)
         }
     }
 }
 
-const contactEdit = function () {
+const messageEdit = function () {
     return async function (req, res) {
         let data = {}
         try {
-            //data.contacts = await Users.find().lean()
-            data.contacts = await Users.findOne({ _id: req.params.id })
-            logger.info("-----contactEdit() user------")
+            //data.messages = await Users.find().lean()
+            data.messages = await Users.findOne({ _id: req.params.id })
+            logger.info("-----messageEdit() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formContactEdit.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./app_api/forms/formContactEdit.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
-            logger.info("-----contactEdit() Error------")
+            logger.info("-----messageEdit() Error------")
             console.log(err)
         }
     }
 }
 
-const contactUpdate = function () {
+const messageUpdate = function () {
     return async function (req, res) {
         let data = {}
         try {
@@ -155,24 +155,22 @@ const contactUpdate = function () {
                     email: req.body.email
                 }
             )
-            logger.info("-----contactUpdate() user------")
+            logger.info("-----messageUpdate() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactEdit.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./app_api/menus/messageEdit.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
-            logger.info("-----contactUpdate() Error------")
+            logger.info("-----messageUpdate() Error------")
             console.log(err)
         }
     }
 }
 
-const contactInfo = function () {
+const messageInfo = function () {
     return async function (req, res) {
         let data = {}
         let user = {}
-        let sell = {}
-        let buy = {}
         let record = {}
         let addInfo = {}
         let email = {}
@@ -180,74 +178,37 @@ const contactInfo = function () {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.mode = req.params.mode
             data.grade = req.params.grade
-            logger.info("-----contactInfo() user------")
+            logger.info("-----messageInfo() user------")
             logger.info(JSON.stringify(user, {}, 4))
-            if (req.params.id == 0) {
-                if (req.params.mode == "sell") {
-                    addInfo = new Sells({
-                        _user: ObjectId(user._id),
-                        grade: req.params.grade,
-                        information: req.body,
-                        active: true
-                    })
-                } else { // buy
-                    addInfo = new Buys({
-                        _user: ObjectId(user._id),
-                        grade: req.params.grade,
-                        information: req.body,
-                        active: true
-                    })
-                }
-                record = await addInfo.save()
-                data.preBody = user.name + ","
-                data.preBody += "\nYour request has been forwarded and we emailed you a copy."
-                data.preBody += "\nWe will be following up on your enquiry."
-                logger.info("-----contactInfo() Sells/Buys record save------")
-                logger.info(JSON.stringify(record, {}, 4))
-                data.record = record._id
-                // if (!user.email) {
-                //     let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> contactInfo
-                //     let response = Response.fromTag(rootTag)
-                //     return res.json(response.toJSON())
-                // } else {
-                //     email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
-                //     sendeMail(email)
-
-                //     data.sells = await Sells.count({ _user: user._id, active: true })
-                //     data.buys = await Buys.count({ _user: user._id, active: true })
-                //     let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
-                //     let response = Response.fromTag(rootTag)
-                //     return res.json(response.toJSON())
-                // }
-            } else {
-                if (req.params.mode == "sell") {
-                    query = { _id: ObjectId(req.params.id) }
-                    update = {
-                        information: req.body,
-                    }
-                    options = { new: true }
-                    record = await Sells.findOneAndUpdate(query, update).lean()
-                } else { // buy
-                    query = { _id: ObjectId(req.params.id) }
-                    update = {
-                        information: req.body,
-                    }
-                    options = { new: true }
-                    record = await Buys.findOneAndUpdate(query, update).lean()
-                }
-                data.preBody = user.name + ","
-                data.preBody += "\nYour request has been revised and we emailed you a copy."
-                data.preBody += "\nWe will be following up on your revised enquiry."
-                logger.info("-----contactInfo() Sells/Buys record save------")
-                logger.info(JSON.stringify(record, {}, 4))
+            if (req.params.mode == "sell") {
+                addInfo = new Sells({
+                    _user: ObjectId(user._id),
+                    grade: req.params.grade,
+                    information: req.body,
+                    active: true
+                })
+            } else { // buy
+                addInfo = new Buys({
+                    _user: ObjectId(user._id),
+                    grade: req.params.grade,
+                    information: req.body,
+                    active: true
+                })
             }
+            record = await addInfo.save()
+            logger.info("-----messageInfo() Sells/Buys record save------")
+            logger.info(JSON.stringify(record, {}, 4))
+            data.record = record._id
             if (!user.email) {
-                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> contactInfo
+                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> messageInfo
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
                 email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
                 sendeMail(email)
+                data.preBody = user.name + ","
+                data.preBody += "\nYour request has been forwarded and we also emailed you a copy."
+                data.preBody += "\nWe will be following up on your enquiry."
                 data.sells = await Sells.count({ _user: user._id, active: true })
                 data.buys = await Buys.count({ _user: user._id, active: true })
                 let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
@@ -255,13 +216,68 @@ const contactInfo = function () {
                 return res.json(response.toJSON())
             }
         } catch (error) {
-            logger.info("-----contactInfo() Error------")
+            logger.info("-----messageInfo() Error------")
             console.log(error)
         }
     }
 }
 
-const contactSave = function () {
+const messageSend = function () {
+    return async function (req, res) {
+        let data = {}
+        let user = {}
+        let record = {}
+        let addInfo = {}
+        let email = {}
+        try {
+            user = await Users.findOne({ ONEmUserId: req.user }).lean()
+            data.mode = req.params.mode
+            data.grade = req.params.grade
+            logger.info("-----messageInfo() user------")
+            logger.info(JSON.stringify(user, {}, 4))
+            if (req.params.mode == "sell") {
+                addInfo = new Sells({
+                    _user: ObjectId(user._id),
+                    grade: req.params.grade,
+                    information: req.body,
+                    active: true
+                })
+            } else { // buy
+                addInfo = new Buys({
+                    _user: ObjectId(user._id),
+                    grade: req.params.grade,
+                    information: req.body,
+                    active: true
+                })
+            }
+            record = await addInfo.save()
+            logger.info("-----messageInfo() Sells/Buys record save------")
+            logger.info(JSON.stringify(record, {}, 4))
+            data.record = record._id
+            if (!user.email) {
+                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> messageInfo
+                let response = Response.fromTag(rootTag)
+                return res.json(response.toJSON())
+            } else {
+                email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
+                sendeMail(email)
+                data.preBody = user.name + ","
+                data.preBody += "\nYour request has been forwarded and we also emailed you a copy."
+                data.preBody += "\nWe will be following up on your enquiry."
+                data.sells = await Sells.count({ _user: user._id, active: true })
+                data.buys = await Buys.count({ _user: user._id, active: true })
+                let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+                let response = Response.fromTag(rootTag)
+                return res.json(response.toJSON())
+            }
+        } catch (error) {
+            logger.info("-----messageInfo() Error------")
+            console.log(error)
+        }
+    }
+}
+
+const messageSave = function () {
     return async function (req, res) {
         let data = {}
         let email = {}
@@ -271,9 +287,9 @@ const contactSave = function () {
         let query = {}
         let update = {}
         try {
-            logger.info("-----contactSave() req.body------")
+            logger.info("-----messageSave() req.body------")
             logger.info(JSON.stringify(req.body, {}, 4))
-            logger.info("-----contactSave() req.params------")
+            logger.info("-----messageSave() req.params------")
             logger.info(JSON.stringify(req.params, {}, 4))
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             options = { new: true }
@@ -284,7 +300,7 @@ const contactSave = function () {
                 email: req.body.email
             }
             await Users.findOneAndUpdate(query, update, options).lean()
-            logger.info("-----contactSave() user findOneAndUpdate------")
+            logger.info("-----messageSave() user findOneAndUpdate------")
             logger.info(JSON.stringify(user, {}, 4))
 
             if (req.params.mode == "sell") {
@@ -306,10 +322,11 @@ const contactSave = function () {
 }
 
 module.exports = {
-    contactList,
-    contactShow,
-    contactEdit,
-    contactUpdate,
-    contactInfo,
-    contactSave
+    messagesList,
+    messageShow,
+    messageEdit,
+    messageUpdate,
+    messageInfo,
+    messageSend,
+    messageSave
 }

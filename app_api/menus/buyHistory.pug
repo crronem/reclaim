@@ -1,0 +1,24 @@
+section
+  - let newName = ""
+  if !master
+    header Your Source/Buy Enquiries
+  else
+    header Admin Source/Buy Enquiries
+  ul
+    if !master
+      li 
+        a(href="/gradeSelect/buy") Make another buy enquiry
+      li 
+        a(href="/gradeSelect/sell") Make a Sell enquiry
+    li Select to review
+    each buy in buys
+      if !master
+        li 
+          a(href="/buyShow/"+buy._id) #{buy.title}
+      else
+        if newName != buy.name[0]
+          li Buyer: #{buy.name[0]}
+          - newName = buy.name[0]
+        li 
+            a(href="/buyShow/"+buy._id) #{buy.title}
+

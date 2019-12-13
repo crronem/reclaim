@@ -1,0 +1,25 @@
+form(action="/contactUpdate/"+id method="post")
+    if field == "name"
+        section(name="name" required)
+            header Contact Edit
+            p Name: #{name}
+            input(type="text")
+    else 
+        section(name="name")
+            input(type="hidden" value=name)
+    if field == "mobile"
+        section(name="mobile")
+            header Contact Information
+            p Mobile: #{mobile}
+            input(type="text")
+    else
+        section(name="mobile")
+            input(type="hidden" value=mobile)
+    if field == "email"
+        section(name="email" required)
+            header Contact Information
+            p Email: #{email}
+            input(type="email")
+    else
+        section(name="email")
+        input(type="hidden" value=email)

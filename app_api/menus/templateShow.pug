@@ -1,0 +1,21 @@
+section
+    header Template #{name}
+    p Title: #{title}
+    p Description: #{description}
+    ul
+        li
+            a(href="/templateEdit/0") Create New Template Data
+        li
+            a(href="/templateEdit/"+_id) Edit This Template Data
+        li VARIABLES:
+        li [prompt]:[variable]
+        each line in variables
+            li #{line}
+        li 
+            a(href="/templateFill/"+_id) Input Template Data Values
+        li 
+            a(href="/templateRun/"+_id) Run this Template
+        if values
+            li VALUES:
+            each line in values
+                li #{line}

@@ -1,0 +1,28 @@
+section
+  if !master
+    header Enquiry #{sell.grade}
+  else
+    header Admin Enquiry #{sell.grade}
+  p #{sell.title}
+  ul
+    if !master
+      li 
+        a(href="/gradeSelect/sell") Make another sell enquiry
+      li 
+        a(href="/gradeSelect/buy") Make a Source/buy enquiry
+    li You put in your enquiry:
+    li 
+      a(href="/sellRevise/"+sell._id) Revise this enquiry
+    each line in sell.information
+      li #{line}
+    if messages
+      li MESSAGE
+      each message in messages
+        li 
+          a(href="/messageRead/"+message._id) message.subject
+    if master
+      li
+        a(href="/sendMessage/"+_id) Send SMS message
+      li
+        a(href="/sendMessage/"+_id) Send email message
+

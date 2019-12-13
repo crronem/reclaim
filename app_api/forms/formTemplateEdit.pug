@@ -1,0 +1,48 @@
+form(action="/templateSave/"+_id method="post")
+    section(name="name" required default=name)
+        header Template Data Name
+        if _id == 0
+            p Name your Template docx file
+        else
+            p Template Name: #{name}.docx
+        input(type="text")
+        if _id != 0
+            footer Reply with name/SKIP
+    section(name="title" required default=title)
+        header Template Data Title
+        if _id == 0
+            p Give your template a short title
+        else
+            p Title: #{name}
+        input(type="text")
+        if _id != 0
+            footer Reply with title/SKIP
+    section(name="description" required default=description)
+        header Template Data Description
+        if _id == 0
+            p Give your template a description
+        else
+            p Description: #{name}
+        input(type="text")
+        if _id != 0
+            footer Reply with description/SKIP
+    section(name="variables" required default=variablesText)
+        header Template Data Variables
+        p You must use the exact same variable names in your docx templates enclosed with {}.
+        p Example: {product_id}
+        p You can use the following information tags in your text which will be updated when the document is run.
+        p [customer name] [current date] [customer email] [customer mobile]
+        p You can specify an image by prefixing image_ before the variable name.
+        if _id == 0
+            p Each on a separate line
+            p [prompt]:[variable name]
+            p Example: How much:amount
+            p Example: Product image:image_product123
+        else
+            each line in variables
+                p #{line}
+        input(type="text")
+        if _id != 0
+            footer Reply with variables/SKIP
+    section(name="values")
+        input(type="hidden" value=values)

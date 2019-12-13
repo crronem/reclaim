@@ -1,0 +1,8 @@
+section
+  header Templates
+  ul
+    li
+        a(href="/templateEdit/0") Create Template Data
+    each template in templates
+        li
+            a(href="/templateShow/"+template._id) #{template.name}
