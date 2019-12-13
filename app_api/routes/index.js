@@ -6,6 +6,10 @@ const Grade = require('../routes/grade')
 const Buy = require('../routes/buy')
 const Sell = require('../routes/sell')
 const Contact = require('../routes/contact')
+const Messages = require('../routes/messages')
+const Templates = require('../routes/templates')
+const Settings = require('../routes/settings')
+
 
 
 // function capitalize(string) {
@@ -30,6 +34,7 @@ api.get('/buyCommercial', Buy.buyCommercial())
 api.get('/buyPersonal', Buy.buyPersonal())
 api.get('/buyHistory', Buy.buyHistory())
 api.get('/buyShow/:id', Buy.buyShow())
+api.get('/buyRevise/:id', Buy.buyRevise())
 
 // Sell Equipment
 api.get('/sellDataCenter', Sell.sellDataCenter())
@@ -37,9 +42,29 @@ api.get('/sellCommercial', Sell.sellCommercial())
 api.get('/sellPersonal', Sell.sellPersonal())
 api.get('/sellHistory', Sell.sellHistory())
 api.get('/sellShow/:id', Sell.sellShow())
+api.get('/sellRevise/:id', Sell.sellRevise())
+
+// Messages
+api.get('/messageShow/:id', Messages.messageShow())
+api.get('/messagesList/:id', Messages.messagesList())
+api.get('/messageSend/:id', Messages.messageSend())
 
 // Contact Information & Save Data
-api.post('/contactInfo/:grade/:mode', Contact.contactInfo())
+api.get('/contactList', Contact.contactList())
+api.post('/contactInfo/:id/:grade/:mode', Contact.contactInfo())
 api.post('/contactSave/:record/:grade/:mode', Contact.contactSave())
+api.post('/contactEdit/:id/:field', Contact.contactEdit())
+api.post('/contactUpdate/:id', Contact.contactUpdate())
+
+// Templates
+api.get('/templatesList', Templates.templatesList())
+api.get('/templateShow/:id', Templates.templateShow())
+api.get('/templateEdit/:id', Templates.templateEdit())
+api.get('/templateFill/:id', Templates.templateFill())
+api.get('/templateRun/:id', Templates.templateRun())
+api.post('/templateSave/:id', Templates.templateSave())
+
+// Settings
+api.get('/settings', Settings.settings())
 
 module.exports = api

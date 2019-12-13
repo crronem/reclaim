@@ -10,15 +10,19 @@ const Messages = require('../models/Model').Messages
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
 
-const { titleCase } = require('../routes/utility')
+const { titleCase, formatInfo } = require('../routes/utility')
 
 const buyDataCenter = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy._id = 0
+            data.values._1 = ""
+            data.values._2 = ""
+            data.values._3 = ""
             logger.info("-----buyDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -32,9 +36,13 @@ const buyCommercial = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy._id = 0
+            data.values._1 = ""
+            data.values._2 = ""
+            data.values._3 = ""
             logger.info("-----buyCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -48,9 +56,13 @@ const buyPersonal = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy._id = 0
+            data.values._1 = ""
+            data.values._2 = ""
+            data.values._3 = ""
             logger.info("-----buyPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -72,7 +84,7 @@ const buyHistory = function () {
                         $lookup: {
                             from: "messages",
                             localField: "_id",
-                            foreignField: "_sell",
+                            foreignField: "_buy",
                             as: "enquiry"
                         }
                     }, {
@@ -93,13 +105,13 @@ const buyHistory = function () {
                 }
             }
             //data.createdAt = moment(data.createdAt).format('LLLL')
-            logger.info("-----sellHistory() data------")
+            logger.info("-----buyHistory() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/sellHistory.pug", data) // -> sellHistory
+            let rootTag = loadTemplate("./app_api/menus/buyHistory.pug", data) // -> buyHistory
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----sellHistory() Error------")
+            logger.info("-----bHistory(uy) Error------")
             console.log(error)
         }
     }
@@ -108,10 +120,13 @@ const buyHistory = function () {
 const buyShow = function () {
     return async function (req, res) {
         let data = {}
+        let infoData = []
         try {
             data.buy = await Buys.findOne({_id: ObjectId(req.params.id)})
             data.messages = await Messages.findOne({_buy: ObjectId(data.buy._id)})
-            data.buy.information = formatInfo(data.sell.information)
+            infoData = formatInfo(data.buy.information)
+            data.buy.information = infoData[0]
+            data.values = infoData[1]
             logger.info("-----buyShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/menus/buyShow.pug", data) // -> buyShow
@@ -124,10 +139,41 @@ const buyShow = function () {
     }
 }
 
+const buyRevise = function () {
+    return async function (req, res) {
+        let data = {}
+        let infoData = []
+        let rootTag = {}
+        try {
+            data.master = req.master
+            data.buy = await Buys.findOne({_id: ObjectId(req.params.id)})
+            data.messages = await Messages.findOne({_buy: ObjectId(data.buy._id)})
+            infoData = formatInfo(data.buy.information)
+            data.buy.information = infoData[0]
+            data.values = infoData[1]
+            logger.info("-----buyRevise() data------")
+            logger.info(JSON.stringify(data, {}, 4))
+            if (data.buy.grade == "dataCenter") {
+                rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buyRevise
+            } else if (data.buy.grade == "commercial") {
+                rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> buyRevise
+            } else {
+                rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> buyRevise
+            }
+            let response = Response.fromTag(rootTag)
+            return res.json(response.toJSON())
+        } catch (error) {
+            logger.info("-----buyRevise() Error------")
+            console.log(error)
+        }
+    }
+}
+
 module.exports = {
     buyDataCenter,
     buyCommercial,
     buyPersonal,
     buyHistory,
-    buyShow
+    buyShow,
+    buyRevise
 }

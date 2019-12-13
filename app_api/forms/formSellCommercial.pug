@@ -1,4 +1,4 @@
-form(action="/contactInfo/commercial/sell" method="post")
+form(action="/contactInfo/"+sell._id+"/commercial/sell" method="post")
     //- section(name="commercial_assets" default="0")
     //-     header Commercial/Retail IT Assets
     //-     p Check the type of assets you have.
@@ -6,39 +6,58 @@ form(action="/contactInfo/commercial/sell" method="post")
     //-         li(value="EPOS_Terminals") EPOS Terminals
     //-         li(value="Ticket_Printers") Ticket Printers
     //-         li(value="Scanners") Scanners
-    section(name="1_Epos_Terminals" default="0")
+    section(name="1_Epos_Terminals" default=values._1)
         header EPOS Terminals
-        p How many EPOS devices? 
-        p (Default = 0)
+        p How many EPOS devices?
+        if values._1 == 0
+            p (Default = 0)
+        else
+            p (Was #{values._1})
         input(type="number" step="1")
         footer Reply with number
-    section(name="2_Ticket_Printers" default="0")
+    section(name="2_Ticket_Printers" default=values._2)
         header Ticket Printers
         p How many ticket printers? 
-        p (Default = 0)
+        if values._2 == 0
+            p (Default = 0)
+        else
+            p (Was #{values._2})
         input(type="number" step="1")
         footer Reply with number
-    section(name="3_Scanners" default="0")
+    section(name="3_Scanners" default=values._3)
         header Scanners
         p How many scanner devices? 
-        p (Default = 0)
+        if values._3 == 0
+            p (Default = 0)
+        else
+            p (Was #{values._3})
         input(type="number" step="1")
         footer Reply with number
-    section(name="4_Equipment_Location")
+    section(name="4_Equipment_Location" default=values._4)
         header Location
         p Where is this equipment?
+        if values._4 == 
+            p (Default = Storage)
+        else
+            p (Was #{values._4})
         ul
             li(value="shop") Shop/business
             li(value="storage") Storage
-    section(name="5_Inspect" default="now")
+    section(name="5_Inspect" default=values._5)
         header Inspect
         p When is it available for inspection?
         p example: now, after 3 weeks, after 2 months 
-        p (default=now)
+        if values._5 == 0
+            p (Default = now)
+        else
+            p (Was #{values._5})
         input(type="date")
-    section(name="6_Pickup" default="now")
+    section(name="6_Pickup" default=values._6)
         header Pickup
         p When would it be available for pickup?
         p example: now, after 3 weeks, after 2 months 
-        p (default=now)
+        if value.6 == 0
+            p (Default = Now)
+        else
+            p (Was #{values._6})
         input(type="date")

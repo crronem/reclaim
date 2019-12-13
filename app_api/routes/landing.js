@@ -9,6 +9,7 @@ const { Response } = require('onemsdk')
 const Users = require('../models/Model').Users
 const Buys = require('../models/Model').Buys
 const Sells = require('../models/Model').Sells
+const Templates = require('../models/Model').Templates
 
 const menu = function () {
     return async function (req, res) {
@@ -16,6 +17,8 @@ const menu = function () {
         let user = {}
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
+            data.contacts = await Users.count()
+            data.templates = await Templates.count()
             if (!user) {
                 user = await Users.findOneAndUpdate({ ONEmUserId: req.user }, { name: "Guest" }, { new: true, upsert: true }).lean()
                 data.name = user.name
@@ -23,11 +26,24 @@ const menu = function () {
                 data.buys = 0
                 data.preBody = ""
             } else {
-                data.master = user.master
+                data.master = req.master
                 data.name = user.name
-                data.preBody = "Welcome back " + user.name + "!"
-                data.sells = await Sells.count({ _user: user._id, active: true })
-                data.buys = await Buys.count({ _user: user._id, active: true })
+
+                if (!data.master) {
+                    data.preBody = "Welcome back " + user.name + "!"
+                    data.sells = await Sells.count({ _user: user._id, active: true })
+                    data.buys = await Buys.count({ _user: user._id, active: true })
+                } else {
+                    data.preBody = ""
+                    data.contacts = await Users.count()
+                    data.sells = await Sells.count({ active: true })
+                    data.buys = await Buys.count({ active: true })
+                    data.sellsNew = await Sells.count({ active: true, new: true })
+                    data.buysNew = await Buys.count({ active: true, new: true })
+                    if (data.sellsNew > 0 || data.buysNew > 0) {
+                        data.prebody += "\nYou have new buy/sell to action!"
+                    }
+                }
                 if (data.sells > 0 || data.buys > 0) {
                     data.prebody += "\nYou have active buy/sell options."
                     data.prebody += "\nWhat would you like to do?"

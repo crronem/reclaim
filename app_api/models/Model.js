@@ -28,10 +28,11 @@ const BuysSchema = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    }, 
-    grade: { type: String},
-    information: { type: Object},
-    active: {type: Boolean}
+    },
+    grade: { type: String },
+    information: { type: Object },
+    active: { type: Boolean },
+    new: { type: Boolean, default: true }
 }, {
     timestamps: true
 })
@@ -42,10 +43,11 @@ const SellsSchema = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    }, 
-    grade: { type: String},
-    information: { type: Object},
-    active: {type: Boolean}
+    },
+    grade: { type: String },
+    information: { type: Object },
+    active: { type: Boolean },
+    new: { type: Boolean, default: true }
 }, {
     timestamps: true
 })
@@ -56,33 +58,36 @@ const MessagesSchema = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'sells',
         required: false
-    }, 
+    },
     _buy: {
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'buys',
         required: false
-    }, 
-    message: { type: String},
-    subject:  { type: String}
+    },
+    message: { type: String },
+    subject: { type: String }
 }, {
     timestamps: true
 })
 const Messages = Mongoose.model('messages', MessagesSchema)
 
-// const ContactsSchema = new Mongoose.Schema({
-//     name: { type: String},
-//     email: { type: String},
-//     mobile: { type: String}
-// }, {
-//     timestamps: true
-// })
-// const Contacts = Mongoose.model('contacts', ContactsSchema)
+const TemplatesSchema = new Mongoose.Schema({
+    name: { type: String, default: "" },
+    title: { type: String, default: "" },
+    description: { type: String, default: "" },
+    variables: { type: String, default: "" },
+    values: { type: Object, default: {} }
+}, {
+    timestamps: true
+})
+const Templates = Mongoose.model('templates', TemplatesSchema)
 
 module.exports = {
     Users,
     Buys,
     Sells,
-    Messages
+    Messages,
+    Templates
 }
 
 

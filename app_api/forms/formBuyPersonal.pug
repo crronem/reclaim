@@ -1,17 +1,25 @@
-form(action="/contactInfo/personal/buy" method="post")
-    section(name="1_Personal_Business_Equipment_Description")
+form(action="/contactInfo/"+buy._id+"/personal/buy" method="post")
+    section(name="1_Personal_Business_Equipment_Description" default=values._1)
         header Personal/Business IT Equipment
         p Provide a brief description of what you are looking for?
+        if values._1 != ""
+            p (Was #{values._1})
         input(type="text")
         footer Reply with text
-    section(name="2_Target_Budget")
+    section(name="2_Target_Budget" default=values._2)
         header Commercial/Retail IT Equipment
         p What is your target budget? (optional)
+        if values._2 != ""
+            p (Was #{values._2})
         input(type="text")
         footer Reply with text
-    section(name="3_Delivery" default="now")
+    section(name="3_Delivery" default=values._3)
         header Commercial/Retail IT Equipment
         p When will you need this by?
-        p example: now, after 3 weeks, after 2 months (default=now)
+        p example: now, after 3 weeks, after 2 months
+        if values._3 != ""
+            p (Was #{values._3})
+        else
+            p (default = now)
         input(type="date")
         footer Reply with date

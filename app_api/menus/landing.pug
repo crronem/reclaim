@@ -12,29 +12,36 @@ section
     each line in lines(preBody)
       p #{line}
   else 
-    header ADMIN
+    header ADMIN #{name}
     each line in lines(preBody)
-      p Anthony Money
       p #{line}
   ul
-    if sells > 0 
-      li 
-        a(href="/sellHistory") Your sell enquiries (#{sells})
-      li 
-        a(href="/gradeSelect/sell") Make another sell enquiry
-    else
-      li 
-        a(href="/gradeSelect/sell") Sell to us
-    if buys > 0
-      li 
-        a(href="/buyHistory") Your source/buy enquiries (#{buys})
-      li 
-        a(href="/gradeSelect/buy") Make another source/buy enquiry
-    else 
-      li 
-        a(href="/gradeSelect/buy") Source/buy from us
-    if master
+    if !master
+      if sells > 0 
         li 
-          a(href="/admin") Admin
-
-          
+          a(href="/sellHistory") Your sell enquiries (#{sells})
+        li 
+          a(href="/gradeSelect/sell") Make another sell enquiry
+      else
+        li 
+          a(href="/gradeSelect/sell") Sell to us
+      if buys > 0
+        li 
+          a(href="/buyHistory") Your source/buy enquiries (#{buys})
+        li 
+          a(href="/gradeSelect/buy") Make another source/buy enquiry
+      else 
+        li 
+          a(href="/gradeSelect/buy") Source/buy from us
+    else
+        li Enquiry (active/new)
+        li 
+          a(href="/sellHistory") Sell Enquiries (#{sells}/#{sellsNew})
+        li 
+          a(href="/buyHistory") Buy Enquiries (#{buys}/#{buysNew})
+        li 
+          a(href="/contactList") Contacts (#{contacts})
+        li 
+          a(href="/templatesList") Templates (#{templates})
+        li 
+          a(href="/settings") Settings
