@@ -18,6 +18,8 @@ const sellDataCenter = function () {
         try {
             logger.info("-----sellDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
+            data.sell = {}
+            data.values = {}
             data.sell._id = 0
             data.values._1 = 0
             data.values._2 = 0
@@ -41,6 +43,8 @@ const sellCommercial = function () {
         try {
             logger.info("-----sellCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
+            data.sell = {}
+            data.values = {}
             data.sell._id = 0
             data.values._1 = 0
             data.values._2 = 0
@@ -64,6 +68,8 @@ const sellPersonal = function () {
         try {
             logger.info("-----sellPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
+            data.sell = {}
+            data.values = {}
             data.sell._id = 0
             data.values._1 = 0
             data.values._2 = 0

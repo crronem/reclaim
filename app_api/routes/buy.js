@@ -16,6 +16,8 @@ const buyDataCenter = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy = {}
+            data.values = {}
             data.buy._id = 0
             data.values._1 = ""
             data.values._2 = ""
@@ -36,6 +38,8 @@ const buyCommercial = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy = {}
+            data.values = {}
             data.buy._id = 0
             data.values._1 = ""
             data.values._2 = ""
@@ -56,6 +60,8 @@ const buyPersonal = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.buy = {}
+            data.values = {}
             data.buy._id = 0
             data.values._1 = ""
             data.values._2 = ""

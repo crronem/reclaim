@@ -295,6 +295,8 @@ const contactSave = function () {
             email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id)
             sendeMail(email)
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
+            data.sells = await Sells.count({ _user: user._id, active: true })
+            data.buys = await Buys.count({ _user: user._id, active: true })
             let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
