@@ -54,7 +54,11 @@ api.get('/contactList', Contact.contactList())
 api.post('/contactInfo/:id/:grade/:mode', Contact.contactInfo())
 api.post('/contactSave/:record/:grade/:mode', Contact.contactSave())
 api.post('/contactEdit/:id/:field', Contact.contactEdit())
-api.post('/contactUpdate/:id', Contact.contactUpdate())
+api.get('/contactAdminsList', Contact.contactAdminsList())
+api.get('/contactAdminShow/:id', Contact.contactAdminShow())
+api.get('/contactAdminLogin', Contact.contactAdminLogin())
+api.post('/contactAdminEdit/:id', Contact.contactAdminShow())
+api.post('/contactAdminSave/:id', Contact.contactAdminSave())
 
 // Templates
 api.get('/templatesList', Templates.templatesList())

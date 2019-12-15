@@ -7,6 +7,7 @@ const Users = require('../models/Model').Users
 const Buys = require('../models/Model').Buys
 const { sendeMail } = require('../routes/email')
 const Sells = require('../models/Model').Sells
+const Admins = require('../models/Model').Admins
 
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
@@ -307,11 +308,113 @@ const contactSave = function () {
     }
 }
 
+const contactAdminLogin = function () {
+    return async function (req, res) {
+        let data = {}
+        try {
+            logger.info("-----contactAdminLogin() data------")
+            logger.info(JSON.stringify(data, {}, 4))
+            let rootTag = loadTemplate("./app_api/forms/contactAdminLogin.pug", data)
+            let response = Response.fromTag(rootTag)
+            return res.json(response.toJSON())
+        } catch (error) {
+            logger.info("-----contactAdminLogin() Error------")
+            console.log(error)
+        }
+    }
+}
+
+const contactAdminsList = function () {
+    return async function (req, res) {
+        let data = {}
+        try {
+            logger.info("-----contactAdminsList() data------")
+            logger.info(JSON.stringify(data, {}, 4))
+            data = await Admins.find()
+            data.master = req.master
+            let rootTag = loadTemplate("./app_api/forms/contactAdminsList.pug", data)
+            let response = Response.fromTag(rootTag)
+            return res.json(response.toJSON())
+        } catch (error) {
+            logger.info("-----contactAdminsList() Error------")
+            console.log(error)
+        }
+    }
+}
+
+const contactAdminShow = function () {
+    return async function (req, res) {
+        let data = {}
+        try {
+            logger.info("-----contactAdminShow() data------")
+            logger.info(JSON.stringify(data, {}, 4))
+            data = await Admins.findOne({_id:ObjectId(req.params.id)})
+            data.master = req.master
+            let rootTag = loadTemplate("./app_api/forms/contactAdminShow.pug", data)
+            let response = Response.fromTag(rootTag)
+            return res.json(response.toJSON())
+        } catch (error) {
+            logger.info("-----contactAdminShow() Error------")
+            console.log(error)
+        }
+    }
+}
+
+const contactAdminSave = function () {
+    return async function (req, res) {
+        let data = {}
+        let user = {}
+        let admin = {}
+        let query = {}
+        let update = {}
+        let options = { new: true, upsert: true}
+        let access = []
+        try {
+            user = await Users.findOne({ONEmUserId: req.user}).lean()
+            if (req.master){
+                logger.info("-----contactAdminSave() data------")
+                logger.info(JSON.stringify(data, {}, 4))
+                query = {name:req.body.name,password:req.body.password}
+                update = { admin: req.body.admin }
+                admin = await Admins.findOneAndUpdate(query,update,options)
+                data.preBody = "Updated "+req.body.name+" to "+req.body.admin+" priviledges"
+            } else {
+                admin = await Admins.findOne({name:req.body.name,password:req.body.password})
+                if (!admin) {
+                    data.preBody = "Name or password was incorrect!"
+                } else {
+                    if (admin.admin != "no"){
+                        data.preBody = "You now have "+admin.admin+" priviledges!"
+                    } else {
+                        data.preBody = "You are logged in!"
+                    }
+                    query = {name:req.body.name,password:req.body.password}
+                    access = admin.access
+                    access.push(Date.now())
+                    update = { _user: ObjectId(user._id), access:access}
+                }
+            }
+            data.sells = await Sells.count({ _user: user._id, active: true })
+            data.buys = await Buys.count({ _user: user._id, active: true })
+            let rootTag = loadTemplate("./app_api/menus/landing.pug", data)
+            let response = Response.fromTag(rootTag)
+            return res.json(response.toJSON())
+        } catch (error) {
+            logger.info("-----contactAdminSave() Error------")
+            console.log(error)
+        }
+    }
+}
+
 module.exports = {
     contactList,
     contactShow,
     contactEdit,
     contactUpdate,
     contactInfo,
-    contactSave
+    contactSave,
+    contactAdminLogin,
+    contactAdminsList,
+    contactAdminShow,
+    contactAdminSave
 }

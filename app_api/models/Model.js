@@ -82,12 +82,28 @@ const TemplatesSchema = new Mongoose.Schema({
 })
 const Templates = Mongoose.model('templates', TemplatesSchema)
 
+const AdminsSchema = new Mongoose.Schema({
+    _user: {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: false
+    },
+    name: { type: String},
+    password: { type: String},
+    admin: {type: String},
+    access: {type: Object}
+}, {
+    timestamps: true
+})
+const Admins = Mongoose.model('admins', AdminsSchema)
+
 module.exports = {
     Users,
     Buys,
     Sells,
     Messages,
-    Templates
+    Templates,
+    Admins
 }
 
 
