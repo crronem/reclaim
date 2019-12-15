@@ -1,73 +1,57 @@
 form(action="/contactInfo/"+sell._id+"/personal/sell" method="post")
-    //- section(name="personal_assets" default="0")
-    //-     header Personal/Business IT Assets
-    //-     p Check the type of assets you have.
-    //-     ul
-    //-         li(value="laptops") Laptops
-    //-         li(value="desktops") Desktops
-    //-         li(value="printers") Printers
-    //-         li(value="storage") Storage Devices
     section(name="1_Laptops" default=values._1)
         header Laptops
-        p How many laptops? 
-        if values._1 == 0
-            p (Default = 0)
-        else
-            p (Was #{values._1})
-        input(type="number" step="1")
-        footer Reply with number
+        p What brands/model and how many?
+        if values._1
+            p You said: #{values._1}
+        input(type="text")
+        footer Reply with text
     section(name="2_Desktops" default=values._2)
         header Desktops
-        p How many desktops? 
-        if values._2 == 0
-            p (Default = 0)
-        else
-            p (Was #{values._3})
-        input(type="number" step="1")
-        footer Reply with number
+        p What brands/model and how many?
+        if values._2
+            p You said: #{values._3}
+        input(type="text")
+        footer Reply with text
     section(name="3_Printers" default=values._3)
         header Printers
-        p How many printers? 
-        if values._3 == 0
-            p (Default = 0)
-        else
-            p (Was #{values._3})
-        input(type="number" step="1")
-        footer Reply with number
+        p What brands/model and how many?
+        if values._3
+            p You said: #{values._3}
+        input(type="text")
+        footer Reply with text
     section(name="4_Storage_Devices" default=values._4)
         header Storage Devices
-        p How many storage devices? 
-        if values._4 == 0
-            p (Default = 0)
-        else
-            p (Was #{values._4})
-        input(type="number" step="1")
-        footer Reply with number
+        p What brands/model and how many?
+        if values._4
+            p You said: #{values._4}
+        input(type="text")
+        footer Reply with text
     section(name="5_Equipment_Location" default=values._5)
-        header Location
+        header Equipment Location
         p Where is this equipment?
-        if values._5 == 0
-            p (Default = Storage)
+        if values._5 != "Storage"
+            p You said: #{values._5}
         else
-            p (Was #{values._5})
+            p (Default = Storage)
         ul
-            li(value="shop") Shop/business
-            li(value="storage") Storage
+            li(value="Home/Office") Home/Office
+            li(value="Storage") Storage
     section(name="6_Inspect" default=values._6)
         header Inspect
-        p When is it available for inspection?
-        p example: now, after 3 weeks, after 2 months 
-        if values._6 == 0
-            p (Default = Now)
+        p When can we inspect?
+        p example: now, after 3 weeks, June 2
+        if values._6 != "Now"
+            p You said: #{values._6}
         else
-            p (Was #{values._6})
+            p (Default = Now)
         input(type="date")
     section(name="7_Pickup" default=values._7)
-        header Pickup
-        p When would it be available for pickup?
-        p example: now, after 3 weeks, after 2 months 
-        if values._7 == 0
-            p (Default = Now)
+        header Collection
+        p When can we pickup?
+        p example: now, after 3 weeks, June 2 
+        if values._7 != "Now"
+            p You said: #{values._7}
         else
-            p (Was #{values._7})
+            p (Default = Now)
         input(type="date")

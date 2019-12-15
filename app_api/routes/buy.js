@@ -19,9 +19,9 @@ const buyDataCenter = function () {
             data.buy = {}
             data.values = {}
             data.buy._id = 0
-            data.values._1 = ""
-            data.values._2 = ""
-            data.values._3 = ""
+            data.values._1 = null
+            data.values._2 = null
+            data.values._3 = null
             logger.info("-----buyDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buyGrade
@@ -41,9 +41,9 @@ const buyCommercial = function () {
             data.buy = {}
             data.values = {}
             data.buy._id = 0
-            data.values._1 = ""
-            data.values._2 = ""
-            data.values._3 = ""
+            data.values._1 = null
+            data.values._2 = null
+            data.values._3 = null
             logger.info("-----buyCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> buyGrade
@@ -63,9 +63,9 @@ const buyPersonal = function () {
             data.buy = {}
             data.values = {}
             data.buy._id = 0
-            data.values._1 = ""
-            data.values._2 = ""
-            data.values._3 = ""
+            data.values._1 = null
+            data.values._2 = null
+            data.values._3 = null
             logger.info("-----buyPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> buyGrade

@@ -1,0 +1,19 @@
+form(action="/contactAdminSave")
+    section(name="user name" required)
+        header Admin Add/Edit
+        p Login Name: #{name}
+        input(type="text")
+    section(name="password")
+        header Admin Add/Edit
+        p Password
+        input(type="text")
+    if master
+        section(name="admin" default="none")
+            header Admin Add/Edit
+            p Access priviledges?
+            ul
+                li(value="admin") Admin (full)
+                li(value="staf") Staff (read only)
+                li(value="trusted") Trusted Customer (inventory)
+                li(value="no") No priviledges (default)
+            input(type="text")

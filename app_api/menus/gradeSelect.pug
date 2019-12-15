@@ -5,12 +5,26 @@ section
   else
     p What general category of IT equipment are you looking for?
   ul
-    li 
-      a(href="/grade/dataCenter/"+mode) Data Center
-    li 
-      a(href="/grade/commercial/"+mode) Commercial/Retail
-    li 
-      a(href="/grade/personal/"+mode) Personal/Business
-  footer Reply with A or B
+    //- li 
+    //-   a(href="/grade/dataCenter/"+mode) Data Center
+    //- li 
+    //-   a(href="/grade/commercial/"+mode) Commercial/Retail
+    //- li 
+    //-   a(href="/grade/personal/"+mode) Personal/Business
+    //- Added the following code because there is no uploading
+    if mode == "sell"
+      li 
+        a(href="/sellDataCenter") Data Center
+      li 
+        a(href="/sellCommercial") Commercial/Retail
+      li 
+        a(href="/sellPersonal") Personal/Business
+    else
+      li 
+        a(href="/buyDataCenter") Data Center
+      li 
+        a(href="/buyCommercial") Commercial/Retail
+      li 
+        a(href="/buyPersonal") Personal/Business
 
           

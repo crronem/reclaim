@@ -28,9 +28,8 @@ const menu = function () {
             } else {
                 data.master = req.master
                 data.name = user.name
-
                 if (!data.master) {
-                    data.preBody = "Welcome back " + user.name + "!"
+                    data.preBody = "Serving "+user.name+","
                     data.sells = await Sells.count({ _user: user._id, active: true })
                     data.buys = await Buys.count({ _user: user._id, active: true })
                 } else {

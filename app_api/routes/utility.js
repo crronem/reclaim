@@ -5,7 +5,8 @@ function formatInfo(object) {
 
     let info = JSON.stringify(object, {}, 4).slice(1,-1).replace(/"/g,"").replace(/_/g," ")
     let line = []
-    let values = {}
+    let valuesObject = {}
+    let valuesArray = []
     let ctr = 0
 
     logger.info("-----formatInfo------")
@@ -27,14 +28,20 @@ function formatInfo(object) {
             logger.info(JSON.stringify(line[1], {}, 4))
         }
         info[i] = line[0] + ": "+line[1]
-        ctr = i+1
-        values["_"+ctr] = line[1]
     }
     info.sort()
     for (var i=0;i < info.length; i++) {
         info[i] = info[i].slice(2)
+        ctr = i+1
+        line = info[i].split(": ")[1].replace(/"/g,"").trim()
+        if (line == "") {
+            valuesObject["_"+ctr] = null
+        } else {
+            valuesObject["_"+ctr] = line
+        }
+        valuesArray.push(line)
     }    
-    return [info, values]
+    return [info, valuesObject, valuesArray]
 }
 
 function titleCase(text) {
@@ -62,7 +69,7 @@ function cut(text, len) {
     }
 }
 
-function titleSentence(text) {
+function sentenceCase(text) {
     if (text.length > 0) {
         let words = text.split(" ")
         for (i = 0; i < words.length; i++) {
@@ -99,7 +106,7 @@ module.exports = {
     titleCase,
     stripSpaces,
     cut,
-    titleSentence,
+    sentenceCase,
     commas,
     codeGen,
     formatInfo

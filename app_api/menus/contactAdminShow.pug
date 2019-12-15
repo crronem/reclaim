@@ -1,0 +1,24 @@
+section
+    header Admin Contact Priviledges
+    ul
+        li 
+            a(href="/contactAdminEdit/"+0) Create New User Priviledges
+        if user.name != ""
+            li User Details:   
+            li
+                a(href="/contactEdit/name/"+user._id) Name: #{user.name}
+            li
+                a(href="/contactEdit/email/"+user._id) Email: #{user.email}
+            li
+                a(href="/contactEdit/mobile/"+user._id)  Mobile: #{user.mobile}
+        li 
+            a(href="/contactAdminEdit/"+_id) User Name: #{name}
+        li 
+            a(href="/contactAdminEdit/"+_id) User Password: #{password}
+        li 
+            a(href="/contactAdminEdit/"+_id) Change Priviledges: #{admin}
+        if access
+            li Access dates:
+            each date in access
+                li date
+

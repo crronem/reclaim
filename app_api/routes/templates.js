@@ -11,7 +11,7 @@ const Buys = require('../models/Model').Buys
 const Templates = require('../models/Model').Templates
 
 
-const { titleCase, titleSentence } = require('../routes/utility')
+const { titleCase, sentenceCase } = require('../routes/utility')
 
 const makeArray = function (thing) {
     let array = []
@@ -144,7 +144,7 @@ const templateSave = function () {
                 query = { name:req.body.name.toLowerCase().replace(".docx","") }
                 update = { 
                     name: req.body.name.toLowerCase(),
-                    title: titleSentence(req.body.title),
+                    title: sentenceCase(req.body.title),
                     description: req.body.description,
                     variables: req.body.variables,
                     values: json.parse(req.body.values)

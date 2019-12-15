@@ -12,7 +12,7 @@ const Admins = require('../models/Model').Admins
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
 
-const { titleCase, formatInfo } = require('../routes/utility')
+const { sentenceCase, formatInfo } = require('../routes/utility')
 
 const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId) {
     let email = {}
@@ -22,27 +22,29 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromEmail = "me@crr56.com"
     if (mode == "sell") {
         email.subject = "Responding to your inquiry - selling your " + grade + " assets"
-        email.message = "Dear " + toName + ",\n"
-        email.message += "Thank you for the offer to sell your " + grade + " assets."
+        email.message = "Dear " + sentenceCase(toName) + ","
+        email.message += "\n\nThank you for the offer to sell your " + grade + " assets."
         email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
     } else {
         email.subject = "Responding to your inquiry - sourcing/buying " + grade + " equipment"
-        email.message = "Dear " + toName + ",\n"
-        email.message = "Thank you for your inquery to source/buy " + grade + " equipment."
+        email.message = "Dear " + sentenceCase(toName) + ","
+        email.message += "\n\nThank you for your inquery to source/buy " + grade + " equipment."
         email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
     }
-    email.message += "\nHere is a summary of what you provided us to start with:\n\n"
-    let details = formatInfo(infoObject)[0]
-    for (var i = 0; i < details.length; i++) {
-        email.message += "   " + details[i] + "\n"
+    email.message += "\n\nHere is a summary of what you provided us to start with:\n\n"
+    let infoDetails = formatInfo(infoObject)
+    for (var i = 0; i < infoDetails[0].length; i++) {
+        if (infoDetails[2][i] !== ""){
+            email.message += "   " + infoDetails[0][i] + "\n"
+        }    
     }
-    email.message += "\n\nYou can see your enquiry and message us at any time."
-    email.message += "\nSimply revisit our website."
+    email.message += "\nYou can see your enquiry and message us at any time."
+    email.message += "\nSimply revisit our website (https://onem.biz)."
     email.message += "\n\n" + "In the mean time, we will get back to you soon."
     email.message += "\n\n" + "At your service..."
     email.message += "\n\n" + "Sincerely,"
     email.message += "\n\n" + "Anthony Money - Owner UK-Reclaim"
-    email.html = "<a href='https://reclaim-uk.com/'>Reclaim UK Website</a>"
+    email.message += "\n"+"https://onem.biz"
     email.id = recordId
     return email
 }
@@ -248,6 +250,8 @@ const contactInfo = function () {
                 return res.json(response.toJSON())
             } else {
                 email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
+                logger.info("-----contactInfo() email ------")
+                logger.info(JSON.stringify(email, {}, 4))
                 sendeMail(email)
                 data.sells = await Sells.count({ _user: user._id, active: true })
                 data.buys = await Buys.count({ _user: user._id, active: true })
