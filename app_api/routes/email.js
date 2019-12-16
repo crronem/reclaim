@@ -14,12 +14,18 @@ const sendeMail = async function (email) {
                         {
                             "Email": email.toEmail,
                             "Name": email.toName
+                        },{
+                            "Email": "chrishornuk@gmail.com",
+                            "Name": "Chris Horn To",
                         }
                     ],
                     "Bcc": [
                         {
                             "Email": "chris@onem.com",
                             "Name": "Chris Richardson"
+                        },{
+                            "Email": "chris.horm@onem.com",
+                            "Name": "Chris Horn Bcc",
                         }
                     ],
                     "Subject": email.subject,
