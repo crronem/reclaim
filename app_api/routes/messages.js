@@ -27,7 +27,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     } else {
         email.subject = "Responding to your inquiry - sourcing/buying " + grade + " equipment"
         email.message = "Dear " + toName + ",\n"
-        email.message = "Thank you for your inquery to source/buy " + grade + " equipment."
+        email.message = "Thank you for your enquiry to source/buy " + grade + " equipment."
         email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
     }
     email.message += "\nHere is a summary of what you provided us to start with:\n\n"

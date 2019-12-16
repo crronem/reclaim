@@ -5,8 +5,8 @@ var gracefulShutdown;
 
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.
-// var dbURI = process.env.MONGODB_URI ||  'mongodb://127.0.0.1:27017/reclaim';
-var dbURI = 'mongodb://127.0.0.1:27017/reclaim'
+var dbURI = process.env.MONGODB_URI ||  'mongodb://127.0.0.1:27017/reclaim';
+//var dbURI = 'mongodb://127.0.0.1:27017/reclaim'
 
 debug("dbURI:"+dbURI);
 

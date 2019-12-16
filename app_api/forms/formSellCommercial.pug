@@ -31,7 +31,7 @@ form(action="/contactInfo/"+sell._id+"/commercial/sell" method="post")
             li(value="Shop") Shop/business
             li(value="Storage") Storage
     section(name="5_Inspect" default=values._5)
-        header Inspection
+        header When can we inspect?
         p When can we inspect?
         p example: now, after 3 weeks, June 2
         if values._5 != "Now"
@@ -40,7 +40,7 @@ form(action="/contactInfo/"+sell._id+"/commercial/sell" method="post")
             p (Default = Now)
         input(type="date")
     section(name="6_Pickup" default=values._6)
-        header Collection
+        header When can we pickup?
         p When can we pickup?
         p example: now, after 3 weeks, June 2
         if values._6 != "Now"

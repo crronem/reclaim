@@ -22,16 +22,24 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromEmail = "me@crr56.com"
     if (mode == "sell") {
         email.subject = "Responding to your inquiry - selling your " + grade + " assets"
-        email.message = "Dear " + sentenceCase(toName) + ","
+        if (toName) {
+            email.message = "Dear " + sentenceCase(toName) + ","
+        } else {
+            email.message = "Dear Customer,"
+        }  
         email.message += "\n\nThank you for the offer to sell your " + grade + " assets."
-        email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
+      
     } else {
         email.subject = "Responding to your inquiry - sourcing/buying " + grade + " equipment"
-        email.message = "Dear " + sentenceCase(toName) + ","
-        email.message += "\n\nThank you for your inquery to source/buy " + grade + " equipment."
-        email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
+        if (toName) {
+            email.message = "Dear " + sentenceCase(toName) + ","
+        } else {
+            email.message = "Dear Customer,"
+        }  
+        email.message += "\n\nThank you for your enquiry to source/buy " + grade + " equipment."
+      
     }
-    email.message += "\n\nHere is a summary of what you provided us to start with:\n\n"
+    email.message += "\n\nHere is a summary of what you provided:\n\n"
     let infoDetails = formatInfo(infoObject)
     for (var i = 0; i < infoDetails[0].length; i++) {
         if (infoDetails[2][i] !== ""){
@@ -40,10 +48,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     }
     email.message += "\nYou can see your enquiry and message us at any time."
     email.message += "\nSimply revisit our website (https://onem.biz)."
-    email.message += "\n\n" + "In the mean time, we will get back to you soon."
-    email.message += "\n\n" + "At your service..."
+    email.message += "\n\n" + "We will get back to you soon."
     email.message += "\n\n" + "Sincerely,"
-    email.message += "\n\n" + "Anthony Money - Owner UK-Reclaim"
+    email.message += "\n\n" + "Anthony Money"
     email.message += "\n"+"https://onem.biz"
     email.id = recordId
     return email
