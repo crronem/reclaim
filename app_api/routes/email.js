@@ -24,7 +24,7 @@ const sendeMail = async function (email) {
                             "Email": "chris@onem.com",
                             "Name": "Chris Richardson"
                         },{
-                            "Email": "chris.horm@onem.com",
+                            "Email": "chris.horn@onem.com",
                             "Name": "Chris Horn Bcc",
                         }
                     ],
