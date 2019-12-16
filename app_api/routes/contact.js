@@ -21,22 +21,22 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromName = "Reclaim UK"
     email.fromEmail = "me@crr56.com"
     if (mode == "sell") {
-        email.subject = "Responding to your inquiry - selling your " + grade + " assets"
+        email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
         } else {
             email.message = "Dear Customer,"
         }  
-        email.message += "\n\nThank you for the offer to sell your " + grade + " assets."
+        email.message += "\n\nThank you for the offer to sell your " + sentenceCase(grade) + " assets."
       
     } else {
-        email.subject = "Responding to your inquiry - sourcing/buying " + grade + " equipment"
+        email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
         } else {
             email.message = "Dear Customer,"
         }  
-        email.message += "\n\nThank you for your enquiry to source/buy " + grade + " equipment."
+        email.message += "\n\nThank you for your enquiry to source/buy " + sentenceCase(grade) + " equipment."
       
     }
     email.message += "\n\nHere is a summary of what you provided:\n\n"
@@ -53,6 +53,8 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.message += "\n\n" + "Anthony Money"
     email.message += "\n"+"https://onem.biz"
     email.id = recordId
+    logger.info("-----createEmailResponse() email------")
+    logger.info(JSON.stringify(email, {}, 4))    
     return email
 }
 
