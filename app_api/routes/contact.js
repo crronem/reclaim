@@ -14,41 +14,66 @@ const { Response } = require('onemsdk')
 
 const { sentenceCase, formatInfo } = require('../routes/utility')
 
-const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId) {
+const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId, type) {
     let email = {}
     email.toEmail = toEmail
     email.toName = toName
     email.fromName = "Reclaim UK"
     email.fromEmail = "me@crr56.com"
     if (mode == "sell") {
-        email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
+        if (type != "revised"){
+            email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
+        } else {
+            email.subject = "Your revised inquiry - selling your " + sentenceCase(grade) + " assets"
+        }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
         } else {
             email.message = "Dear Customer,"
         }  
-        email.message += "\n\nThank you for the offer to sell your " + sentenceCase(grade) + " assets."
+        if (type != "revised"){
+            email.message += "\n\nThank you for the offer to sell your " + sentenceCase(grade) + " assets."
+        } else {
+            email.message += "\n\nYour revised sell offer for " + sentenceCase(grade) + " assets has been updated."
+        }
       
     } else {
-        email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+        if (type != "revised"){
+            email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+        } else {
+            email.subject = "Your revised inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+        }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
         } else {
             email.message = "Dear Customer,"
         }  
-        email.message += "\n\nThank you for your enquiry to source/buy " + sentenceCase(grade) + " equipment."
-      
+        if (type != "revised"){
+            email.message += "\n\nThank you for your enquiry to source/buy " + sentenceCase(grade) + " equipment."
+        } else{
+            email.message += "\n\nYour enquiry to source/buy " + sentenceCase(grade) + " equipment has been updated."
+        }
     }
-    email.message += "\n\nHere is a summary of what you provided:\n\n"
+    if (type != "revised"){
+        email.message += "\n\nHere is a summary of what you provided:\n\n"
+    } else {
+        email.message += "\n\nHere is your revised summary:\n\n"
+    }
     let infoDetails = formatInfo(infoObject)
     for (var i = 0; i < infoDetails[0].length; i++) {
         if (infoDetails[2][i] !== ""){
             email.message += "   " + infoDetails[0][i] + "\n"
         }    
     }
-    email.message += "\nYou can see your enquiry and message us at any time."
-    email.message += "\nSimply revisit our website (https://onem.biz)."
-    email.message += "\n\n" + "We will get back to you soon."
+    if (type != "revised"){
+        email.message += "\nYou can see your enquiry and revise it at any time."
+        email.message += "\nSimply revisit our website (https://onem.biz)."
+        email.message += "\n\n" + "We will get back to you soon."
+    } else {
+        email.message += "\nYour enquiry has been updated."
+        email.message += "\nSee your account at (https://onem.biz)."    
+    }
+    
     email.message += "\n\n" + "Sincerely,"
     email.message += "\n\n" + "Anthony Money"
     email.message += "\n"+"https://onem.biz"
@@ -183,8 +208,7 @@ const contactInfo = function () {
     return async function (req, res) {
         let data = {}
         let user = {}
-        let sell = {}
-        let buy = {}
+        let type = "standard"
         let record = {}
         let addInfo = {}
         let email = {}
@@ -217,20 +241,6 @@ const contactInfo = function () {
                 logger.info("-----contactInfo() Sells/Buys record save------")
                 logger.info(JSON.stringify(record, {}, 4))
                 data.record = record._id
-                // if (!user.email) {
-                //     let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> contactInfo
-                //     let response = Response.fromTag(rootTag)
-                //     return res.json(response.toJSON())
-                // } else {
-                //     email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
-                //     sendeMail(email)
-
-                //     data.sells = await Sells.count({ _user: user._id, active: true })
-                //     data.buys = await Buys.count({ _user: user._id, active: true })
-                //     let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
-                //     let response = Response.fromTag(rootTag)
-                //     return res.json(response.toJSON())
-                // }
             } else {
                 if (req.params.mode == "sell") {
                     query = { _id: ObjectId(req.params.id) }
@@ -247,6 +257,7 @@ const contactInfo = function () {
                     options = { new: true }
                     record = await Buys.findOneAndUpdate(query, update).lean()
                 }
+                type = "revised"
                 data.preBody = user.name + ","
                 data.preBody += "\nYour request has been revised and we emailed you a copy."
                 data.preBody += "\nWe will be following up on your revised enquiry."
@@ -258,7 +269,7 @@ const contactInfo = function () {
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
-                email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id)
+                email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id, type)
                 logger.info("-----contactInfo() email ------")
                 logger.info(JSON.stringify(email, {}, 4))
                 sendeMail(email)
