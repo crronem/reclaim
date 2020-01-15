@@ -5,19 +5,19 @@ section
   else
     header Admin Sell Enquiries
   ul
-    if !master
+  if !master
       li 
         a(href="/gradeSelect/sell") Make another sell enquiry
       li 
         a(href="/gradeSelect/buy") Make a Source/buy enquiry
-      li Select to review
-      each sell in sells
-        if !master
-          li
-            a(href="/sellShow/"+sell._id) #{sell.title}
-        else
-          if newName != sell.name[0]
-            li Seller: #{sell.name[0]}
-            - newName = sell.name[0]
-          li
-            a(href="/sellShow/"+sell._id) #{sell.title}
+  li Select to review
+  each sell in sells
+    if !master
+      li
+        a(href="/sellShow/"+sell._id) #{sell.title}
+    else
+      if newName != sell.name[0]
+        li Seller: #{sell.name[0]}
+        - newName = sell.name[0]
+      li
+        a(href="/sellShow/"+sell._id) #{sell.title}
