@@ -84,7 +84,7 @@ const buyHistory = function () {
         let user = {}
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
-            data.master = !req.master
+            data.master = req.master
             if (!req.master) {
                 data.buys = await Buys.aggregate(
                     [
