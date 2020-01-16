@@ -84,31 +84,63 @@ const buyHistory = function () {
         let user = {}
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
-            data.buys = await Buys.aggregate(
-                [
-                    {
-                        $lookup: {
-                            from: "messages",
-                            localField: "_id",
-                            foreignField: "_buy",
-                            as: "enquiry"
+            if (!req.master) {
+                data.buys = await Buys.aggregate(
+                    [
+                        {
+                            $lookup: {
+                                from: "messages",
+                                localField: "_id",
+                                foreignField: "_buy",
+                                as: "enquiry"
+                            }
+                        }, {
+                            $match: {
+                                _user: ObjectId(user._id),
+                                active: true
+                            }
                         }
-                    }, {
-                        $match: {
-                            _user: ObjectId(user._id),
-                            active: true
-                        }
+                    ]
+                )
+                for (var i = 0; i < data.buys.length; i++) {
+                    logger.info("-----buyHistory() data------")
+                    logger.info(JSON.stringify(data.buys[i], {}, 4))
+                    if (data.buys[i].enquiry.length > 0) {
+                        data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm') + " Messages(" + data.buys[i].enquiry.length + ")"
+                    } else {
+                        data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm')
                     }
-                ]
-            )
-            for (var i = 0; i < data.buys.length; i++) {
-                logger.info("-----buyHistory() data------")
-                logger.info(JSON.stringify(data.buys[i], {}, 4))
-                if (data.buys[i].enquiry.length > 0) {
-                    data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm') + " Messages("+data.buys[i].enquiry.length+")"
-                } else {
-                    data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm')
                 }
+            } else {
+                    data.buys = await Buys.aggregate(
+                        [
+                            {
+                                $lookup: {
+                                    from: "messages",
+                                    localField: "_id",
+                                    foreignField: "_buy",
+                                    as: "enquiry"
+                                }
+                            }, {
+                                $lookup: {
+                                    from: "users",
+                                    localField: "_user",
+                                    foreignField: "_id",
+                                    as: "buyers"
+                                }
+                            }, {
+                                $project: {
+                                    "enquiry.message": 1,
+                                    name: "$buyers.name",
+                                    grade: 1,
+                                    information: 1,
+                                    active: 1,
+                                    createdAt: 1,
+                                    new: 1
+                                }
+                            }
+                        ]
+                    )
             }
             //data.createdAt = moment(data.createdAt).format('LLLL')
             logger.info("-----buyHistory() data------")
@@ -117,7 +149,7 @@ const buyHistory = function () {
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----bHistory(uy) Error------")
+            logger.info("-----buyHistory() Error------")
             console.log(error)
         }
     }
@@ -128,8 +160,8 @@ const buyShow = function () {
         let data = {}
         let infoData = []
         try {
-            data.buy = await Buys.findOne({_id: ObjectId(req.params.id)})
-            data.messages = await Messages.findOne({_buy: ObjectId(data.buy._id)})
+            data.buy = await Buys.findOne({ _id: ObjectId(req.params.id) })
+            data.messages = await Messages.findOne({ _buy: ObjectId(data.buy._id) })
             infoData = formatInfo(data.buy.information)
             data.buy.information = infoData[0]
             data.values = infoData[1]
@@ -152,8 +184,8 @@ const buyRevise = function () {
         let rootTag = {}
         try {
             data.master = req.master
-            data.buy = await Buys.findOne({_id: ObjectId(req.params.id)})
-            data.messages = await Messages.findOne({_buy: ObjectId(data.buy._id)})
+            data.buy = await Buys.findOne({ _id: ObjectId(req.params.id) })
+            data.messages = await Messages.findOne({ _buy: ObjectId(data.buy._id) })
             infoData = formatInfo(data.buy.information)
             data.buy.information = infoData[0]
             data.values = infoData[1]

@@ -12,27 +12,16 @@ section
         a(href="/gradeSelect/sell") Make a Sell enquiry
       li Select to review
       each buy in buys
-        if !master
-          li 
-            a(href="/buyShow/"+buy._id) #{buy.title}
-        else
+        li 
+          a(href="/buyShow/"+buy._id) #{buy.title}
+    else
+      ul
+        li Select to review
+        each buy in buys
           if newName != buy.name[0]
             li Buyer: #{buy.name[0]}
             - newName = buy.name[0]
           li 
               a(href="/buyShow/"+buy._id) #{buy.title}
-    else
-      ul
-        li Select to review
-        each buy in buys
-          if !master
-            li 
-              a(href="/buyShow/"+buy._id) #{buy.title}
-          else
-            if newName != buy.name[0]
-              li Buyer: #{buy.name[0]}
-              - newName = buy.name[0]
-            li 
-                a(href="/buyShow/"+buy._id) #{buy.title}
 
 
