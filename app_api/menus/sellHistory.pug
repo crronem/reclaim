@@ -16,7 +16,6 @@ section
   else
     ul
       - let newName = ""
-      li Select to review
       each sell in sells
         if newName != sell.name[0]
           li Seller: #{sell.name[0]}
