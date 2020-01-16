@@ -39,7 +39,7 @@ form(action="/templateSave/"+_id)
             p Example: How much:amount
             p Example: Product image:image_product123
         else
-            each line in variablesText
+            each line in variables
                 p #{line}
         input(type="text")
         if _id != 0

@@ -79,7 +79,7 @@ const templateEdit = function () {
                 data.name = ""
                 data.title = ""
                 data.description = ""
-                data.variables = ""
+                data.variables = []
                 data.values = "{}"
                 data.variablesText = ""
             }
