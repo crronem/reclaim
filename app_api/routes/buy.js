@@ -141,6 +141,15 @@ const buyHistory = function () {
                             }
                         ]
                     )
+                    for (var i = 0; i < data.buys.length; i++) {
+                        logger.info("-----buyHistory() data------")
+                        logger.info(JSON.stringify(data.buys[i], {}, 4))
+                        if (data.buys[i].enquiry.length > 0) {
+                            data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm') + " Messages(" + data.buys[i].enquiry.length + ")"
+                        } else {
+                            data.buys[i].title = titleCase(data.buys[i].grade) + moment(data.buys[i].createdAt).format('MMM DD YYYY HH:mm')
+                        }
+                    }
             }
             //data.createdAt = moment(data.createdAt).format('LLLL')
             logger.info("-----buyHistory() data------")
