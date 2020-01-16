@@ -137,7 +137,7 @@ const templateSave = function () {
         let options = { upsert: true, new: true }
         let template = {}
         try {
-            if ( req.params.id != 0){
+            if ( req.params.id != 0 ){
                 query = { _id: ObjectId(req.params.id) }
                 update = { values: req.body }
             } else {
@@ -147,7 +147,7 @@ const templateSave = function () {
                     title: sentenceCase(req.body.title),
                     description: req.body.description,
                     variables: req.body.variables,
-                    values: json.parse(req.body.values)
+                    values: {}
                 }
             }
             template = await Templates.findOneAndUpdate(query, update, options).lean()
