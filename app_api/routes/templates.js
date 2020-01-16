@@ -83,7 +83,7 @@ const templateEdit = function () {
                 data.values = "{}"
                 data.variablesText = ""
             }
-            logger.info("-----editTemplates() data------")
+            logger.info("-----templateEdit() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/forms/formTemplateEdit.pug", data)
             let response = Response.fromTag(rootTag)

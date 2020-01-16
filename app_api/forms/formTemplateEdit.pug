@@ -1,4 +1,4 @@
-form(action="/templateSave/"+_id method="post")
+form(action="/templateSave/"+_id)
     section(name="name" required default=name)
         header Template Data Name
         if _id == 0
@@ -39,7 +39,7 @@ form(action="/templateSave/"+_id method="post")
             p Example: How much:amount
             p Example: Product image:image_product123
         else
-            each line in variables
+            each line in variablesText
                 p #{line}
         input(type="text")
         if _id != 0
