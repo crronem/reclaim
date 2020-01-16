@@ -17,7 +17,6 @@ section
       - let newName = null
       ul
         li Select to review
-        li Check Name: #{buy.name[0]}
         each buy in buys
           if newName != buy.name[0]
             li Buyer: #{buy.name[0]}
