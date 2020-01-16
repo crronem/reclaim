@@ -147,7 +147,7 @@ const templateSave = function () {
                     title: sentenceCase(req.body.title),
                     description: req.body.description,
                     variables: req.body.variables,
-                    values: {}
+                    values: JSON.parse(req.body.values)
                 }
             }
             template = await Templates.findOneAndUpdate(query, update, options).lean()
