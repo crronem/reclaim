@@ -1,5 +1,4 @@
 section
-  - let newName = ""
   if !master
     header Your Sell Enquiries
   else
@@ -16,6 +15,7 @@ section
           a(href="/sellShow/"+sell._id) #{sell.title}
   else
     ul
+      - let newName = ""
       li Select to review
       each sell in sells
         if newName != sell.name[0]
