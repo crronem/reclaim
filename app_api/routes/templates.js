@@ -167,9 +167,9 @@ const templateSave = function () {
                     update = { values: JSON.parse(req.body.values) }
                 }
             } else {
-                query = { name:req.body.name.toLowerCase().replace(".docx","") }
+                query = { name:req.body.name.replace(".docx","") }
                 update = { 
-                    name: req.body.name.toLowerCase(),
+                    name: req.body.name,
                     title: sentenceCase(req.body.title),
                     description: req.body.description,
                     variables: req.body.variables,
