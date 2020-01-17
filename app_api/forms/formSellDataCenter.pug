@@ -4,28 +4,28 @@ form(action="/contactInfo/"+sell._id+"/dataCenter/sell" method="post")
         p What brands/model and how many?
         if values._1
             p You said: #{values._1}
-        input(type="text")
+        input(type="textarea")
         footer Reply with text
     section(name="2_Switches_And_Routers" default=values._2)
         header Switches & Routers
         p What brands/models and how many? 
         if values._2
             p You said: #{values._2}
-        input(type="text")
+        input(type="textarea")
         footer Reply with text
     section(name="3_Firewalls-Gateways_And_Others" default=values._3)
         header Firewalls, Gateways & Others
         p What brands/models and how many? 
         if values._3
             p You said: #{values._3}
-        input(type="text")
+        input(type="textarea")
         footer Reply with text
     section(name="4_Equipment_Location" default=values._4)
         header Equipment Location
         p Where is this equipment located?
         if values._4 != "Storage"
             p You said: #{values._4}
-        input(type="text")
+        input(type="textarea")
         footer Reply with text
     section(name="5_Inspect" default=values._5)
         header Availability?
