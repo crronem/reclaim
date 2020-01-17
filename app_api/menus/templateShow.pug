@@ -11,8 +11,12 @@ section
         li [prompt]:[variable]
         each line in variables
             li #{line}
-        li 
-            a(href="/templateFill/"+_id) Input Template Data Values
+        if !values
+            li 
+                a(href="/templateFill/"+_id) Input Template Data Values
+        else
+            li 
+                a(href="/templateFill/"+_id) Change Template Data Values
         li 
             a(href="/templateRun/"+_id) Run this Template
         if values
