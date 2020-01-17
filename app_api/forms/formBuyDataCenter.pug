@@ -14,12 +14,9 @@ form(action="/contactInfo/"+buy._id+"/dataCenter/buy" method="post")
         input(type="text")
         footer Reply with text
     section(name="3_Delivery" default=values._3)
-        header To be delived by?
-        p To be delived by?
-        p example: now, after 3 weeks, June2
+        header Required?
+        p When is it needed?
+        //p example: now, after 3 weeks, June 2
         if values._3 != "Now"
-            p You said: #{values._3})
-        else
-            p (default = now)
+            p You said: #{values._3}
         input(type="date")
-        footer Reply with date
