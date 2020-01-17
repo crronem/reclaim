@@ -4,14 +4,14 @@ form(action="/contactInfo/"+buy._id+"/commercial/buy" method="post")
         p Give a brief with quantities?
         if values._1
             p You said: #{values._1}
-        input(type="text")
+        input(type="textarea")
         footer Reply with Text
     section(name="2_Target_Budget" default=values._1)
         header Commercial/Retail IT Equipment
         p Your target budget? (optional)
         if values._2
             p You said: #{values._2}
-        input(type="text")
+        input(type="textarea")
         footer Reply with Text
     section(name="3_Delivery" default=values._3)
         header Required?

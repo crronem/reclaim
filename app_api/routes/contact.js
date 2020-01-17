@@ -235,7 +235,7 @@ const contactInfo = function () {
                     })
                 }
                 record = await addInfo.save()
-                data.preBody = user.name + ","
+                data.preBody = "Thank you "+user.name + ","
                 data.preBody += "\nYour request has been forwarded and we emailed you a copy."
                 data.preBody += "\nWe will be following up on your enquiry."
                 logger.info("-----contactInfo() Sells/Buys record save------")
