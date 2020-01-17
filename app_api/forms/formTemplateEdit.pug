@@ -26,13 +26,13 @@ form(action="/templateSave/"+_id)
         input(type="text")
         if _id != 0
             footer Reply with description/SKIP
-    section(default=variablesText name="variables" required )
+    section(name="variables" required default=variablesText)
         header Template Data Variables
-        p You must use the exact same variable names in your docx templates enclosed with {}.
-        p Example: {product_id}
-        p You can use the following information tags in your text which will be updated when the document is run.
-        p [customer name] [current date] [customer email] [customer mobile]
-        p You can specify an image by prefixing image_ before the variable name.
+        //- p You must use the exact same variable names in your docx templates enclosed with {}.
+        //- p Example: {product_id}
+        //- p You can use the following information tags in your text which will be updated when the document is run.
+        //- p [customer name] [current date] [customer email] [customer mobile]
+        //- p You can specify an image by prefixing image_ before the variable name.
         if _id == 0
             p Each on a separate line
             p [prompt]:[variable name]
