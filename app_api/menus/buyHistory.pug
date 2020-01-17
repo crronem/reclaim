@@ -3,22 +3,22 @@ section
     header Your Source/Buy Enquiries
   else
     header Admin Source/Buy Enquiries
-    if !master
-      ul
+  if !master
+    ul
+      li 
+        a(href="/gradeSelect/buy") Make another buy enquiry
+      li 
+        a(href="/gradeSelect/sell") Make a Sell enquiry
+      li Select to review
+      each buy in buys
         li 
-          a(href="/gradeSelect/buy") Make another buy enquiry
+          a(href="/buyShow/"+buy._id) #{buy.title}
+  else
+    - let newName = ""
+    ul
+      each buy in buys
+        if newName != buy.name[0]
+          li Buyer: #{buy.name[0]}
+          - newName = buy.name[0]
         li 
-          a(href="/gradeSelect/sell") Make a Sell enquiry
-        li Select to review
-        each buy in buys
-          li 
             a(href="/buyShow/"+buy._id) #{buy.title}
-    else
-      - let newName = ""
-      ul
-        each buy in buys
-          if newName != buy.name[0]
-            li Buyer: #{buy.name[0]}
-            - newName = buy.name[0]
-          li 
-              a(href="/buyShow/"+buy._id) #{buy.title}
