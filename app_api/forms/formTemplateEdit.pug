@@ -26,7 +26,7 @@ form(action="/templateSave/"+_id)
         input(type="text")
         if _id != 0
             footer Reply with description/SKIP
-    section(name="variables" required default=variablesText)
+    section(default=variablesText name="variables" required )
         header Template Data Variables
         p You must use the exact same variable names in your docx templates enclosed with {}.
         p Example: {product_id}
