@@ -5,12 +5,12 @@ form(action="/templateSave/"+_id)
             header Template #{name} Data
             p #{variable.split(':')[0]}
             p Image for: #{variable.split(':')[1]}
-            p For an array of images use "::" as a separator
+            p For an array of images use "|" as a separator
             input(type="text")
         else
             section(name=variable.split(':')[1] required)
                 header Template #{name} Data
                 p #{variable.split(':')[0]}
                 p Value(s) for: #{variable.split(':')[1]}
-                p For an array of values use "::" as a separator
+                p For an array of values use "|" as a separator
                 input(type="text")

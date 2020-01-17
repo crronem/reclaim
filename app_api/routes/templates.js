@@ -13,6 +13,10 @@ const Templates = require('../models/Model').Templates
 
 const { titleCase, sentenceCase } = require('../routes/utility')
 
+const { TemplateHandler } = require('easy-template-x')
+
+const fs = require('fs')
+
 const makeArray = function (thing) {
     let array = []
     if (typeof thing === "object"){
@@ -114,9 +118,22 @@ const templateFill = function () {
 
 const templateRun = function () {
     return async function (req, res) {
+        let template = {}
+        let variables = []
         try {
-            let data = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
-            data.variables = data.variables.split("\n")
+            
+            template = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
+            const templateFile = fs.readFileSync(template.name)
+            variables = template.variables.split("\n")
+            for (var i = 0;i < lines.length; i++) {
+                variables = lines
+            }
+            const data = {
+                posts: [
+                    { author: 'Alon Bar', text: 'Very important\ntext here!' },
+                    { author: 'Alon Bar', text: 'Forgot to mention that...' }
+                ]
+            };
             logger.info("-----templateFill() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/forms/formTemplateFill.pug", data)
