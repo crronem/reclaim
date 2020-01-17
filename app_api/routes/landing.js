@@ -11,6 +11,8 @@ const Buys = require('../models/Model').Buys
 const Sells = require('../models/Model').Sells
 const Templates = require('../models/Model').Templates
 
+const { sentenceCase, formatInfo, titleCase } = require('../routes/utility')
+
 const menu = function () {
     return async function (req, res) {
         let data = {}
@@ -21,7 +23,7 @@ const menu = function () {
             data.templates = await Templates.count()
             if (!user) {
                 user = await Users.findOneAndUpdate({ ONEmUserId: req.user }, { name: "Guest" }, { new: true, upsert: true }).lean()
-                data.name = user.name
+                data.name = titleCase(user.name)
                 data.sells = 0
                 data.buys = 0
                 data.preBody = ""
@@ -29,7 +31,7 @@ const menu = function () {
                 data.master = req.master
                 data.name = user.name
                 if (!data.master) {
-                    data.preBody = user.name+","
+                    data.preBody = titleCase(user.name)+","
                     data.sells = await Sells.count({ _user: user._id, active: true })
                     data.buys = await Buys.count({ _user: user._id, active: true })
                 } else {
