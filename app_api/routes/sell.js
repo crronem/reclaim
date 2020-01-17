@@ -25,7 +25,7 @@ const sellDataCenter = function () {
             data.values._2 = null
             data.values._3 = null
             data.values._4 = null
-            data.values._5 = "Now"
+            data.values._5 = null
             let rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
@@ -49,7 +49,7 @@ const sellCommercial = function () {
             data.values._2 = null
             data.values._3 = null
             data.values._4 = null
-            data.values._5 = "Now"
+            data.values._5 = null
             let rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data) // -> sellCommercial
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
@@ -74,7 +74,7 @@ const sellPersonal = function () {
             data.values._3 = null
             data.values._4 = null
             data.values._5 = null
-            data.values._6 = "Now"
+            data.values._6 = null
             let rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())

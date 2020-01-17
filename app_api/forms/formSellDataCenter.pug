@@ -30,6 +30,6 @@ form(action="/contactInfo/"+sell._id+"/dataCenter/sell" method="post")
     section(name="5_Inspect" default=values._5)
         header Availability?
         p When is it available?
-        if values._5 != "Now"
+        if values._5
             p You said: #{values._5}
         input(type="date")

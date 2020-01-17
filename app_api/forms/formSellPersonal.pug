@@ -37,7 +37,6 @@ form(action="/contactInfo/"+sell._id+"/personal/sell" method="post")
     section(name="6_Inspect" default=values._6)
         header Availability?
         p When is it available?
-        //p example: now, after 3 weeks, June 2
-        if values._6 != "Now"
+        if values._6
             p You said: #{values._6}
         input(type="date")
