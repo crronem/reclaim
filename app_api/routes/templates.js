@@ -123,7 +123,7 @@ const templateRun = function () {
         try {
             
             template = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
-            const templateFile = fs.readFileSync(template.name)
+            const templateFile = fs.readFileSync("/docx/"+template.name+".docx")
             variables = template.variables.split("\n")
             for (var i = 0;i < lines.length; i++) {
                 variables = lines
@@ -133,10 +133,15 @@ const templateRun = function () {
                     { author: 'Alon Bar', text: 'Very important\ntext here!' },
                     { author: 'Alon Bar', text: 'Forgot to mention that...' }
                 ]
-            };
-            logger.info("-----templateFill() data------")
+            }
+            const handler = new TemplateHandler()
+            const doc = await handler.process(templateFile, data)
+            const timeStamp = moment(Date().now()).format('MMMDDYYYYHH:mm')
+            saveFile("/docx/"+template.name+"_"+timeStamp+".docx", doc);
+            data.preBody = "Template "+template.name+" created!"
+            logger.info("-----templateSave() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formTemplateFill.pug", data)
+            let rootTag = loadTemplate("./app_api/menus/settings.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
