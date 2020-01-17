@@ -16,7 +16,6 @@ form(action="/contactInfo/"+buy._id+"/personal/buy" method="post")
     section(name="3_Delivery" default=values._3)
         header Required?
         p When is it needed?
-        //p example: now, after 3 weeks, June 2
         if values._3 != "Now"
             p You said: #{values._3}
         input(type="date")
