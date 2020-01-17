@@ -139,7 +139,11 @@ const templateSave = function () {
         try {
             if ( req.params.id != 0 ){
                 query = { _id: ObjectId(req.params.id) }
-                update = { values: JSON.parse(req.body.values) }
+                if (!req.body.value){
+                    update = { values: req.body }
+                } else {
+                    update = { values: JSON.parse(req.body.values) }
+                }
             } else {
                 query = { name:req.body.name.toLowerCase().replace(".docx","") }
                 update = { 
