@@ -1,7 +1,7 @@
 form(action="/contactUpdate/"+id method="post")
     if field == "name"
         section(name="name" required)
-            header Contact Edit
+            header Contact Name
             p Name: #{name}
             input(type="text")
     else 
@@ -9,7 +9,7 @@ form(action="/contactUpdate/"+id method="post")
             input(type="hidden" value=name)
     if field == "mobile"
         section(name="mobile")
-            header Contact Information
+            header Contact Phone
             p Phone: #{mobile}
             input(type="phone")
     else
@@ -17,7 +17,7 @@ form(action="/contactUpdate/"+id method="post")
             input(type="hidden" value=mobile)
     if field == "email"
         section(name="email" required)
-            header Contact Information
+            header Contact Email
             p Email: #{email}
             input(type="email")
     else
