@@ -12,7 +12,7 @@ const Admins = require('../models/Model').Admins
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
 
-const { sentenceCase, formatInfo } = require('../routes/utility')
+const { sentenceCase, formatInfo, titleCase } = require('../routes/utility')
 
 const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId, type) {
     let email = {}
@@ -235,9 +235,8 @@ const contactInfo = function () {
                     })
                 }
                 record = await addInfo.save()
-                data.preBody = "Thank you "+user.name + ","
-                data.preBody += "\nYour request has been forwarded and we emailed you a copy."
-                data.preBody += "\nWe will be following up on your enquiry."
+                data.preBody = "Thank you "+titleCase(user.name) + ","
+                data.preBody += "\nYour request has been successfully submitted and we will be in touch shortly."
                 logger.info("-----contactInfo() Sells/Buys record save------")
                 logger.info(JSON.stringify(record, {}, 4))
                 data.record = record._id
