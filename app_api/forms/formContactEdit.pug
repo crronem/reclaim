@@ -11,7 +11,7 @@ form(action="/contactUpdate/"+id method="post")
         section(name="mobile")
             header Contact Information
             p Mobile: #{mobile}
-            input(type="text")
+            input(type="phone")
     else
         section(name="mobile")
             input(type="hidden" value=mobile)

@@ -23,7 +23,7 @@ form(action="/contactInfo/"+sell._id+"/commercial/sell" method="post")
     section(name="4_Equipment_Location" default=values._4)
         header Equipment Location
         p Where is this equipment located?
-        if values._4 != "Storage"
+        if values._4
             p You said: #{values._4}
         input(type="textarea")
         footer Reply with text
