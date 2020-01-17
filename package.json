@@ -43,7 +43,7 @@
     "morgan": "^1.9.1",
     "node-mailjet": "^3.3.1",
     "onem-nodejs-api": "^1.0.6",
-    "onemsdk": "^0.11.0",
+    "onemsdk": "^0.13.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
