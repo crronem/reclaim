@@ -139,7 +139,7 @@ const templateSave = function () {
         try {
             if ( req.params.id != 0 ){
                 query = { _id: ObjectId(req.params.id) }
-                update = { values: req.body.values.toJSON() }
+                update = { values: JSON.parce(req.body.values) }
             } else {
                 query = { name:req.body.name.toLowerCase().replace(".docx","") }
                 update = { 
@@ -147,7 +147,7 @@ const templateSave = function () {
                     title: sentenceCase(req.body.title),
                     description: req.body.description,
                     variables: req.body.variables,
-                    values: req.body.values.toJSON() 
+                    values: JSON.parce(req.body.values)
                 }
             }
             template = await Templates.findOneAndUpdate(query, update, options).lean()
