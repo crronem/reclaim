@@ -19,7 +19,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.toEmail = toEmail
     email.toName = toName
     email.fromName = "Reclaim UK"
-    email.fromEmail = "me@crr56.com"
+    email.fromEmail = "amoney@reclaim-uk.com"
     if (mode == "sell") {
         if (type != "revised"){
             email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
@@ -76,7 +76,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     
     email.message += "\n\n" + "Sincerely,"
     email.message += "\n\n" + "Anthony Money"
-    email.message += "\n"+"https://onem.biz"
+    email.message += "\n"+"https://reclaim-uk.com"
     email.id = recordId
     logger.info("-----createEmailResponse() email------")
     logger.info(JSON.stringify(email, {}, 4))    

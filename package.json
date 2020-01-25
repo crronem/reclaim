@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/mcoin-project/onem-api#readme",
   "dependencies": {
+    "@wetransfer/js-sdk": "^1.2.0",
     "body-parser": "^1.18.3",
     "debug": "^4.1.1",
     "debug-level": "^0.3.0",
