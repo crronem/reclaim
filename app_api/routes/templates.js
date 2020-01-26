@@ -16,6 +16,7 @@ const { titleCase, sentenceCase } = require('../routes/utility')
 const { TemplateHandler } = require('easy-template-x')
 
 const fs = require('fs')
+const path = require('path')
 
 const makeArray = function (thing) {
     let array = []
