@@ -139,8 +139,8 @@ const templateRun = function () {
             }
             const handler = new TemplateHandler()
             const doc = await handler.process(templateFile, data)
-            const timeStamp = moment(Date().now()).format('MMMDDYYYYHH:mm')
-            saveFile("./app_api/docx/"+template.name+"_"+timeStamp+".docx", docx);
+            const timeStamp = moment(Date.now()).format('MMMDDYYYYHH:mm')
+            saveFile("./app_api/docx/"+template.name+"_"+timeStamp+".docx", doc);
             data.preBody = "Template "+template.name+" created!"
             logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
