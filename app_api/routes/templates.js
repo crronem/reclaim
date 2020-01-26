@@ -125,7 +125,7 @@ const templateRun = function () {
             
             template = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
             const templateFile = fs.readFileSync("./app_api/docx/"+template.name+".docx")
-            variables = template.variables.split("\n")
+            let lines = template.variables.split("\n")
             for (var i = 0;i < lines.length; i++) {
                 variables.push(lines[i])
             }
