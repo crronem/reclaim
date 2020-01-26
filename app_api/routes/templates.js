@@ -127,8 +127,10 @@ const templateRun = function () {
             const templateFile = fs.readFileSync("./app_api/docx/"+template.name+".docx")
             variables = template.variables.split("\n")
             for (var i = 0;i < lines.length; i++) {
-                variables = lines
+                variables.push(lines[i])
             }
+            logger.info("-----templateRun() variables------")
+            logger.info(variables)
             const data = {
                 posts: [
                     { author: 'Alon Bar', text: 'Very important\ntext here!' },
@@ -138,15 +140,15 @@ const templateRun = function () {
             const handler = new TemplateHandler()
             const doc = await handler.process(templateFile, data)
             const timeStamp = moment(Date().now()).format('MMMDDYYYYHH:mm')
-            saveFile("/docx/"+template.name+"_"+timeStamp+".docx", doc);
+            saveFile("./app_api/docx/"+template.name+"_"+timeStamp+".docx", docx);
             data.preBody = "Template "+template.name+" created!"
-            logger.info("-----templateSave() data------")
+            logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./app_api/menus/settings.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
-            logger.info("-----templateFill() Error------")
+            logger.info("-----templateRun() Error------")
             console.log(error)
         }
     }
