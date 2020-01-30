@@ -3,7 +3,7 @@ const logger = require('debug-level')('reclaim')
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
 
-const prepare = require("base64_encode")
+const base64 = require('base-64')
 
 const { loadTemplate } = require('onemsdk').parser
 const { Response } = require('onemsdk')
@@ -141,7 +141,7 @@ const templateRun = function () {
             const handler = new TemplateHandler()
             const doc = await handler.process(templateFile, data)
             const timeStamp = moment(Date.now()).format('MMMDDYYYYHHmm')
-            let attachment = prepare.base64_encode(doc)
+            let attachment = base64.encode(doc)
             let fileName = template.name+"_"+timeStamp+".docx"
             email = {
                 toName: "Chris Richardson",
