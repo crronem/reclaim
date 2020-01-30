@@ -12,7 +12,7 @@ const Users = require('../models/Model').Users
 const Buys = require('../models/Model').Buys
 const Templates = require('../models/Model').Templates
 
-const { sendeMailAttachement } = require('../routes/email')
+const { sendeMailAttachment } = require('../routes/email')
 const { titleCase, sentenceCase } = require('../routes/utility')
 
 const { TemplateHandler } = require('easy-template-x')
@@ -155,7 +155,7 @@ const templateRun = function () {
                 fileName: fileName,
                 attachement: attachment
             }
-            await sendEmailAttachment(email)
+            await sendeMailAttachment(email)
             data.preBody = "Template "+template.name+" created!"
             logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
