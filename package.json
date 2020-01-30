@@ -46,7 +46,8 @@
     "node-mailjet": "^3.3.1",
     "onem-nodejs-api": "^1.0.6",
     "onemsdk": "^0.13.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.1"
