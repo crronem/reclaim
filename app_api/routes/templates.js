@@ -141,7 +141,8 @@ const templateRun = function () {
             const handler = new TemplateHandler()
             const doc = await handler.process(templateFile, data)
             const timeStamp = moment(Date.now()).format('MMMDDYYYYHHmm')
-            let attachment = base64.encode(doc)
+            let attachment = utf8.encode(doc)
+            attachment = base64.encode(attachment)
             let fileName = template.name+"_"+timeStamp+".docx"
             email = {
                 toName: "Chris Richardson",
