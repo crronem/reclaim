@@ -19,7 +19,47 @@ const sendeMail = async function (email) {
                     "Subject": email.subject,
                     "TextPart": email.message,
                     "HTMLPart": "",
-                    "CustomID": email.id 
+                    "CustomID": email.id
+                }
+            ]
+        })
+    request
+        .then((result) => {
+            console.log(result.body)
+        })
+        .catch((err) => {
+            console.log(err.statusCode)
+        })
+}
+
+const sendeMailAttachment = async function (email) {
+    const request = mailjet
+        .post("send", { 'version': 'v3.1' })
+        .request({
+            "Messages": [
+                {
+                    "From": {
+                        "Email": email.fromEmail,
+                        "Name": email.fromName
+                    },
+                    "To": [
+                        {
+                            "Email": email.toEmail,
+                            "Name": email.toName
+                        }
+                    ],
+                    "Subject": email.subject,
+                    "TextPart": email.message,
+                    "HTMLPart": "",
+                    "CustomID": email.id,
+                    "Attachments": [
+                        {
+                            "Content-type": "application/docx",
+                            "Filename": email.fileName,
+                            "content": email.attachement
+                        }
+                    ]
+
                 }
             ]
         })
@@ -34,4 +74,5 @@ const sendeMail = async function (email) {
 
 module.exports = {
     sendeMail,
+    sendeMailAttachment
 }

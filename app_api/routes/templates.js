@@ -10,7 +10,7 @@ const Users = require('../models/Model').Users
 const Buys = require('../models/Model').Buys
 const Templates = require('../models/Model').Templates
 
-
+const { sendeMailAttachement } = require('../routes/email')
 const { titleCase, sentenceCase } = require('../routes/utility')
 
 const { TemplateHandler } = require('easy-template-x')
@@ -122,7 +122,6 @@ const templateRun = function () {
         let template = {}
         let variables = []
         try {
-            
             template = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
             const templateFile = fs.readFileSync("./app_api/docx/"+template.name+".docx")
             let lines = template.values.values[0].split("\n")
@@ -139,8 +138,21 @@ const templateRun = function () {
             }
             const handler = new TemplateHandler()
             const doc = await handler.process(templateFile, data)
-            const timeStamp = moment(Date.now()).format('MMMDDYYYYHH:mm')
-            fs.writeFileSync("./app_api/docx/"+template.name+"_"+timeStamp+".docx", doc);
+            const timeStamp = moment(Date.now()).format('MMMDDYYYYHHmm')
+            let attachment = base64_encode(doc)
+            let fileName = template.name+"_"+timeStamp+".docx"
+            email = {
+                toName: "Chris Richardson",
+                toEmail: "me@crr56.com",
+                fromName: "Anthony Money",
+                toName: "anthony@reclaim-uk.com",
+                subject: "Your "+ template.name,
+                message: "Dear Christopher,\n\nHere is your document",
+                id: "1234",
+                fileName: fileName,
+                attachement: attachment
+            }
+            await sendEmailAttachment(email)
             data.preBody = "Template "+template.name+" created!"
             logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
