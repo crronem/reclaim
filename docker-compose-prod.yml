@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+    reclaim:
+      networks:
+        internal:
+          aliases:
+            - reclaim
+        dmz:
+          aliases:
+            - reclaim
+      env_file:
+        - ./environment
+
+networks:
+    dmz:
+        name: dmz
+        external: true
+    internal:
+        name: internal
