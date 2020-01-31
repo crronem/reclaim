@@ -68,11 +68,11 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     }
     if (type != "revised"){
         email.message += "\nYou can see your enquiry and revise it at any time."
-        email.message += "\nSimply revisit our website (https://onem.biz)."
+        email.message += `\nSimply revisit our website ${config.webSite}.`
         email.message += "\n\n" + "We will get back to you soon."
     } else {
         email.message += "\nYour enquiry has been updated."
-        email.message += "\nSee your account at (https://onem.biz)."    
+        email.message += `\nSee your account at ${config.webSite}.`
     }
     
     email.message += "\n\n" + "Sincerely,"
