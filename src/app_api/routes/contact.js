@@ -102,7 +102,7 @@ const contactList = function () {
             )
             logger.info("-----contactList() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactList.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./src/app_api/menus/contactList.pug", data) // -> contactInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -150,7 +150,7 @@ const contactShow = function () {
             }
             logger.info("-----contactShow() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactShow.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./src/app_api/menus/contactShow.pug", data) // -> contactInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -168,7 +168,7 @@ const contactEdit = function () {
             data.contacts = await Users.findOne({ _id: req.params.id })
             logger.info("-----contactEdit() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formContactEdit.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./src/app_api/forms/formContactEdit.pug", data) // -> contactInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -194,7 +194,7 @@ const contactUpdate = function () {
             )
             logger.info("-----contactUpdate() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/contactEdit.pug", data) // -> contactInfo
+            let rootTag = loadTemplate("./src/app_api/menus/contactEdit.pug", data) // -> contactInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -264,7 +264,7 @@ const contactInfo = function () {
                 logger.info(JSON.stringify(record, {}, 4))
             }
             if (!user.email) {
-                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> contactInfo
+                let rootTag = loadTemplate("./src/app_api/forms/formContactInfo.pug", data) // -> contactInfo
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
@@ -274,7 +274,7 @@ const contactInfo = function () {
                 sendeMail(email)
                 data.sells = await Sells.count({ _user: user._id, active: true })
                 data.buys = await Buys.count({ _user: user._id, active: true })
-                let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+                let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             }
@@ -321,7 +321,7 @@ const contactSave = function () {
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
             data.sells = await Sells.count({ _user: user._id, active: true })
             data.buys = await Buys.count({ _user: user._id, active: true })
-            let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -337,7 +337,7 @@ const contactAdminLogin = function () {
         try {
             logger.info("-----contactAdminLogin() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/contactAdminLogin.pug", data)
+            let rootTag = loadTemplate("./src/app_api/forms/contactAdminLogin.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -355,7 +355,7 @@ const contactAdminsList = function () {
             logger.info(JSON.stringify(data, {}, 4))
             data = await Admins.find()
             data.master = req.master
-            let rootTag = loadTemplate("./app_api/forms/contactAdminsList.pug", data)
+            let rootTag = loadTemplate("./src/app_api/forms/contactAdminsList.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -373,7 +373,7 @@ const contactAdminShow = function () {
             logger.info(JSON.stringify(data, {}, 4))
             data = await Admins.findOne({_id:ObjectId(req.params.id)})
             data.master = req.master
-            let rootTag = loadTemplate("./app_api/forms/contactAdminShow.pug", data)
+            let rootTag = loadTemplate("./src/app_api/forms/contactAdminShow.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -419,7 +419,7 @@ const contactAdminSave = function () {
             }
             data.sells = await Sells.count({ _user: user._id, active: true })
             data.buys = await Buys.count({ _user: user._id, active: true })
-            let rootTag = loadTemplate("./app_api/menus/landing.pug", data)
+            let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {

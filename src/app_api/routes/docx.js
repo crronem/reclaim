@@ -23,7 +23,7 @@ const makeDocx = async function (docxOutputName, templateDocxName, templateData,
     data.preBody = "Document " + docxOutputName + '.docx '+"saved!"
     logger.info("-----menu() data------")
     logger.info(JSON.stringify(data, {}, 4))
-    let rootTag = loadTemplate("./app_api/menus/landing.pug", data)
+    let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data)
     let response = Response.fromTag(rootTag)
     return res.json(response.toJSON())
 }

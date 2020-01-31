@@ -14,7 +14,7 @@ const gradeSelect = function () {
             logger.info("-----gradeSelect() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.mode = req.params.mode
-            rootTag = loadTemplate("./app_api/menus/gradeSelect.pug", data) // 
+            rootTag = loadTemplate("./src/app_api/menus/gradeSelect.pug", data) // 
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -35,21 +35,21 @@ const grade = function () {
             data.mode = req.params.mode
             if (req.params.grade == "dataCenter") {
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/menus/sellDataCenterOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/sellDataCenterOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/menus/buyDataCenterOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/buyDataCenterOption.pug", data)
                 } 
             } else if (req.params.grade == "commercial"){
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/menus/sellCommercialOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/sellCommercialOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/menus/buyCommercialOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/buyCommercialOption.pug", data)
                 } 
             } else if (req.params.grade == "personal") {
                 if (req.params.mode == "sell") {
-                    rootTag = loadTemplate("./app_api/menus/sellPersonalOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/sellPersonalOption.pug", data)
                 } else {
-                    rootTag = loadTemplate("./app_api/menus/buyPersonalOption.pug", data)
+                    rootTag = loadTemplate("./src/app_api/menus/buyPersonalOption.pug", data)
                 }         
             }
             let response = Response.fromTag(rootTag)
