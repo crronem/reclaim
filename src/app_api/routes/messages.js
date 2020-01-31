@@ -1,4 +1,5 @@
 const logger = require('debug-level')('reclaim')
+const config = require('../common/config')
 
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
@@ -17,8 +18,8 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     let email = {}
     email.toEmail = toEmail
     email.toName = toName
-    email.fromName = "Reclaim UK"
-    email.fromEmail = "me@crr56.com"
+    email.fromName = config.emailName
+    email.fromEmail = config.emailFrom
     if (mode == "sell") {
         email.subject = "Responding to your inquiry - selling your " + grade + " assets"
         email.message = "Dear " + toName + ",\n"
@@ -65,7 +66,7 @@ const messagesList = function () {
             )
             logger.info("-----messageList() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/messageList.pug", data) // -> messageInfo
+            let rootTag = loadTemplate("./src/app_api/menus/messageList.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -113,7 +114,7 @@ const messageShow = function () {
             }
             logger.info("-----messageShow() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/messageShow.pug", data) // -> messageInfo
+            let rootTag = loadTemplate("./src/app_api/menus/messageShow.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -131,7 +132,7 @@ const messageEdit = function () {
             data.messages = await Users.findOne({ _id: req.params.id })
             logger.info("-----messageEdit() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formContactEdit.pug", data) // -> messageInfo
+            let rootTag = loadTemplate("./src/app_api/forms/formContactEdit.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -157,7 +158,7 @@ const messageUpdate = function () {
             )
             logger.info("-----messageUpdate() user------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/messageEdit.pug", data) // -> messageInfo
+            let rootTag = loadTemplate("./src/app_api/menus/messageEdit.pug", data) // -> messageInfo
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (err) {
@@ -200,7 +201,7 @@ const messageInfo = function () {
             logger.info(JSON.stringify(record, {}, 4))
             data.record = record._id
             if (!user.email) {
-                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> messageInfo
+                let rootTag = loadTemplate("./src/app_api/forms/formContactInfo.pug", data) // -> messageInfo
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
@@ -211,7 +212,7 @@ const messageInfo = function () {
                 data.preBody += "\nWe will be following up on your enquiry."
                 data.sells = await Sells.count({ _user: user._id, active: true })
                 data.buys = await Buys.count({ _user: user._id, active: true })
-                let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+                let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             }
@@ -255,7 +256,7 @@ const messageSend = function () {
             logger.info(JSON.stringify(record, {}, 4))
             data.record = record._id
             if (!user.email) {
-                let rootTag = loadTemplate("./app_api/forms/formContactInfo.pug", data) // -> messageInfo
+                let rootTag = loadTemplate("./src/app_api/forms/formContactInfo.pug", data) // -> messageInfo
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
@@ -266,7 +267,7 @@ const messageSend = function () {
                 data.preBody += "\nWe will be following up on your enquiry."
                 data.sells = await Sells.count({ _user: user._id, active: true })
                 data.buys = await Buys.count({ _user: user._id, active: true })
-                let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+                let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             }
@@ -311,7 +312,7 @@ const messageSave = function () {
             email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id)
             sendeMail(email)
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
-            let rootTag = loadTemplate("./app_api/menus/landing.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {

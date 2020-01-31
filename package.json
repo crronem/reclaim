@@ -1,19 +1,19 @@
 {
   "name": "onem-api",
   "version": "1.0.0",
-  "description": "ONEm Todos",
+  "description": "ONEm reclaim",
   "main": "index.js",
   "engines": {
-    "node": "10.15.3"
+    "node": ">=10.15.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
+    "start": "node ./src/index",
     "start:dev": "nodemon ./src/index"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcoin-project/onem-api.git"
+    "url": "git+https://github.com/crronem/reclaim.git"
   },
   "keywords": [
     "onem",
@@ -22,12 +22,10 @@
   "author": "chris horn",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mcoin-project/onem-api/issues"
+    "url": "https://github.com/crronem/reclaim.git/issues"
   },
-  "homepage": "https://github.com/mcoin-project/onem-api#readme",
+  "homepage": "https://github.com/crronem/reclaim.git#readme",
   "dependencies": {
-    "@wetransfer/js-sdk": "^1.2.0",
-    "base-64": "^0.1.0",
     "body-parser": "^1.18.3",
     "debug": "^4.1.1",
     "debug-level": "^0.3.0",

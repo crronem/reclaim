@@ -26,7 +26,7 @@ const sellDataCenter = function () {
             data.values._3 = null
             data.values._4 = null
             data.values._5 = null
-            let rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./src/app_api/forms/formSellDataCenter.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -50,7 +50,7 @@ const sellCommercial = function () {
             data.values._3 = null
             data.values._4 = null
             data.values._5 = null
-            let rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data) // -> sellCommercial
+            let rootTag = loadTemplate("./src/app_api/forms/formSellCommercial.pug", data) // -> sellCommercial
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -75,7 +75,7 @@ const sellPersonal = function () {
             data.values._4 = null
             data.values._5 = null
             data.values._6 = null
-            let rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data) // -> sellGrade
+            let rootTag = loadTemplate("./src/app_api/forms/formSellPersonal.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -162,7 +162,7 @@ const sellHistory = function () {
             data.master = req.master
             logger.info("-----sellHistory() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/sellHistory.pug", data) // -> sellHistory
+            let rootTag = loadTemplate("./src/app_api/menus/sellHistory.pug", data) // -> sellHistory
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -185,7 +185,7 @@ const sellShow = function () {
             data.values = infoData[1]
             logger.info("-----sellShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/sellShow.pug", data) // -> sellShow
+            let rootTag = loadTemplate("./src/app_api/menus/sellShow.pug", data) // -> sellShow
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -210,11 +210,11 @@ const sellRevise = function () {
             logger.info("-----sellRevise() data------")
             logger.info(JSON.stringify(data, {}, 4))
             if (data.sell.grade == "dataCenter") {
-                rootTag = loadTemplate("./app_api/forms/formSellDataCenter.pug", data) // -> sellRevise
+                rootTag = loadTemplate("./src/app_api/forms/formSellDataCenter.pug", data) // -> sellRevise
             } else if (data.sell.grade == "commercial") {
-                rootTag = loadTemplate("./app_api/forms/formSellCommercial.pug", data) // -> sellRevise
+                rootTag = loadTemplate("./src/app_api/forms/formSellCommercial.pug", data) // -> sellRevise
             } else {
-                rootTag = loadTemplate("./app_api/forms/formSellPersonal.pug", data) // -> sellRevise
+                rootTag = loadTemplate("./src/app_api/forms/formSellPersonal.pug", data) // -> sellRevise
             }
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())

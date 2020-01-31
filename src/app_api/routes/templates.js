@@ -43,7 +43,7 @@ const templatesList = function () {
             data.templates = await Templates.find().lean()
             logger.info("-----templatesList() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/templatesList.pug", data)
+            let rootTag = loadTemplate("./src/app_api/menus/templatesList.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -62,7 +62,7 @@ const templateShow = function () {
             data.values = makeArray(data.values)
             logger.info("-----templateShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/templateShow.pug", data)
+            let rootTag = loadTemplate("./src/app_api/menus/templateShow.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -92,7 +92,7 @@ const templateEdit = function () {
             }
             logger.info("-----templateEdit() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formTemplateEdit.pug", data)
+            let rootTag = loadTemplate("./src/app_api/forms/formTemplateEdit.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -109,7 +109,7 @@ const templateFill = function () {
             data.variables = data.variables.split("\n")
             logger.info("-----templateFill() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formTemplateFill.pug", data)
+            let rootTag = loadTemplate("./src/app_api/forms/formTemplateFill.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -159,7 +159,7 @@ const templateRun = function () {
             data.preBody = "Template "+template.name+" created!"
             logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/settings.pug", data)
+            let rootTag = loadTemplate("./src/app_api/menus/settings.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -199,7 +199,7 @@ const templateSave = function () {
             data.preBody = "Template "+template.name+" saved!"
             logger.info("-----templateSave() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/settings.pug", data)
+            let rootTag = loadTemplate("./src/app_api/menus/settings.pug", data)
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {

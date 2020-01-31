@@ -24,7 +24,7 @@ const buyDataCenter = function () {
             data.values._3 = null
             logger.info("-----buyDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buyGrade
+            let rootTag = loadTemplate("./src/app_api/forms/formBuyDataCenter.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -46,7 +46,7 @@ const buyCommercial = function () {
             data.values._3 = null
             logger.info("-----buyCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> buyGrade
+            let rootTag = loadTemplate("./src/app_api/forms/formBuyCommercial.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -68,7 +68,7 @@ const buyPersonal = function () {
             data.values._3 = null
             logger.info("-----buyPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> buyGrade
+            let rootTag = loadTemplate("./src/app_api/forms/formBuyPersonal.pug", data) // -> buyGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -155,7 +155,7 @@ const buyHistory = function () {
             //data.createdAt = moment(data.createdAt).format('LLLL')
             logger.info("-----buyHistory() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/buyHistory.pug", data) // -> buyHistory
+            let rootTag = loadTemplate("./src/app_api/menus/buyHistory.pug", data) // -> buyHistory
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -177,7 +177,7 @@ const buyShow = function () {
             data.values = infoData[1]
             logger.info("-----buyShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            let rootTag = loadTemplate("./app_api/menus/buyShow.pug", data) // -> buyShow
+            let rootTag = loadTemplate("./src/app_api/menus/buyShow.pug", data) // -> buyShow
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
         } catch (error) {
@@ -202,11 +202,11 @@ const buyRevise = function () {
             logger.info("-----buyRevise() data------")
             logger.info(JSON.stringify(data, {}, 4))
             if (data.buy.grade == "dataCenter") {
-                rootTag = loadTemplate("./app_api/forms/formBuyDataCenter.pug", data) // -> buyRevise
+                rootTag = loadTemplate("./src/app_api/forms/formBuyDataCenter.pug", data) // -> buyRevise
             } else if (data.buy.grade == "commercial") {
-                rootTag = loadTemplate("./app_api/forms/formBuyCommercial.pug", data) // -> buyRevise
+                rootTag = loadTemplate("./src/app_api/forms/formBuyCommercial.pug", data) // -> buyRevise
             } else {
-                rootTag = loadTemplate("./app_api/forms/formBuyPersonal.pug", data) // -> buyRevise
+                rootTag = loadTemplate("./src/app_api/forms/formBuyPersonal.pug", data) // -> buyRevise
             }
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
