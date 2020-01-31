@@ -3,4 +3,8 @@ module.exports = {
     mongoRetry: process.env.MONGODB_RECONNECT_INTERVAL || 2000,
     httpPort: process.env.PORT || 3000,
     https: process.env.HTTPS || 'false',
+    emailAPIKey: process.env.EMAIL_API_KEY,
+    emailAPISecret: process.env.EMAIL_API_KEY,
+    emailFrom: process.env.EMAIL_FROM,
+    emailName: process.env.EMAIL_NAME,
 }

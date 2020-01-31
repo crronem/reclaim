@@ -1,4 +1,5 @@
 const logger = require('debug-level')('reclaim')
+const config = require('../common/config')
 
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
@@ -17,8 +18,8 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     let email = {}
     email.toEmail = toEmail
     email.toName = toName
-    email.fromName = "Reclaim UK"
-    email.fromEmail = "me@crr56.com"
+    email.fromName = config.emailName
+    email.fromEmail = config.emailFrom
     if (mode == "sell") {
         email.subject = "Responding to your inquiry - selling your " + grade + " assets"
         email.message = "Dear " + toName + ",\n"
