@@ -7,4 +7,5 @@ module.exports = {
     emailAPISecret: process.env.EMAIL_API_SECRET,
     emailFrom: process.env.EMAIL_FROM,
     emailName: process.env.EMAIL_NAME,
+    webSite: process.env.WEBSITE
 }

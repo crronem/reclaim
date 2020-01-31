@@ -76,8 +76,8 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     }
     
     email.message += "\n\n" + "Sincerely,"
-    email.message += "\n\n" + "Anthony Money"
-    email.message += "\n"+"https://reclaim-uk.com"
+    email.message += "\n\n" + `${config.emailName}`
+    email.message += "\n"+`${config.webSite}`
     email.id = recordId
     logger.info("-----createEmailResponse() email------")
     logger.info(JSON.stringify(email, {}, 4))    
