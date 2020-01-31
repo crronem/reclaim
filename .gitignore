@@ -12,8 +12,6 @@ npm-debug.log.3419865986
 
 # Docker
 Dockerfile
-docker-compose.yml
-node_modules
 node_modules
 
 site/

@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+    reclaim:
+        build:
+          context: ./
+          dockerfile: ./Dockerfile
+        container_name:
+          reclaim
