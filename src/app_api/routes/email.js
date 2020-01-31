@@ -1,5 +1,5 @@
 const config = require('../common/config')
-const mailjet = require('node-mailjet').connect(`${config.apiKey}`,`${config.emailAPISecret}` )
+const mailjet = require('node-mailjet').connect(`${config.emailAPIKey}`,`${config.emailAPISecret}` )
 
 const sendeMail = async function (email) {
     const request = mailjet
