@@ -40,9 +40,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
       
     } else {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Responding to your inquiry - buying " + sentenceCase(grade) + " equipment"
         } else {
-            email.subject = "Your revised inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Your revised inquiry - buying " + sentenceCase(grade) + " equipment"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
@@ -50,7 +50,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
             email.message = "Dear Customer,"
         }  
         if (type != "revised"){
-            email.message += "\n\nThank you for your enquiry to source/buy " + sentenceCase(grade) + " equipment."
+            email.message += "\n\nThank you for your enquiry to buy " + sentenceCase(grade) + " equipment."
         } else{
             email.message += "\n\nYour enquiry to source/buy " + sentenceCase(grade) + " equipment has been updated."
         }
