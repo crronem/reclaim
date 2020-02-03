@@ -12,7 +12,7 @@ const settings = function () {
     return async function (req, res) {
         let data = {}
         try {
-            data.templates = await Templates.count()
+            data.templates = await Templates.countDocuments()
             logger.info("-----settings() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/menus/settings.pug", data)
