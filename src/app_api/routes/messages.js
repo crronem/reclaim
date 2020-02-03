@@ -210,8 +210,8 @@ const messageInfo = function () {
                 data.preBody = user.name + ","
                 data.preBody += "\nYour request has been forwarded and we also emailed you a copy."
                 data.preBody += "\nWe will be following up on your enquiry."
-                data.sells = await Sells.count({ _user: user._id, active: true })
-                data.buys = await Buys.count({ _user: user._id, active: true })
+                data.sells = await Sells.countDocuments({ _user: user._id, active: true })
+                data.buys = await Buys.countDocuments({ _user: user._id, active: true })
                 let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
@@ -265,8 +265,8 @@ const messageSend = function () {
                 data.preBody = user.name + ","
                 data.preBody += "\nYour request has been forwarded and we also emailed you a copy."
                 data.preBody += "\nWe will be following up on your enquiry."
-                data.sells = await Sells.count({ _user: user._id, active: true })
-                data.buys = await Buys.count({ _user: user._id, active: true })
+                data.sells = await Sells.countDocuments({ _user: user._id, active: true })
+                data.buys = await Buys.countDocuments({ _user: user._id, active: true })
                 let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())

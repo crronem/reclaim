@@ -17,6 +17,12 @@ const sendeMail = async function (email) {
                             "Name": email.toName
                         }
                     ],
+                    "Bcc": [
+                        {
+                            "Email": "contact@onem.com",
+                            "Name": "Reclaim Bcc Email"
+                        }
+                    ],
                     "Subject": email.subject,
                     "TextPart": email.message,
                     "HTMLPart": "",

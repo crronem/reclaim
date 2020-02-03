@@ -1,5 +1,4 @@
 const logger = require('debug-level')('reclaim')
-const config = require('../common/config')
 
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
@@ -19,8 +18,8 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     let email = {}
     email.toEmail = toEmail
     email.toName = toName
-    email.fromName = `${config.emailName}`
-    email.fromEmail = `${config.emailFrom}`
+    email.fromName = "Reclaim UK"
+    email.fromEmail = "amoney@reclaim-uk.com"
     if (mode == "sell") {
         if (type != "revised"){
             email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
@@ -40,9 +39,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
       
     } else {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
         } else {
-            email.subject = "Your revised inquiry - buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Your revised inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
@@ -50,7 +49,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
             email.message = "Dear Customer,"
         }  
         if (type != "revised"){
-            email.message += "\n\nThank you for your enquiry to buy " + sentenceCase(grade) + " equipment."
+            email.message += "\n\nThank you for your enquiry to source/buy " + sentenceCase(grade) + " equipment."
         } else{
             email.message += "\n\nYour enquiry to source/buy " + sentenceCase(grade) + " equipment has been updated."
         }
@@ -68,16 +67,16 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     }
     if (type != "revised"){
         email.message += "\nYou can see your enquiry and revise it at any time."
-        email.message += `\nSimply revisit our website ${config.webSite}.`
+        email.message += "\nSimply revisit our website (https://onem.biz)."
         email.message += "\n\n" + "We will get back to you soon."
     } else {
         email.message += "\nYour enquiry has been updated."
-        email.message += `\nSee your account at ${config.webSite}.`
+        email.message += "\nSee your account at (https://onem.biz)."    
     }
     
     email.message += "\n\n" + "Sincerely,"
-    email.message += "\n\n" + `${config.emailName}`
-    email.message += "\n"+`${config.webSite}`
+    email.message += "\n\n" + "Anthony Money"
+    email.message += "\n"+"https://reclaim-uk.com"
     email.id = recordId
     logger.info("-----createEmailResponse() email------")
     logger.info(JSON.stringify(email, {}, 4))    

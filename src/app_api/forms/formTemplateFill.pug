@@ -1,4 +1,4 @@
-form(action="/templateSave/"+_id)
+form(action="/templateSave/"+_id header="Template Fill")
     each variable in variables
         if variable.split(':')[1].startsWith("image_")
             section(name=variable.split(':')[1] required)
