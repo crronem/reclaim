@@ -222,6 +222,7 @@ const contactInfo = function () {
             logger.info("-----contactInfo() body------")
             logger.info(JSON.stringify(req.body, {}, 4))
             if (req.params.id == 0) {
+                // New user
                 if (req.params.mode == "sell") {
                     addInfo = new Sells({
                         _user: ObjectId(user._id),
@@ -244,6 +245,7 @@ const contactInfo = function () {
                 logger.info(JSON.stringify(record, {}, 4))
                 data.record = record._id
             } else {
+                // Existing user
                 if (req.params.mode == "sell") {
                     query = { _id: ObjectId(req.params.id) }
                     update = {
@@ -267,6 +269,7 @@ const contactInfo = function () {
                 logger.info(JSON.stringify(record, {}, 4))
             }
             if (!user.email) {
+                // No email so go get
                 let rootTag = loadTemplate("./src/app_api/forms/formContactInfo.pug", data) // -> contactInfo
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
@@ -310,7 +313,7 @@ const contactSave = function () {
                 mobile: req.body.mobile,
                 email: req.body.email
             }
-            await Users.findOneAndUpdate(query, update, options).lean()
+            user = await Users.findOneAndUpdate(query, update, options).lean()
             logger.info("-----contactSave() user findOneAndUpdate------")
             logger.info(JSON.stringify(user, {}, 4))
 
@@ -320,7 +323,7 @@ const contactSave = function () {
                 record = await Buys.findOne({ _id: ObjectId(req.params.record) }).lean()
             }
             email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id)
-            sendeMail(email)
+            await sendeMail(email)
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
             data.sells = await Sells.countDocuments({ _user: user._id, active: true })
             data.buys = await Buys.countDocuments({ _user: user._id, active: true })
