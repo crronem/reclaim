@@ -22,9 +22,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromEmail = "amoney@reclaim-uk.com"
     if (mode == "sell") {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
+            email.subject = "Responding to your enquiry - selling your " + sentenceCase(grade) + " assets"
         } else {
-            email.subject = "Your revised inquiry - selling your " + sentenceCase(grade) + " assets"
+            email.subject = "Your revised enquiry - selling your " + sentenceCase(grade) + " assets"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
@@ -39,9 +39,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
       
     } else {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Responding to your enquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
         } else {
-            email.subject = "Your revised inquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Your revised enquiry - sourcing/buying " + sentenceCase(grade) + " equipment"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
