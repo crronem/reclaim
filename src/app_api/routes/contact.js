@@ -1,5 +1,6 @@
 const logger = require('debug-level')('reclaim')
 const config = require('../common/config')
+const info = require('../common/contact')
 
 const ObjectId = require('mongoose').Types.ObjectId
 const moment = require("moment")
@@ -23,9 +24,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromEmail = `${config.emailFrom}`
     if (mode == "sell") {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - selling your " + sentenceCase(grade) + " assets"
+            email.subject = "Responding to your enquiry - selling your " + sentenceCase(grade) + " assets"
         } else {
-            email.subject = "Your revised inquiry - selling your " + sentenceCase(grade) + " assets"
+            email.subject = "Your revised enquiry - selling your " + sentenceCase(grade) + " assets"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
@@ -40,9 +41,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
       
     } else {
         if (type != "revised"){
-            email.subject = "Responding to your inquiry - buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Responding to your enquiry - buying " + sentenceCase(grade) + " equipment"
         } else {
-            email.subject = "Your revised inquiry - buying " + sentenceCase(grade) + " equipment"
+            email.subject = "Your revised enquiry - buying " + sentenceCase(grade) + " equipment"
         }
         if (toName) {
             email.message = "Dear " + sentenceCase(toName) + ","
@@ -76,8 +77,9 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     // }
     
     email.message += "\n\n" + "Sincerely,"
-    email.message += "\n\n" + `${config.emailName}`
-    email.message += "\n"+`${config.webSite}`
+    email.message += "\n\n" + config.emailName
+    email.message += "\n"+ config.webSite
+    email.message += "\n"+ info.address
     email.id = recordId
     logger.info("-----createEmailResponse() email------")
     logger.info(JSON.stringify(email, {}, 4))    

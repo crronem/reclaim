@@ -21,12 +21,12 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
     email.fromName = config.emailName
     email.fromEmail = config.emailFrom
     if (mode == "sell") {
-        email.subject = "Responding to your inquiry - selling your " + grade + " assets"
+        email.subject = "Responding to your enquiry - selling your " + grade + " assets"
         email.message = "Dear " + toName + ",\n"
         email.message += "Thank you for the offer to sell your " + grade + " assets."
         email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
     } else {
-        email.subject = "Responding to your inquiry - sourcing/buying " + grade + " equipment"
+        email.subject = "Responding to your enquiry - sourcing/buying " + grade + " equipment"
         email.message = "Dear " + toName + ",\n"
         email.message = "Thank you for your enquiry to source/buy " + grade + " equipment."
         email.message += "\nWe take your efforts seriously and will do our utmost to ensure your time was wisely spent."
