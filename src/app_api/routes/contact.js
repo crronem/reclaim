@@ -66,14 +66,14 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
             email.message += "   " + infoDetails[0][i] + "\n"
         }    
     }
-    if (type != "revised"){
-        email.message += "\nYou can see your enquiry and revise it at any time."
-        email.message += `\nSimply revisit our website ${config.webSite}.`
-        email.message += "\n\n" + "We will get back to you soon."
-    } else {
-        email.message += "\nYour enquiry has been updated."
-        email.message += `\nSee your account at ${config.webSite}.`
-    }
+    // if (type != "revised"){
+    //     email.message += "\nYou can see your enquiry and revise it at any time."
+    //     email.message += `\nSimply revisit our website ${config.webSite}.`
+    //     email.message += "\n\n" + "We will get back to you soon."
+    // } else {
+    //     email.message += "\nYour enquiry has been updated."
+    //     email.message += `\nSee your account at ${config.webSite}.`
+    // }
     
     email.message += "\n\n" + "Sincerely,"
     email.message += "\n\n" + `${config.emailName}`
@@ -272,7 +272,7 @@ const contactInfo = function () {
                 email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id, type)
                 logger.info("-----contactInfo() email ------")
                 logger.info(JSON.stringify(email, {}, 4))
-                sendeMail(email)
+                await sendeMail(email)
                 data.sells = await Sells.countDocuments({ _user: user._id, active: true })
                 data.buys = await Buys.countDocuments({ _user: user._id, active: true })
                 let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade

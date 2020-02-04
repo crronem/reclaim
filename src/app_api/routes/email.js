@@ -1,7 +1,10 @@
 const config = require('../common/config')
+const logger = require('debug-level')('reclaim')
 const mailjet = require('node-mailjet').connect(`${config.emailAPIKey}`,`${config.emailAPISecret}` )
 
 const sendeMail = async function (email) {
+    logger.info("-----sendeMail() email------")
+    logger.info(JSON.stringify(email, {}, 4))
     const request = mailjet
         .post("send", { 'version': 'v3.1' })
         .request({
@@ -73,9 +76,13 @@ const sendeMailAttachment = async function (email) {
     request
         .then((result) => {
             console.log(result.body)
+            logger.info("-----gradeSelect() data------")
+            logger.info(JSON.stringify(result, {}, 4))
         })
         .catch((err) => {
             console.log(err.statusCode)
+            logger.info("-----gradeSelect() data------")
+            logger.info(JSON.stringify(err, {}, 4))
         })
 }
 
