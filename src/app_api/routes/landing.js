@@ -22,7 +22,11 @@ const menu = function () {
             data.contacts = await Users.countDocuments()
             data.templates = await Templates.countDocuments()
             if (!user) {
-                user = await Users.findOneAndUpdate({ ONEmUserId: req.user }, { name: "Guest" }, { new: true, upsert: true }).lean()
+                user = await Users.findOneAndUpdate(
+                    { ONEmUserId: req.user }, 
+                    { name: "Guest" }, 
+                    { new: true, upsert: true }
+                    ).lean()
                 data.name = titleCase(user.name)
                 data.sells = 0
                 data.buys = 0
