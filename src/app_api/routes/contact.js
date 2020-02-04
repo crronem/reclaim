@@ -219,6 +219,8 @@ const contactInfo = function () {
             data.grade = req.params.grade
             logger.info("-----contactInfo() user------")
             logger.info(JSON.stringify(user, {}, 4))
+            logger.info("-----contactInfo() body------")
+            logger.info(JSON.stringify(req.body, {}, 4))
             if (req.params.id == 0) {
                 if (req.params.mode == "sell") {
                     addInfo = new Sells({
