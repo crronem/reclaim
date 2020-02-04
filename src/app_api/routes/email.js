@@ -36,9 +36,13 @@ const sendeMail = async function (email) {
     request
         .then((result) => {
             console.log(result.body)
+            logger.info("-----sendeMail() error------")
+            logger.info(JSON.stringify(result.body, {}, 4))
         })
         .catch((err) => {
-            console.log(err.statusCode)
+            console.log(err)
+            logger.error("-----sendeMail() error------")
+            logger.error(JSON.stringify(err, {}, 4))
         })
 }
 
@@ -76,13 +80,13 @@ const sendeMailAttachment = async function (email) {
     request
         .then((result) => {
             console.log(result.body)
-            logger.info("-----gradeSelect() data------")
+            logger.info("-----sendeMailAttachment() error------")
             logger.info(JSON.stringify(result, {}, 4))
         })
         .catch((err) => {
             console.log(err.statusCode)
-            logger.info("-----gradeSelect() data------")
-            logger.info(JSON.stringify(err, {}, 4))
+            logger.error("-----sendeMailAttachment() error------")
+            logger.error(JSON.stringify(err, {}, 4))
         })
 }
 
