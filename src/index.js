@@ -50,7 +50,7 @@ const getUser = function () {
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride())
-app.use(getUser())
+//app.use(getUser())
 
 if (mode === 'development') {
     app.use(errorHandler())
@@ -60,7 +60,7 @@ if (mode === 'development') {
     public_folder = 'public'
 }
 // Use the API routes when path starts with /api
-app.use('/api', api)
+app.use('/api', api, getUser)
 
 logger.info("public_folder:" + public_folder)
 
