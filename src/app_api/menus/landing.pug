@@ -2,13 +2,14 @@
 - return text.split("\n")
 - }
 section
+  img(src=logoImg)
   if !preBody && !master
-    header IT Assets
+    header Home
     p Welcome!
     p We buy, source and sell pre-owned IT equipment.
     p What would you like to do?
   else if !master
-    header IT Assets
+    header Home
     each line in lines(preBody)
       p #{line}
   else 

@@ -16,7 +16,7 @@ const { Response } = require('onemsdk')
 
 const { sentenceCase, formatInfo, titleCase } = require('../routes/utility')
 
-const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId, type) {
+const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, recordId, type, contactInfo) {
     let email = {}
     email.toEmail = toEmail
     email.toName = toName
@@ -67,8 +67,28 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
             email.message += "   " + infoDetails[0][i] + "\n"
         }    
     }
+
+    if (contactInfo) {
+        email.message += "\n\nContact details you provided:"
+        if (contactInfo.name) {
+            email.message += "\n\nName: " + contactInfo.name
+        } else {
+            email.message += "\n\nName: (not provided)"
+        }
+        if (contactInfo.email) {
+            email.message += "\nEmail: " + contactInfo.email
+        } else {
+            email.message += "\nEmail: (not provided)"
+        }
+        if (contactInfo.mobile) {
+            email.message += "\nPhone No.: " + contactInfo.mobile
+        } else {
+            email.message += "\nMobile: (not provided)" 
+        }
+    }
+
     if (type != "revised"){
-        email.message += "\nYou can see your enquiry and revise it at any time."
+        email.message += "\n\nYou can see your enquiry and revise it at any time."
         email.message += `\nSimply revisit our website ${config.webSite}.`
         email.message += "\n\n" + "We will get back to you soon."
     } else {
@@ -276,7 +296,12 @@ const contactInfo = function () {
                 let response = Response.fromTag(rootTag)
                 return res.json(response.toJSON())
             } else {
-                email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id, type)
+                let contactInfo = {
+                    name: user.name,
+                    email: user.email,
+                    mobile: user.mobile
+                }
+                email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, req.body, record._id, type, contactInfo)
                 logger.info("-----contactInfo() email ------")
                 logger.info(JSON.stringify(email, {}, 4))
                 await sendeMail(email)
@@ -324,7 +349,12 @@ const contactSave = function () {
             } else {
                 record = await Buys.findOne({ _id: ObjectId(req.params.record) }).lean()
             }
-            email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id)
+            let contactInfo = {
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile
+            }
+            email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id, contactInfo)
             await sendeMail(email)
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
             data.sells = await Sells.countDocuments({ _user: user._id, active: true })

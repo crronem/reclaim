@@ -21,21 +21,28 @@ const menu = function () {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.contacts = await Users.countDocuments()
             data.templates = await Templates.countDocuments()
+            if (req.hostname.includes("ngrok")) {
+                data.logoImg = "https://onem.biz/images/reclaim_logo.png"
+            } else {
+                data.logoImg = "https://"+req.hostname+"/assets/reclaim_logo.png"
+            }
+            logger.info("-----menu() data.logoImg------")
+            logger.info(JSON.stringify(data.logoImg, {}, 4))
             if (!user) {
                 user = await Users.findOneAndUpdate(
                     { ONEmUserId: req.user }, 
                     { name: "Guest" }, 
                     { new: true, upsert: true }
                     ).lean()
-                data.name = titleCase(user.name)
+                data.name = sentenceCase(user.name)
                 data.sells = 0
                 data.buys = 0
                 data.preBody = ""
             } else {
                 data.master = req.master
-                data.name = user.name
+                data.name = sentenceCase(user.name)
                 if (!data.master) {
-                    data.preBody = titleCase(user.name)+","
+                    data.preBody = sentenceCase(user.name)+","
                     data.sells = await Sells.countDocuments({ _user: user._id, active: true })
                     data.buys = await Buys.countDocuments({ _user: user._id, active: true })
                 } else {
