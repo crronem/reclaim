@@ -336,13 +336,13 @@ const contactSave = function () {
             options = { new: true }
             query = { _id: ObjectId(user._id) }
             update = {
-                name: req.body.name,
+                name: sentenceCase(req.body.name),
                 mobile: req.body.mobile,
                 email: req.body.email
             }
-            user = await Users.findOneAndUpdate(query, update, options).lean()
+            data = await Users.findOneAndUpdate(query, update, options).lean()
             logger.info("-----contactSave() user findOneAndUpdate------")
-            logger.info(JSON.stringify(user, {}, 4))
+            logger.info(JSON.stringify(data, {}, 4))
 
             if (req.params.mode == "sell") {
                 record = await Sells.findOne({ _id: ObjectId(req.params.record) }).lean()
@@ -350,15 +350,15 @@ const contactSave = function () {
                 record = await Buys.findOne({ _id: ObjectId(req.params.record) }).lean()
             }
             let contactInfo = {
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile
+                name: data.name,
+                email: data.email,
+                mobile: data.mobile
             }
-            email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id, contactInfo)
+            email = createEmailResponse(req.params.mode, req.params.grade, data.email, data.name, record.information, record._id, contactInfo)
             await sendeMail(email)
             data.prebody = "Your request has been forwarded and we also emailed you a copy!"
-            data.sells = await Sells.countDocuments({ _user: user._id, active: true })
-            data.buys = await Buys.countDocuments({ _user: user._id, active: true })
+            data.sells = await Sells.countDocuments({ _user: data._id, active: true })
+            data.buys = await Buys.countDocuments({ _user: data._id, active: true })
             let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())

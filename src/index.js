@@ -1,5 +1,4 @@
 require('dotenv').config()
-const jwt = require('jwt-simple')
 
 const logger = require('debug-level')('reclaim')
 
@@ -21,36 +20,9 @@ let public_folder
 
 require('./app_api/models/db')
 
-/*
- * Middleware to grab user
- */
-const getUser = function () {
-    return function (req, res, next) {
-        logger.info("/getUser")
-        if (!req.header('Authorization')) {
-            logger.error("missing header")
-            return res.status(401).send({ message: 'Unauthorized request' })
-        }
-        const token = req.header('Authorization').split(' ')[1]
-        const payload = jwt.decode(token, process.env.TOKEN_SECRET)
-
-        logger.info("payload")
-        logger.info(payload)
-
-        if (!payload) {
-            return res.status(401).send({ message: 'Unauthorized Request' })
-        }
-        req.user = payload.sub
-        req.master = payload.is_admin
-        logger.info("payload:")
-        logger.info(payload)
-        next()
-    }
-}
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride())
-//app.use(getUser())
 
 if (mode === 'development') {
     app.use(errorHandler())
@@ -60,7 +32,12 @@ if (mode === 'development') {
     public_folder = 'public'
 }
 // Use the API routes when path starts with /api
-app.use('/api', api, getUser)
+
+
+// api.use(getUser)
+
+app.use('/api', api)
+
 
 logger.info("public_folder:" + public_folder)
 
