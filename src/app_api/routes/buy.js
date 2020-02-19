@@ -22,6 +22,7 @@ const buyDataCenter = function () {
             data.values._1 = null
             data.values._2 = null
             data.values._3 = null
+            data.url = req.buttonImg
             logger.info("-----buyDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/formBuyDataCenter.pug", data) // -> buyGrade
@@ -44,6 +45,7 @@ const buyCommercial = function () {
             data.values._1 = null
             data.values._2 = null
             data.values._3 = null
+            data.url = req.buttonImg
             logger.info("-----buyCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/formBuyCommercial.pug", data) // -> buyGrade
@@ -66,6 +68,7 @@ const buyPersonal = function () {
             data.values._1 = null
             data.values._2 = null
             data.values._3 = null
+            data.url = req.buttonImg
             logger.info("-----buyPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/formBuyPersonal.pug", data) // -> buyGrade
@@ -85,6 +88,7 @@ const buyHistory = function () {
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.master = req.master
+            data.url = req.buttonImg
             if (!req.master) {
                 data.buys = await Buys.aggregate(
                     [

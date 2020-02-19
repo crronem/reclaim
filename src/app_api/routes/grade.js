@@ -14,6 +14,7 @@ const gradeSelect = function () {
             logger.info("-----gradeSelect() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.mode = req.params.mode
+            data.url = req.buttonImg
             rootTag = loadTemplate("./src/app_api/menus/gradeSelect.pug", data) // 
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
@@ -33,6 +34,7 @@ const grade = function () {
             logger.info("-----grade() params------")
             logger.info(JSON.stringify(req.params, {}, 4))
             data.mode = req.params.mode
+            data.url = req.buttonImg
             if (req.params.grade == "dataCenter") {
                 if (req.params.mode == "sell") {
                     rootTag = loadTemplate("./src/app_api/menus/sellDataCenterOption.pug", data)

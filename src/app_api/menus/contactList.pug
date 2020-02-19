@@ -5,6 +5,8 @@ section
             if contact.messages.length > 0
                 li 
                     a(href="/contactShow/"+contact._id) #{contact.name} (#{contact.messages.length})
+                        img(src=url)
             else               
                 li 
                     a(href="/contactShow/"+contact._id) #{contact.name}
+                        img(src=url)

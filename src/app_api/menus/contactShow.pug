@@ -3,17 +3,23 @@ section
     ul
         li
             a(href="/contactEdit/name/"+_id) Name: #{name}
+                img(src=url)
         li
             a(href="/contactEdit/email/"+_id) Email: #{email}
+                img(src=url)
         li
             a(href="/contactEdit/mobile/"+_id)  Mobile: #{mobile}
+                img(src=url)
         if mobile
             li
                 a(href="/sendMessage/"+_id) Send SMS message
+                    img(src=url)
         if email
             li
                 a(href="/sendMessage/"+_id) Send email message
+                    img(src=url)
         each message in messages
             li 
                 a(href="/showMessage/"+message._id) #{message.title}
+                    img(src=url)
 

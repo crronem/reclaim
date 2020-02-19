@@ -16,27 +16,35 @@ const jwt = require('jwt-simple')
  * Middleware to grab user
  */
 const getUser = function (req, res, next) {
-        logger.info("/getUser")
-        if (!req.header('Authorization')) {
-            logger.error("missing header")
-            return res.status(401).send({ message: 'Unauthorized request' })
-        }
-        const token = req.header('Authorization').split(' ')[1]
-        const payload = jwt.decode(token, process.env.TOKEN_SECRET)
+    logger.info("/getUser")
+    if (!req.header('Authorization')) {
+        logger.error("missing header")
+        return res.status(401).send({ message: 'Unauthorized request' })
+    }
+    const token = req.header('Authorization').split(' ')[1]
+    const payload = jwt.decode(token, process.env.TOKEN_SECRET)
 
-        logger.info("payload")
-        logger.info(payload)
+    logger.info("payload")
+    logger.info(payload)
 
-        if (!payload) {
-            return res.status(401).send({ message: 'Unauthorized Request' })
-        }
-        req.user = payload.sub
-        req.master = payload.is_admin
-        logger.info("payload:")
-        logger.info(payload)
-        next()
-    
+    if (!payload) {
+        return res.status(401).send({ message: 'Unauthorized Request' })
+    }
+    req.user = payload.sub
+    req.master = payload.is_admin
+    logger.info("payload:")
+    logger.info(payload)
+    if (req.hostname.includes("ngrok")) {
+        req.buttonImg = "https://onem.biz/images/reclaim_btn.png"
+    } else {
+        req.buttonImb = "https://" + req.hostname + "/assets/reclaim_btn.png"
+    }
+    next()
 }
+
+
+
+
 
 // function capitalize(string) {
 //     return string.charAt(0).toUpperCase() + string.slice(1)

@@ -18,7 +18,6 @@ const sellDataCenter = function () {
         try {
             logger.info("-----sellDataCenter() data------")
             logger.info(JSON.stringify(data, {}, 4))
-            data.url = req.buttonImg
             data.sell = {}
             data.values = {}
             data.sell._id = 0
@@ -44,7 +43,6 @@ const sellCommercial = function () {
             logger.info("-----sellCommercial() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.sell = {}
-            data.url = req.buttonImg
             data.values = {}
             data.sell._id = 0
             data.values._1 = null
@@ -69,7 +67,6 @@ const sellPersonal = function () {
             logger.info("-----sellPersonal() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data.sell = {}
-            data.url = req.buttonImg
             data.values = {}
             data.sell._id = 0
             data.values._1 = null
@@ -163,7 +160,6 @@ const sellHistory = function () {
             }
             //data.createdAt = moment(data.createdAt).format('LLLL')
             data.master = req.master
-            data.url = req.buttonImg
             logger.info("-----sellHistory() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/menus/sellHistory.pug", data) // -> sellHistory
@@ -182,7 +178,6 @@ const sellShow = function () {
         let infoData = []
         try {
             data.master = req.master
-            data.url = req.buttonImg
             data.sell = await Sells.findOne({ _id: ObjectId(req.params.id) })
             data.messages = await Messages.findOne({ _sell: ObjectId(data.sell._id) })
             infoData = formatInfo(data.sell.information)
@@ -208,7 +203,6 @@ const sellRevise = function () {
         try {
             data.master = req.master
             data.sell = await Sells.findOne({ _id: ObjectId(req.params.id) })
-            data.url = req.buttonImg
             data.messages = await Messages.findOne({ _sell: ObjectId(data.sell._id) })
             infoData = formatInfo(data.sell.information)
             data.sell.information = infoData[0]

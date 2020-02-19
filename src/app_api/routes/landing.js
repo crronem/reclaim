@@ -21,11 +21,7 @@ const menu = function () {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.contacts = await Users.countDocuments()
             data.templates = await Templates.countDocuments()
-            if (req.hostname.includes("ngrok")) {
-                data.logoImg = "https://onem.biz/images/reclaim_logo.png"
-            } else {
-                data.logoImg = "https://"+req.hostname+"/assets/reclaim_logo.png"
-            }
+            data.url = req.buttonImg
             logger.info("-----menu() data.logoImg------")
             logger.info(JSON.stringify(data.logoImg, {}, 4))
             if (!user) {

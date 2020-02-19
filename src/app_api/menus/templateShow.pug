@@ -5,8 +5,10 @@ section
     ul
         li
             a(href="/templateEdit/0") Create New Template Data
+                img(src=url)
         li
             a(href="/templateEdit/"+_id) Edit This Template Data
+                img(src=url)
         li VARIABLES:
         li [prompt]:[variable]
         each line in variables
@@ -14,11 +16,14 @@ section
         if !values
             li 
                 a(href="/templateFill/"+_id) Input Template Data Values
+                    img(src=url)
         else
             li 
                 a(href="/templateFill/"+_id) Change Template Data Values
+                    img(src=url)
         li 
             a(href="/templateRun/"+_id) Run this Template
+                img(src=url)
         if values
             li VALUES:
             each line in values

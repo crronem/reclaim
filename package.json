@@ -44,7 +44,7 @@
     "node-mailjet": "^3.3.1",
     "nodejs-base64": "^1.0.3",
     "onem-nodejs-api": "^1.0.6",
-    "onemsdk": "^0.14.2",
+    "onemsdk": "^0.15.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
