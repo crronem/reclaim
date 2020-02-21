@@ -37,8 +37,8 @@ const getUser = function (req, res, next) {
     } else {
         req.buttonImb = "https://" + req.hostname + "/assets/reclaim_btn.png"
     }
-    logger.info("payload:")
-    logger.info(payload)
+    logger.info("req.hostname:")
+    logger.info(req.hostname)
     next()
 }
 
