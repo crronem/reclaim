@@ -88,7 +88,6 @@ const buyHistory = function () {
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.master = req.master
-            data.url = req.buttonImg
             if (!req.master) {
                 data.buys = await Buys.aggregate(
                     [
@@ -156,6 +155,7 @@ const buyHistory = function () {
                     }
                 }
             }
+            data.url = req.buttonImg
             //data.createdAt = moment(data.createdAt).format('LLLL')
             logger.info("-----buyHistory() data------")
             logger.info(JSON.stringify(data, {}, 4))
@@ -179,6 +179,7 @@ const buyShow = function () {
             infoData = formatInfo(data.buy.information)
             data.buy.information = infoData[0]
             data.values = infoData[1]
+            data.url = req.buttonImg
             logger.info("-----buyShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/menus/buyShow.pug", data) // -> buyShow
