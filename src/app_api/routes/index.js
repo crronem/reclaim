@@ -32,13 +32,13 @@ const getUser = function (req, res, next) {
     }
     req.user = payload.sub
     req.master = payload.is_admin
-    logger.info("payload:")
-    logger.info(payload)
     if (req.hostname.includes("ngrok")) {
         req.buttonImg = "https://onem.biz/images/reclaim_btn.png"
     } else {
         req.buttonImb = "https://" + req.hostname + "/assets/reclaim_btn.png"
     }
+    logger.info("payload:")
+    logger.info(payload)
     next()
 }
 
