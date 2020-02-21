@@ -52,6 +52,7 @@ const messagesList = function () {
         let data = {}
         try {
             //data.messages = await Users.find().lean()
+            data.url = req.buttonImg
             data.messages = await Users.aggregate(
                 [
                     {

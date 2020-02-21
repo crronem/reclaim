@@ -109,6 +109,7 @@ const createEmailResponse = function (mode, grade, toEmail, toName, infoObject, 
 const contactList = function () {
     return async function (req, res) {
         let data = {}
+        data.url = req.buttonImg
         try {
             //data.contacts = await Users.find().lean()
             data.contacts = await Users.aggregate(
@@ -140,6 +141,7 @@ const contactShow = function () {
         let data = {}
         try {
             //data.contacts = await Users.find().lean()
+            data.url = req.buttonImg
             data.contacts = await Users.aggregate(
                 [
                     {
@@ -186,6 +188,7 @@ const contactShow = function () {
 const contactEdit = function () {
     return async function (req, res) {
         let data = {}
+        data.url = req.buttonImg
         try {
             //data.contacts = await Users.find().lean()
             data.contacts = await Users.findOne({ _id: req.params.id })
@@ -204,6 +207,7 @@ const contactEdit = function () {
 const contactUpdate = function () {
     return async function (req, res) {
         let data = {}
+        data.url = req.buttonImg
         try {
             await Users.findOneAndUpdate(
                 {
@@ -238,6 +242,7 @@ const contactInfo = function () {
         try {
             user = await Users.findOne({ ONEmUserId: req.user }).lean()
             data.mode = req.params.mode
+            data.url = req.buttonImg
             data.grade = req.params.grade
             logger.info("-----contactInfo() user------")
             logger.info(JSON.stringify(user, {}, 4))
@@ -284,7 +289,7 @@ const contactInfo = function () {
                     record = await Buys.findOneAndUpdate(query, update).lean()
                 }
                 type = "revised"
-                data.preBody = user.name + ","
+                data.preBody = sentenceCase(user.name) + ","
                 data.preBody += "\nYour request has been revised and we emailed you a copy."
                 data.preBody += "\nWe will be following up on your revised enquiry."
                 logger.info("-----contactInfo() Sells/Buys record save------")
@@ -340,9 +345,9 @@ const contactSave = function () {
                 mobile: req.body.mobile,
                 email: req.body.email
             }
-            data = await Users.findOneAndUpdate(query, update, options).lean()
+            user = await Users.findOneAndUpdate(query, update, options).lean()
             logger.info("-----contactSave() user findOneAndUpdate------")
-            logger.info(JSON.stringify(data, {}, 4))
+            logger.info(JSON.stringify(user, {}, 4))
 
             if (req.params.mode == "sell") {
                 record = await Sells.findOne({ _id: ObjectId(req.params.record) }).lean()
@@ -350,15 +355,21 @@ const contactSave = function () {
                 record = await Buys.findOne({ _id: ObjectId(req.params.record) }).lean()
             }
             let contactInfo = {
-                name: data.name,
-                email: data.email,
-                mobile: data.mobile
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile
             }
-            email = createEmailResponse(req.params.mode, req.params.grade, data.email, data.name, record.information, record._id, contactInfo)
+            email = createEmailResponse(req.params.mode, req.params.grade, user.email, user.name, record.information, record._id, contactInfo)
             await sendeMail(email)
-            data.prebody = "Your request has been forwarded and we also emailed you a copy!"
-            data.sells = await Sells.countDocuments({ _user: data._id, active: true })
-            data.buys = await Buys.countDocuments({ _user: data._id, active: true })
+            if (user.name){
+                data.preBody = sentenceCase(user.name)+",\n\n"
+            } else {
+                data.preBody = "Dear guest,"
+            }
+            data.url = req.buttonImg
+            data.preBody += "Your request has been forwarded and we also emailed you a copy!"
+            data.sells = await Sells.countDocuments({ _user: user._id, active: true })
+            data.buys = await Buys.countDocuments({ _user: user._id, active: true })
             let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data) // -> sellGrade
             let response = Response.fromTag(rootTag)
             return res.json(response.toJSON())
@@ -373,6 +384,7 @@ const contactAdminLogin = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.url = req.buttonImg
             logger.info("-----contactAdminLogin() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/contactAdminLogin.pug", data)
@@ -392,6 +404,7 @@ const contactAdminsList = function () {
             logger.info("-----contactAdminsList() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data = await Admins.find()
+            data.url = req.buttonImg
             data.master = req.master
             let rootTag = loadTemplate("./src/app_api/forms/contactAdminsList.pug", data)
             let response = Response.fromTag(rootTag)
@@ -410,6 +423,7 @@ const contactAdminShow = function () {
             logger.info("-----contactAdminShow() data------")
             logger.info(JSON.stringify(data, {}, 4))
             data = await Admins.findOne({_id:ObjectId(req.params.id)})
+            data.url = req.buttonImg
             data.master = req.master
             let rootTag = loadTemplate("./src/app_api/forms/contactAdminShow.pug", data)
             let response = Response.fromTag(rootTag)
@@ -455,6 +469,7 @@ const contactAdminSave = function () {
                     update = { _user: ObjectId(user._id), access:access}
                 }
             }
+            data.url = req.buttonImg
             data.sells = await Sells.countDocuments({ _user: user._id, active: true })
             data.buys = await Buys.countDocuments({ _user: user._id, active: true })
             let rootTag = loadTemplate("./src/app_api/menus/landing.pug", data)

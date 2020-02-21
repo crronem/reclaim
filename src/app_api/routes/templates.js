@@ -40,6 +40,7 @@ const templatesList = function () {
     return async function (req, res) {
         let data = {}
         try {
+            data.url = req.buttonImg
             data.templates = await Templates.find().lean()
             logger.info("-----templatesList() data------")
             logger.info(JSON.stringify(data, {}, 4))
@@ -58,6 +59,7 @@ const templateShow = function () {
         let data = {}
         try {
             data = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
+            data.url = req.buttonImg
             data.variables = makeArray(data.variables)
             data.values = makeArray(data.values)
             logger.info("-----templateShow() data------")
@@ -90,6 +92,7 @@ const templateEdit = function () {
                 data.values = "{}"
                 data.variablesText = ""
             }
+            data.url = req.buttonImg
             logger.info("-----templateEdit() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/formTemplateEdit.pug", data)
@@ -107,6 +110,7 @@ const templateFill = function () {
         try {
             let data = await Templates.findOne({_id: ObjectId(req.params.id)}).lean()
             data.variables = data.variables.split("\n")
+            data.url = req.buttonImg
             logger.info("-----templateFill() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/forms/formTemplateFill.pug", data)
@@ -156,6 +160,7 @@ const templateRun = function () {
                 attachement: attachment
             }
             await sendeMailAttachment(email)
+            data.url = req.buttonImg
             data.preBody = "Template "+template.name+" created!"
             logger.info("-----templateRun() data------")
             logger.info(JSON.stringify(data, {}, 4))
@@ -197,6 +202,7 @@ const templateSave = function () {
             template = await Templates.findOneAndUpdate(query, update, options).lean()
             data.templates = await Templates.countDocuments()
             data.preBody = "Template "+template.name+" saved!"
+            data.url = req.buttonImg
             logger.info("-----templateSave() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/menus/settings.pug", data)

@@ -7,16 +7,22 @@ section
             li User Details:   
             li
                 a(href="/contactEdit/name/"+user._id) Name: #{user.name}
+                    img(src=url)
             li
                 a(href="/contactEdit/email/"+user._id) Email: #{user.email}
+                    img(src=url)
             li
                 a(href="/contactEdit/mobile/"+user._id)  Mobile: #{user.mobile}
+                    img(src=url)
         li 
             a(href="/contactAdminEdit/"+_id) User Name: #{name}
+                img(src=url)
         li 
             a(href="/contactAdminEdit/"+_id) User Password: #{password}
+                img(src=url)
         li 
             a(href="/contactAdminEdit/"+_id) Change Priviledges: #{admin}
+                img(src=url)
         if access
             li Access dates:
             each date in access

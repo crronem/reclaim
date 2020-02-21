@@ -3,6 +3,8 @@ section
   ul
     li
         a(href="/templateEdit/0") Create Template Data
+          img(src=url)
     each template in templates
         li
             a(href="/templateShow/"+template._id) #{template.name}
+              img(src=url)

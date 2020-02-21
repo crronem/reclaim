@@ -13,6 +13,7 @@ const settings = function () {
         let data = {}
         try {
             data.templates = await Templates.countDocuments()
+            data.url = req.buttonImg
             logger.info("-----settings() data------")
             logger.info(JSON.stringify(data, {}, 4))
             let rootTag = loadTemplate("./src/app_api/menus/settings.pug", data)

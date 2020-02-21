@@ -4,11 +4,15 @@ section
     ul
         li
             a(href="/gradeSelect/sell") Test sell enquiry
+                img(src=url)
         li 
             a(href="/gradeSelect/buy") Test source/buy enquiry
+                img(src=url)
         if templates > 0
             li 
                 a(href="/templatesList") Templates (#{templates})
+                    img(src=url)
         else
             li 
                 a(href="/templateEdit/0") Create a template 
+                    img(src=url)

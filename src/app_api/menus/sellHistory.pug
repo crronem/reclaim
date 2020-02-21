@@ -7,12 +7,15 @@ section
     ul
       li 
         a(href="/gradeSelect/sell") Make another sell enquiry
+          img(src=url)
       li 
         a(href="/gradeSelect/buy") Make a Source/buy enquiry
+          img(src=url)
       li Select to review
       each sell in sells
         li
           a(href="/sellShow/"+sell._id) #{sell.title}
+            img(src=url)
   else
     ul
       - let newName = ""
@@ -22,3 +25,4 @@ section
           - newName = sell.name[0]
         li
           a(href="/sellShow/"+sell._id) #{sell.title}
+            img(src=url)

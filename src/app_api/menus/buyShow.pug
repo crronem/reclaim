@@ -7,11 +7,14 @@ section
         if !master
             li 
                 a(href="/gradeSelect/buy") Make another buy enquiry
+                    img(src=url)
             li 
                 a(href="/gradeSelect/sell") Make a Sell enquiry
+                    img(src=url)
         li You put in your enquiry:
         li 
             a(href="/buyRevise/"+buy._id) Revise this enquiry
+                img(src=url)
         each line in buy.information
             li #{line}
         if messages
@@ -19,8 +22,11 @@ section
             each message in messages
                 li 
                     a(href="/messageRead/"+message._id) message.subject
+                        img(src=url)
         if master
             li
                 a(href="/sendMessage/"+_id) Send SMS message
+                    img(src=url)
             li
                 a(href="/sendMessage/"+_id) Send email message
+                    img(src=url)

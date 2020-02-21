@@ -21,28 +21,39 @@ section
       if sells > 0 
         li 
           a(href="/sellHistory") Your sell enquiries (#{sells})
+            img(src=url)
         li 
           a(href="/gradeSelect/sell") Make another sell enquiry
+            img(src=url)
       else
         li 
           a(href="/gradeSelect/sell") I'm looking to sell
+            img(src=url)
       if buys > 0
         li 
           a(href="/buyHistory") Your buy enquiries (#{buys})
+            img(src=url)
         li 
           a(href="/gradeSelect/buy") Make another buy enquiry
+            img(src=url)
       else 
         li 
           a(href="/gradeSelect/buy") I'm looking to buy
+            img(src=url)
     else
         li Enquiry (active/new)
         li 
           a(href="/sellHistory") Sell Enquiries (#{sells}/#{sellsNew})
+            img(src=url)
         li 
           a(href="/buyHistory") Buy Enquiries (#{buys}/#{buysNew})
+            img(src=url)
         li 
           a(href="/contactList") Contacts (#{contacts})
+            img(src=url)
         li 
           a(href="/templatesList") Templates (#{templates})
+            img(src=url)
         li 
           a(href="/settings") Settings
+            img(src=url)

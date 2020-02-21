@@ -5,7 +5,7 @@ const makeDocx = async function (docxOutputName, templateDocxName, templateData,
 
     const templateFile = fs.readFileSync(templateDocxName+".docx")
     let data = {}
-
+    data.url = req.buttonImg
     if (imageName) {
         data.docImage = {
             _type: "image",
