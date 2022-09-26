@@ -41,7 +41,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.13",
     "morgan": "^1.9.1",
-    "node-mailjet": "^3.3.1",
+    "node-mailjet": "^3.4.1",
     "nodejs-base64": "^1.0.3",
     "onem-nodejs-api": "^1.0.6",
     "onemsdk": "^0.15.0",
